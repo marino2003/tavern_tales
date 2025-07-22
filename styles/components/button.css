@@ -5,7 +5,6 @@
   padding: 0;
   background: none;
   border: none;
-  cursor: pointer;
   font-family: m6x11plus, monospace;
   font-size: 40px;
   color: white;
@@ -15,13 +14,9 @@
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  
-  /* Smooth transitions */
-  transition: transform 0.1s ease;
 }
 
-/* Active state feedback */
-.pixel-button:active,
+/* Pressed state feedback - alleen programmatisch */
 .pixel-button.pressed {
   transform: translateY(2px);
 }
@@ -89,7 +84,6 @@
     transform-origin: center;
   }
   
-  .pixel-button:active,
   .pixel-button.pressed {
     transform: scale(0.85) translateY(2px);
   }
@@ -102,7 +96,6 @@
     transform-origin: center;
   }
   
-  .pixel-button:active,
   .pixel-button.pressed {
     transform: scale(0.75) translateY(2px);
   }

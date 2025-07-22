@@ -38,25 +38,25 @@
   -webkit-backface-visibility: hidden;
 }
 
-/* Achterste laag - langzaamste parallax voor diepte */
+/* Achterste laag - zeer subtiele parallax */
 .layer-1 {
   background-image: url('../../assets/startscreen_bg/background_layer_1.png');
   z-index: 1;
-  animation: slowParallax 150s linear infinite;
+  animation: slowParallax 300s linear infinite;
 }
 
-/* Middelste laag - medium parallax snelheid */
+/* Middelste laag - subtiele parallax */
 .layer-2 {
   background-image: url('../../assets/startscreen_bg/background_layer_2.png');
   z-index: 2;
-  animation: mediumParallax 100s linear infinite;
+  animation: mediumParallax 220s linear infinite;
 }
 
-/* Voorste laag - snelste parallax voor diepte effect */
+/* Voorste laag - licht bewegende parallax */
 .layer-3 {
   background-image: url('../../assets/startscreen_bg/background_layer_3.png');
   z-index: 3;
-  animation: fastParallax 60s linear infinite;
+  animation: fastParallax 160s linear infinite;
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
@@ -158,33 +158,20 @@
 }
 
 .particle:nth-child(1) {
-  left: 20%;
+  left: 25%;
   animation-delay: 0s;
-  animation-duration: 12s;
+  animation-duration: 18s;
 }
 
 .particle:nth-child(2) {
-  left: 40%;
-  animation-delay: -3s;
-  animation-duration: 10s;
-}
-
-.particle:nth-child(3) {
-  left: 60%;
-  animation-delay: -6s;
-  animation-duration: 14s;
-}
-
-.particle:nth-child(4) {
-  left: 80%;
+  left: 75%;
   animation-delay: -9s;
-  animation-duration: 11s;
+  animation-duration: 20s;
 }
 
-.particle:nth-child(5) {
-  left: 10%;
-  animation-delay: -2s;
-  animation-duration: 13s;
+/* Verberg extra particles voor simplere compositie */
+.particle:nth-child(n+3) {
+  display: none;
 }
 
 @keyframes float-particle {
@@ -208,12 +195,12 @@
 
 .shop-container {
   position: absolute;
-  bottom: 35%;
+  bottom: 34%;
   left: 65%;
   transform: translateX(-50%);
   z-index: 13;
-  filter: drop-shadow(0 0 20px rgba(255, 200, 100, 0.3));
-  animation: tavern-glow 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(255, 200, 100, 0.15));
+  animation: tavern-glow 6s ease-in-out infinite;
 }
 
 /* Fade overlay voor zachte overgang naar vloer */
@@ -235,10 +222,10 @@
 
 @keyframes tavern-glow {
   0%, 100% {
-    filter: drop-shadow(0 0 20px rgba(255, 200, 100, 0.3));
+    filter: drop-shadow(0 0 8px rgba(255, 200, 100, 0.15));
   }
   50% {
-    filter: drop-shadow(0 0 30px rgba(255, 200, 100, 0.5));
+    filter: drop-shadow(0 0 12px rgba(255, 200, 100, 0.25));
   }
 }
 
@@ -338,17 +325,17 @@
     --shop-scale: 2.8;
   }
   
-  /* Langzamere animaties voor mobiel - betere performance */
+  /* Subtiele animaties voor mobiel - betere performance */
   .layer-1 {
-    animation-duration: 200s;
+    animation-duration: 400s;
   }
   
   .layer-2 {
-    animation-duration: 140s;
+    animation-duration: 280s;
   }
   
   .layer-3 {
-    animation-duration: 80s;
+    animation-duration: 200s;
   }
 
 }
@@ -359,17 +346,17 @@
     --shop-scale: 3.0;
   }
   
-  /* Extra langzame animaties voor kleine mobiele apparaten */
+  /* Extra subtiele animaties voor kleine mobiele apparaten */
   .layer-1 {
-    animation-duration: 250s;
+    animation-duration: 500s;
   }
   
   .layer-2 {
-    animation-duration: 180s;
+    animation-duration: 350s;
   }
   
   .layer-3 {
-    animation-duration: 100s;
+    animation-duration: 250s;
   }
   
   /* Performance optimalisatie voor mobiel */
@@ -404,9 +391,7 @@
     will-change: auto;
   }
   
-  .particle:nth-child(n+4) {
-    display: none;
-  }
+  /* Particles al gelimiteerd tot 2 voor alle apparaten */
   
   .game-logo {
     max-width: 220px;
@@ -428,4 +413,362 @@
     max-width: 200px;
     width: 40vw;
   }
-} 
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Blur effect voor achtergrond */
+.game-container.modal-active {
+  filter: blur(3px);
+  transition: filter 0.3s ease;
+}
+
+.character-modal {
+  position: relative;
+  width: 380px;
+  height: 420px;
+  padding: 20px 24px;
+  background: #f8f8f8;
+  box-shadow: -6px 6px 0px rgba(0, 0, 0, 0.5), -4px 4px 0px rgba(0, 0, 0, 0.3);
+  outline: 6px solid black;
+  border: 2px solid #ddd;
+  transform: translateY(30px) scale(0.95);
+  transition: transform 0.3s ease;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.modal-overlay.active .character-modal {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  width: 29px;
+  height: 29px;
+  background: none;
+  border: none;
+  z-index: 101;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 29px;
+  height: 29px;
+  background: #E2665B;
+  border: 3px solid #AB363A;
+  outline: 2px solid black;
+  box-shadow: inset 1px 1px 0px rgba(255,255,255,0.3), inset -1px -1px 0px rgba(0,0,0,0.3);
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.close-icon {
+  color: white;
+  font-size: 18px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  line-height: 1;
+  z-index: 1;
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 24px;
+}
+
+.modal-title {
+  text-align: center;
+  color: black;
+  font-size: 42px;
+  font-family: m6x11plus, monospace;
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.character-avatar {
+  padding: 4.89px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-placeholder {
+  width: 74px;
+  height: 86px;
+  background: #e8e8e8;
+  border: 4px solid #333;
+  border-radius: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 2px 2px 0px rgba(255,255,255,0.7), inset -2px -2px 0px rgba(0,0,0,0.2);
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.avatar-icon {
+  font-size: 28px;
+  color: #555;
+  font-family: 'Courier New', monospace;
+}
+
+.character-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 33px;
+  width: 100%;
+}
+
+.input-label {
+  text-align: center;
+  color: #444;
+  font-size: 26px;
+  font-family: m6x11plus, monospace;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.name-input-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 52px;
+  width: 100%;
+}
+
+.name-input {
+  position: absolute;
+  background: #f0f0f0;
+  border: none;
+  outline: 3px solid #000;
+  font-family: m6x11plus, monospace;
+  font-size: 22px;
+  color: black;
+  text-align: center;
+  width: 240px;
+  height: 40px;
+  z-index: 2;
+  padding: 8px 12px;
+  bottom: 2px;
+  letter-spacing: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0;
+  box-shadow: 
+    inset 2px 2px 0px #999,
+    inset -2px -2px 0px #fff,
+    4px 4px 0px #000;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.name-input:focus {
+  background: #fff;
+  box-shadow: 
+    inset -2px -2px 0px #999,
+    inset 2px 2px 0px #fff,
+    4px 4px 0px #000;
+  animation: none;
+}
+
+.input-underscores {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  z-index: 1;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.underscore {
+  width: 24px;
+  height: 5px;
+  background: #333;
+  transition: all 0.3s ease;
+  position: relative;
+  border-radius: 0px;
+  border: 1px solid #000;
+  opacity: 1;
+  box-shadow: 1px 1px 0px #666;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.underscore.filled {
+  background: #222;
+  border-color: #000;
+}
+
+.modal-continue-btn {
+  margin-top: 20px;
+  transform: scale(0.8);
+  align-self: center;
+}
+
+/* Error state styling voor input validatie */
+.name-input.error {
+  outline-color: #d32f2f;
+  background: #ffeaea;
+  animation: pulse-error 0.6s ease-in-out;
+}
+
+@keyframes pulse-error {
+  0%, 100% { 
+    outline-color: #d32f2f; 
+    box-shadow: 
+      inset 2px 2px 0px #999,
+      inset -2px -2px 0px #fff,
+      4px 4px 0px #000;
+  }
+  50% { 
+    outline-color: #ff5252; 
+    box-shadow: 
+      inset 2px 2px 0px #999,
+      inset -2px -2px 0px #fff,
+      4px 4px 0px #d32f2f;
+  }
+}
+
+/* Responsive modal */
+@media (max-width: 480px) {
+  .character-modal {
+    width: 90%;
+    max-width: 350px;
+    height: auto;
+    min-height: 400px;
+    padding: 18px 20px;
+  }
+  
+  .modal-content {
+    width: 100%;
+  }
+  
+  .modal-title {
+    font-size: 32px;
+    letter-spacing: 1px;
+  }
+  
+  .input-label {
+    font-size: 24px;
+    letter-spacing: 0.5px;
+  }
+  
+  .name-input {
+    font-size: 20px;
+    letter-spacing: 6px;
+    width: 220px;
+    height: 36px;
+    padding: 6px 8px;
+    box-shadow: 
+      inset 2px 2px 0px #999,
+      inset -2px -2px 0px #fff,
+      3px 3px 0px #000;
+  }
+  
+  .name-input:focus {
+    box-shadow: 
+      inset -2px -2px 0px #999,
+      inset 2px 2px 0px #fff,
+      3px 3px 0px #000;
+  }
+  
+  .input-underscores {
+    gap: 12px;
+    bottom: 8px;
+  }
+  
+  .underscore {
+    width: 22px;
+    height: 4px;
+    box-shadow: 1px 1px 0px #666;
+  }
+  
+  .modal-continue-btn {
+    transform: scale(0.7);
+    margin-top: 16px;
+  }
+}
+
+/* Error message styling */
+.error-message {
+  color: #d32f2f;
+  font-family: m6x11plus, monospace;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background: #ffeaea;
+  border: 2px solid #d32f2f;
+  border-radius: 0;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  letter-spacing: 1px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.error-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .error-message {
+    font-size: 16px;
+    padding: 6px 10px;
+    margin-top: 6px;
+  }
+}

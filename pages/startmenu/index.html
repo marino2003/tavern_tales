@@ -66,5 +66,48 @@
       
     </div>
 
+    <!-- Character Creation Modal - Buiten game-container om blur effect te vermijden -->
+    <div class="modal-overlay" id="characterModal">
+      <div class="character-modal">
+        <!-- Close button -->
+        <button class="modal-close-btn" id="closeModalBtn">
+          <div class="close-btn-bg"></div>
+          <div class="close-icon">×</div>
+        </button>
+        
+        <!-- Modal content -->
+        <div class="modal-content">
+          <h2 class="modal-title">- Character -</h2>
+          
+                      <div class="character-avatar">
+              <div class="avatar-placeholder">
+                <div class="avatar-icon">👤</div>
+              </div>
+            </div>
+          
+          <div class="character-form">
+            <p class="input-label">Hoe noemen ze jou in de kroegen?</p>
+            <div class="name-input-container">
+                              <input type="text" id="playerName" class="name-input" maxlength="6" placeholder="">
+              <div class="input-underscores">
+                <div class="underscore"></div>
+                <div class="underscore"></div>
+                <div class="underscore"></div>
+                <div class="underscore"></div>
+                <div class="underscore"></div>
+                <div class="underscore"></div>
+              </div>
+            </div>
+            <div class="error-message" id="errorMessage">Vul eerst je naam in!</div>
+          </div>
+          
+          <button class="pixel-button primary modal-continue-btn" id="continueModalBtn">
+            <img src="../../assets/ui/button_svg.svg" alt="" class="pixel-button-svg">
+            <span class="pixel-button-text">Ga Verder</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html> 

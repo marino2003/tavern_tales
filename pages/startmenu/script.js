@@ -1,8 +1,113 @@
 // Start Menu Logic
 console.log('Start Menu loaded');
 
+// Modal functionaliteit
+function openCharacterModal() {
+  console.log('openCharacterModal called');
+  const modal = document.getElementById('characterModal');
+  const gameContainer = document.querySelector('.game-container');
+  
+  console.log('Modal elements found:', {
+    modal: !!modal,
+    gameContainer: !!gameContainer
+  });
+  
+  if (modal && gameContainer) {
+    console.log('Adding active classes');
+    modal.classList.add('active');
+    gameContainer.classList.add('modal-active');
+    console.log('Modal should now be visible');
+  } else {
+    console.error('Modal or gameContainer not found!', { modal, gameContainer });
+  }
+}
+
+function closeCharacterModal() {
+  const modal = document.getElementById('characterModal');
+  const gameContainer = document.querySelector('.game-container');
+  
+  if (modal && gameContainer) {
+    modal.classList.remove('active');
+    gameContainer.classList.remove('modal-active');
+  }
+}
+
+// Input field functionaliteit
+function updateInputUnderscores() {
+  const input = document.getElementById('playerName');
+  const underscores = document.querySelectorAll('.underscore');
+  
+  if (!input || !underscores.length) return;
+  
+  const value = input.value.toUpperCase();
+  const maxLength = 6;
+  
+  // Update input value to uppercase
+  if (input.value !== value) {
+    input.value = value;
+  }
+  
+  underscores.forEach((underscore, index) => {
+    if (index < value.length) {
+      // Verberg streepjes waar letters zijn getypt
+      underscore.style.opacity = '0';
+    } else if (index < maxLength) {
+      // Toon streepjes voor resterende posities
+      underscore.style.opacity = '1';
+      underscore.classList.remove('filled');
+    }
+  });
+}
+
 // Knop functies
 function startNewGame() {
+  console.log('startNewGame function called');
+  openCharacterModal();
+}
+
+function showValidationError() {
+  const input = document.getElementById('playerName');
+  const errorMessage = document.getElementById('errorMessage');
+  
+  // Voeg error styling toe aan input
+  input.classList.add('error');
+  
+  // Toon error message
+  errorMessage.classList.add('show');
+  
+  // Focus op input veld
+  input.focus();
+  
+  // Verwijder error styling na 3 seconden
+  setTimeout(() => {
+    hideValidationError();
+  }, 3000);
+}
+
+function hideValidationError() {
+  const input = document.getElementById('playerName');
+  const errorMessage = document.getElementById('errorMessage');
+  
+  input.classList.remove('error');
+  errorMessage.classList.remove('show');
+}
+
+function proceedToGame() {
+  const playerName = document.getElementById('playerName').value.trim();
+  
+  if (playerName.length === 0) {
+    // Toon error styling en bericht
+    showValidationError();
+    return;
+  }
+  
+  // Verberg eventuele error berichten
+  hideValidationError();
+  
+  // Sla speler naam op
+  localStorage.setItem('playerName', playerName);
+  
+  // Ga naar navigate pagina
   const coordinates = '51.203275,4.450912';
   const locationName = 'Boelaerpark';
   const nextPage = 'stop1';
@@ -18,16 +123,16 @@ function continueGame() {
 
 // Touch/Click feedback voor knoppen
 function addButtonFeedback(button) {
-  // Voor mobile touch events
-  button.addEventListener('touchstart', (e) => {
-    e.preventDefault();
+  // Voor mobile touch events - ZONDER preventDefault om clicks te behouden
+  button.addEventListener('touchstart', () => {
     button.classList.add('pressed');
-  }, { passive: false });
+  }, { passive: true });
   
-  button.addEventListener('touchend', (e) => {
-    e.preventDefault();
-    button.classList.remove('pressed');
-  }, { passive: false });
+  button.addEventListener('touchend', () => {
+    setTimeout(() => {
+      button.classList.remove('pressed');
+    }, 100);
+  }, { passive: true });
   
   // Voor desktop mouse events
   button.addEventListener('mousedown', () => {
@@ -46,16 +151,115 @@ function addButtonFeedback(button) {
 
 // Event listeners toevoegen wanneer DOM geladen is
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM Content Loaded - Starting initialization');
+  
   const newGameBtn = document.getElementById('newGameBtn');
   const continueBtn = document.getElementById('continueBtn');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const continueModalBtn = document.getElementById('continueModalBtn');
+  const playerNameInput = document.getElementById('playerName');
+  const modalOverlay = document.getElementById('characterModal');
+  
+  console.log('Found elements:', {
+    newGameBtn: !!newGameBtn,
+    continueBtn: !!continueBtn,
+    closeModalBtn: !!closeModalBtn,
+    continueModalBtn: !!continueModalBtn,
+    playerNameInput: !!playerNameInput,
+    modalOverlay: !!modalOverlay
+  });
   
   if (newGameBtn) {
-    newGameBtn.addEventListener('click', startNewGame);
+    console.log('Adding event listener to newGameBtn');
+    
+    let isProcessing = false;
+    
+    const handleNewGame = (eventType) => {
+      if (isProcessing) return;
+      isProcessing = true;
+      
+      console.log(`New Game button clicked via ${eventType} event!`);
+      startNewGame();
+      
+      setTimeout(() => {
+        isProcessing = false;
+      }, 500);
+    };
+    
+    // Click event voor desktop
+    newGameBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      handleNewGame('CLICK');
+    });
+    
+    // Touch event voor mobile
+    newGameBtn.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      handleNewGame('TOUCHEND');
+    }, { passive: false });
+    
     addButtonFeedback(newGameBtn);
+  } else {
+    console.error('newGameBtn not found!');
   }
   
   if (continueBtn) {
     continueBtn.addEventListener('click', continueGame);
     addButtonFeedback(continueBtn);
   }
+  
+  // Modal event listeners
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', closeCharacterModal);
+  }
+  
+  if (continueModalBtn) {
+    continueModalBtn.addEventListener('click', proceedToGame);
+    addButtonFeedback(continueModalBtn);
+  }
+  
+  if (playerNameInput) {
+    playerNameInput.addEventListener('input', () => {
+      updateInputUnderscores();
+      hideValidationError();
+    });
+    
+    // Focus op input wanneer modal opent
+    playerNameInput.addEventListener('focus', () => {
+      updateInputUnderscores();
+    });
+    
+    // Auto-focus op input wanneer modal opent
+    const modal = document.getElementById('characterModal');
+    if (modal) {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+            if (modal.classList.contains('active')) {
+              setTimeout(() => {
+                playerNameInput.focus();
+              }, 300);
+            }
+          }
+        });
+      });
+      observer.observe(modal, { attributes: true });
+    }
+  }
+  
+  // Sluit modal bij klik op overlay
+  if (modalOverlay) {
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        closeCharacterModal();
+      }
+    });
+  }
+  
+  // Escape key om modal te sluiten
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeCharacterModal();
+    }
+  });
 }); 
