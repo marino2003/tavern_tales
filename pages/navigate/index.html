@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="../../styles/reset.css" type="text/css" rel="stylesheet">
+    <link href="../../styles/variables.css" type="text/css" rel="stylesheet">
+    <link href="../../styles/general.css" type="text/css" rel="stylesheet">
+    <link href="style.css" type="text/css" rel="stylesheet">
+
+    <script defer src="../../scripts/get-distance.js"></script>
+    <script defer src="../../scripts/get-query-param.js"></script>
+    <script defer src="../../scripts/is-in-iframe.js"></script>
+    <script defer src="../../plugins/point-to-location.js"></script>
+    <script defer src="script.js"></script>
+
+  </head>
+  <body>
+
+    <h1>Navigeer naar <span id="location-name"></span></h1>
+    <p>Nog <span id="distance"></span> meter</p>
+
+    <!-- Pixel Art Compas Container -->
+    <div class="compass-container">
+      <!-- Arm die het compas vasthoudt - achtergrond laag -->
+      <img src="../../assets/compas resized/arm.png" alt="arm" class="compass-arm" />
+      <!-- Base layer (windrose) - roteert niet -->
+      <img src="../../assets/compas resized/windrose.png" alt="compas" class="compass-base" />
+      <!-- Wijzer layer - roteert naar doellocatie -->
+      <img src="../../assets/compas resized/wijzer.png" alt="wijzer" id="point-to-location" class="compass-needle" />
+    </div>
+
+    <!-- Permissie request voor iOS kompas -->
+    <div id="request-permissions">
+      Mogen we je kompas gebruiken om je naar de juiste locatie te gidsen?
+      <button id="request-permissions-button">Geef goedkeuring</button>
+    </div>
+
+  </body>
+</html>

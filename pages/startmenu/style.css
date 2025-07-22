@@ -1,0 +1,166 @@
+:root {
+  --shop-scale: 1.2;
+}
+
+/* Game Container - Fullscreen */
+.game-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: #2a1810; /* fallback dark color */
+}
+
+/* Background Layers */
+.background-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Pixel perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.layer-1 {
+  background-image: url('../../assets/startscreen_bg/background_layer_1.png');
+  z-index: 1;
+}
+
+.layer-2 {
+  background-image: url('../../assets/startscreen_bg/background_layer_2.png');
+  z-index: 2;
+}
+
+.layer-3 {
+  background-image: url('../../assets/startscreen_bg/background_layer_3.png');
+  z-index: 3;
+}
+
+/* Main Scene */
+.scene {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.shop-container {
+  position: absolute;
+  bottom: 20%;
+  left: 75%;
+  transform: translateX(-50%);
+  z-index: 13;
+}
+
+.shop {
+  width: auto;
+  height: auto;
+  max-height: 75vh;
+  
+  transform: scale(var(--shop-scale));
+  transform-origin: center bottom;
+  
+  /* Pixel perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.floor-system {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  z-index: 11;
+}
+
+.floor-tile-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  background-image: url('../../assets/startscreen_bg/tiles/floor_tile_top.png');
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  background-size: auto 48px;
+  z-index: 13;
+  
+  /* Pixel perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.floor-fill {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 24px);
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 15, 11, 0.1) 0%,
+    rgba(26, 15, 11, 0.5) 8px,
+    rgba(26, 15, 11, 0.8) 16px,
+    #1a0f0b 20px
+  );
+  z-index: 12;
+}
+
+.floor-tile-top::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 15, 11, 0) 0%,
+    rgba(26, 15, 11, 0.6) 100%
+  );
+  z-index: 14;
+  pointer-events: none;
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --shop-scale: 1.8;
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  :root {
+    --shop-scale: 1.5;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --shop-scale: 2.0;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --shop-scale: 2.2;
+  }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  :root {
+    --shop-scale: 1.3;
+  }
+} 

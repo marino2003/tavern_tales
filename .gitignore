@@ -1,0 +1,8 @@
+/scripts/secrets.js
+
+# Development files
+node_modules/
+dist/
+*.log
+.DS_Store
+.cursor/
