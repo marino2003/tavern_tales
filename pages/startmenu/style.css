@@ -26,49 +26,71 @@
 
 .background-layer {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -10%;
+  left: -10%;
   width: 120%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-  
-  will-change: transform;
+  height: 120%;
+  background-size: auto 100%;
+  background-position: 0% center;
+  background-repeat: repeat-x;
+  will-change: background-position;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
+/* Achterste laag - langzaamste parallax voor diepte */
 .layer-1 {
   background-image: url('../../assets/startscreen_bg/background_layer_1.png');
   z-index: 1;
-  animation: scrollBackground 100s ease-in-out infinite;
+  animation: slowParallax 150s linear infinite;
 }
 
+/* Middelste laag - medium parallax snelheid */
 .layer-2 {
   background-image: url('../../assets/startscreen_bg/background_layer_2.png');
   z-index: 2;
-  animation: scrollBackground 70s ease-in-out infinite;
+  animation: mediumParallax 100s linear infinite;
 }
 
+/* Voorste laag - snelste parallax voor diepte effect */
 .layer-3 {
   background-image: url('../../assets/startscreen_bg/background_layer_3.png');
   z-index: 3;
-  animation: scrollBackground 50s ease-in-out infinite;
+  animation: fastParallax 60s linear infinite;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
-@keyframes scrollBackground {
+
+/* Parallax Animatie Keyframes */
+@keyframes slowParallax {
   0% {
-    transform: translate3d(0, 0, 0);
+    background-position-x: 0%;
   }
   100% {
-    transform: translate3d(-20%, 0, 0);
+    background-position-x: 100%;
   }
 }
+
+@keyframes mediumParallax {
+  0% {
+    background-position-x: 0%;
+  }
+  100% {
+    background-position-x: 100%;
+  }
+}
+
+@keyframes fastParallax {
+  0% {
+    background-position-x: 0%;
+  }
+  100% {
+    background-position-x: 100%;
+  }
+}
+
 
 /* Main Scene */
 .scene {
@@ -112,8 +134,6 @@
     transform: translateY(0) scale(1);
   }
 }
-
-
 
 .magical-particles {
   position: absolute;
@@ -297,12 +317,45 @@
   :root {
     --shop-scale: 2.0;
   }
+  
+  /* Langzamere animaties voor mobiel - betere performance */
+  .layer-1 {
+    animation-duration: 200s;
+  }
+  
+  .layer-2 {
+    animation-duration: 140s;
+  }
+  
+  .layer-3 {
+    animation-duration: 80s;
+  }
+
 }
 
 @media (max-width: 480px) {
   :root {
     --shop-scale: 2.2;
   }
+  
+  /* Extra langzame animaties voor kleine mobiele apparaten */
+  .layer-1 {
+    animation-duration: 250s;
+  }
+  
+  .layer-2 {
+    animation-duration: 180s;
+  }
+  
+  .layer-3 {
+    animation-duration: 100s;
+  }
+  
+  /* Performance optimalisatie voor mobiel */
+  .background-layer {
+    will-change: auto;
+  }
+
 }
 
 @media (max-height: 600px) and (orientation: landscape) {
@@ -329,18 +382,6 @@
   
   .particle:nth-child(n+4) {
     display: none;
-  }
-  
-  .layer-1 {
-    animation-duration: 150s;
-  }
-  
-  .layer-2 {
-    animation-duration: 100s;
-  }
-  
-  .layer-3 {
-    animation-duration: 75s;
   }
   
   .game-logo {
