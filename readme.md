@@ -1,3 +1,6 @@
+# Tavern Tales - De Koninck Game
+Begin pagina: /start/index.html
+
 # Location Based Game Framework
 
 ## Usage

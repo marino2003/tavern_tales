@@ -22,9 +22,6 @@
   width: 80%;
   height: auto;
   
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
   
   opacity: 0;
   transform: translateY(20px);
