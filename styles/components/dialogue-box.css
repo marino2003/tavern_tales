@@ -1,0 +1,257 @@
+/* Dialoogbox Component - Eenvoudig en Clean */
+
+.dialogue-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.dialogue-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.dialogue-box {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  min-height: 120px;
+  
+  /* Eenvoudig wit met zwarte rand */
+  background: #ffffff;
+  border: 3px solid #000000;
+  
+  /* Pixel perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  
+  /* Layout */
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 16px;
+  
+  /* Animatie voor verschijnen */
+  transform: translateY(20px);
+  transition: transform 0.3s ease-out;
+}
+
+.dialogue-overlay.show .dialogue-box {
+  transform: translateY(0);
+}
+
+.dialogue-portrait {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  
+  /* Eenvoudige zwarte rand rond portret */
+  background: #f0f0f0;
+  border: 2px solid #000000;
+  
+  /* Pixel art rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  
+  /* Portrait afbeelding */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.dialogue-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.dialogue-text {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+  
+  /* Text wrapping */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+/* Eenvoudige scrollbar */
+.dialogue-text::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dialogue-text::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border: 1px solid #000000;
+}
+
+.dialogue-text::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border: 1px solid #000000;
+}
+
+.dialogue-continue {
+  position: absolute;
+  bottom: 4px;
+  right: 8px;
+  
+  /* Subtiele pijltje indicator */
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #666666;
+  
+  /* Zachte knipperanimatie */
+  animation: subtle-blink 2s infinite;
+  cursor: pointer;
+}
+
+@keyframes subtle-blink {
+  0%, 70% {
+    opacity: 1;
+  }
+  71%, 100% {
+    opacity: 0.3;
+  }
+}
+
+/* Character typing effect */
+.dialogue-text.typing {
+  overflow: hidden;
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: #000000;
+  margin-left: 2px;
+  animation: cursor-blink 1s infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .dialogue-box {
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    min-height: 100px;
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .dialogue-portrait {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .dialogue-text {
+    font-size: 14px;
+    max-height: 90px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dialogue-box {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    min-height: 90px;
+    padding: 10px;
+    gap: 10px;
+    border-width: 2px;
+  }
+  
+  .dialogue-portrait {
+    width: 48px;
+    height: 48px;
+    border-width: 2px;
+  }
+  
+  .dialogue-text {
+    font-size: 13px;
+    max-height: 80px;
+  }
+  
+  .dialogue-continue {
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 6px;
+  }
+}
+
+/* Landscape mode aanpassingen */
+@media (max-height: 500px) and (orientation: landscape) {
+  .dialogue-box {
+    bottom: 8px;
+    min-height: 80px;
+    padding: 8px;
+  }
+  
+  .dialogue-text {
+    font-size: 13px;
+    max-height: 60px;
+  }
+  
+  .dialogue-portrait {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* Toegankelijkheid */
+.dialogue-box:focus-within {
+  outline: 2px solid #0066cc;
+  outline-offset: 2px;
+}
+
+/* Dark mode ondersteuning */
+@media (prefers-color-scheme: dark) {
+  .dialogue-box {
+    background: #ffffff;
+    border-color: #000000;
+  }
+  
+  .dialogue-portrait {
+    background: #f0f0f0;
+    border-color: #000000;
+  }
+  
+  .dialogue-text {
+    color: #000000;
+  }
+  
+  .dialogue-continue {
+    border-top-color: #666666;
+  }
+  
+  .typing-cursor {
+    background: #000000;
+  }
+} 

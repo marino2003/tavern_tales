@@ -1,4 +1,9 @@
 function getNextPage() {
+  // in development mode (localhost), clear localStorage om altijd naar start te gaan
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+    localStorage.clear();
+  }
+
   // haal laatste opgeslagen info op
   const nextPage = localStorage.getItem('nextPage');
   const coordinates = localStorage.getItem('coordinates');

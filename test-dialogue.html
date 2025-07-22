@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dialoog Test</title>
+    <link href="styles/components/dialogue-box.css" rel="stylesheet">
+    <style>
+        body {
+            background: #333;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .test-btn {
+            background: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            font-size: 16px;
+            margin: 4px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .test-btn:hover {
+            background: #45a049;
+        }
+        .status {
+            background: #222;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 Dialoog Systeem Test</h1>
+    
+    <div class="status">
+        <strong>Status:</strong> <span id="status">Laden...</span>
+    </div>
+    
+    <button class="test-btn" onclick="testBasic()">Test Basic Dialoog</button>
+    <button class="test-btn" onclick="testWithPortrait()">Test Met Portret</button>
+    <button class="test-btn" onclick="testMultiple()">Test Meerdere Dialogen</button>
+    <button class="test-btn" onclick="testPlayerName()">Test Speler Naam</button>
+    <button class="test-btn" onclick="setTestName()">Zet Test Naam</button>
+    <button class="test-btn" onclick="showCurrentName()">Toon Huidige Naam</button>
+    <button class="test-btn" onclick="checkSystem()">Check System</button>
+    
+    <script src="scripts/player-data.js"></script>
+    <script src="scripts/dialogue-system.js"></script>
+    <script>
+        const statusEl = document.getElementById('status');
+        
+        function updateStatus(msg) {
+            statusEl.textContent = msg;
+            console.log('STATUS:', msg);
+        }
+        
+        function testBasic() {
+            updateStatus('Testing basic dialogue...');
+            
+            if (!window.DialogueSystem) {
+                updateStatus('ERROR: DialogueSystem not loaded!');
+                return;
+            }
+            
+            window.DialogueSystem.showDialogue([{
+                text: "Dit is een test dialoog!",
+                portrait: null
+            }], {
+                onComplete: () => updateStatus('Basic test voltooid!')
+            });
+        }
+        
+        function testWithPortrait() {
+            updateStatus('Testing dialogue with portrait...');
+            
+            if (!window.DialogueSystem) {
+                updateStatus('ERROR: DialogueSystem not loaded!');
+                return;
+            }
+            
+            window.DialogueSystem.showDialogue([{
+                text: "Dit is een test met portret!",
+                portrait: 'assets/spritesheets/hero_main/Combat Ready Idle.png'
+            }], {
+                onComplete: () => updateStatus('Portrait test voltooid!')
+            });
+        }
+        
+        function testMultiple() {
+            updateStatus('Testing multiple dialogues...');
+            
+            if (!window.DialogueSystem) {
+                updateStatus('ERROR: DialogueSystem not loaded!');
+                return;
+            }
+            
+            window.DialogueSystem.showDialogue([
+                { text: "Eerste dialoog!", portrait: null },
+                { text: "Tweede dialoog!", portrait: null },
+                { text: "Derde dialoog!", portrait: null }
+            ], {
+                onComplete: () => updateStatus('Multiple test voltooid!')
+            });
+        }
+        
+        function testPlayerName() {
+            updateStatus('Testing player name dialogue...');
+            
+            if (!window.DialogueSystem || !window.PlayerData) {
+                updateStatus('ERROR: DialogueSystem of PlayerData niet geladen!');
+                return;
+            }
+            
+            window.DialogueSystem.showDialogue([
+                {
+                    text: "Hallo {PLAYER}! Welkom in de kroeg!",
+                    portrait: 'assets/character_port/npc.png'
+                },
+                {
+                    text: "Zo {PLAYER}, ben je klaar voor een avontuur?",
+                    portrait: 'assets/character_port/npc.png'
+                },
+                {
+                    text: "Veel succes, {PLAYER}! Ik zal je niet vergeten.",
+                    portrait: 'assets/character_port/npc.png'
+                }
+            ], {
+                onComplete: () => updateStatus('Player name test voltooid!')
+            });
+        }
+        
+        function setTestName() {
+            const testName = prompt('Geef een test naam op (max 6 karakters):') || 'TEST';
+            
+            if (window.PlayerData) {
+                window.PlayerData.setName(testName);
+                updateStatus(`Test naam ingesteld: ${testName.toUpperCase()}`);
+            } else {
+                updateStatus('ERROR: PlayerData niet beschikbaar!');
+            }
+        }
+        
+        function showCurrentName() {
+            if (window.PlayerData) {
+                const currentName = window.PlayerData.getName();
+                updateStatus(`Huidige speler naam: ${currentName}`);
+                console.log('Current player name:', currentName);
+                
+                // Test ook de personalize functie
+                const testText = "Hallo {PLAYER}, dit is een test!";
+                const personalizedText = window.PlayerData.personalize(testText);
+                console.log('Test personalization:', testText, '->', personalizedText);
+            } else {
+                updateStatus('ERROR: PlayerData niet beschikbaar!');
+            }
+        }
+        
+        function checkSystem() {
+            console.log('=== SYSTEM CHECK ===');
+            console.log('window.DialogueSystem:', window.DialogueSystem);
+            console.log('window.PlayerData:', window.PlayerData);
+            console.log('document.body.children:', Array.from(document.body.children));
+            
+            // Check CSS
+            const cssLoaded = document.querySelector('link[href*="dialogue-box.css"]');
+            console.log('CSS loaded:', !!cssLoaded);
+            
+            // Check for dialogue overlay in DOM
+            const overlay = document.querySelector('.dialogue-overlay');
+            console.log('Dialogue overlay in DOM:', !!overlay);
+            
+            // Check PlayerData functionaliteit
+            let playerDataStatus = 'Not loaded';
+            if (window.PlayerData) {
+                const currentName = window.PlayerData.getName();
+                playerDataStatus = `Loaded (current name: ${currentName})`;
+            }
+            
+            updateStatus(`System check - DialogueSystem: ${!!window.DialogueSystem}, PlayerData: ${playerDataStatus}, CSS: ${!!cssLoaded}`);
+        }
+        
+        // Check status bij laden
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (window.DialogueSystem) {
+                    updateStatus('DialogueSystem geladen! Klaar voor testen.');
+                } else {
+                    updateStatus('ERROR: DialogueSystem niet geladen!');
+                }
+            }, 100);
+        });
+        
+        // Direct check
+        setTimeout(() => {
+            checkSystem();
+        }, 500);
+    </script>
+</body>
+</html> 

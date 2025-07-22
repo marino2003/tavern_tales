@@ -16,40 +16,31 @@ function createWarriorSprite(options = {}) {
         mirrored = true               // Voor gespiegelde spritesheet
     } = options;
 
-    console.log('createWarriorSprite aangeroepen met opties:', { scale, speed, paused, className, container, mirrored });
-
     // Creëer sprite element
     const sprite = document.createElement('div');
     sprite.classList.add('warrior-sprite');
     
-    console.log('Sprite element gecreëerd:', sprite);
-    
     // Voeg extra klasses toe
     if (className) {
         sprite.classList.add(...className.split(' '));
-        console.log('Klasses toegevoegd:', className);
     }
     
     // Pas schaal aan
     const scaleClass = getWarriorScaleClass(scale);
     if (scaleClass) {
         sprite.classList.add(scaleClass);
-        console.log('Schaal klasse toegevoegd:', scaleClass);
     } else {
         sprite.style.transform = `scale(${scale})`;
-        console.log('Custom schaal toegepast:', scale);
     }
     
     // Voor gespiegelde spritesheet: gebruik custom animatie
     if (mirrored) {
-        console.log('Starten van gespiegelde animatie...');
         // Zet CSS animatie uit
         sprite.style.animation = 'none';
         
         // Start custom frame animatie
         startMirroredWarriorAnimation(sprite, speed, paused);
     } else {
-        console.log('Normale CSS animatie gebruiken');
         // Pas animatie snelheid aan
         if (speed !== 1.0) {
             sprite.style.animationDuration = `${speed}s`;
@@ -64,10 +55,8 @@ function createWarriorSprite(options = {}) {
     // Voeg toe aan container
     if (container) {
         container.appendChild(sprite);
-        console.log('Sprite toegevoegd aan container');
     }
     
-    console.log('Warrior sprite volledig gecreëerd:', sprite);
     return sprite;
 }
 
@@ -90,8 +79,6 @@ function getWarriorScaleClass(scale) {
  * Custom animatie voor gespiegelde warrior spritesheet
  */
 function startMirroredWarriorAnimation(sprite, speed = 1.0, paused = false) {
-    console.log('Startende gespiegelde warrior animatie:', { speed, paused });
-    
     // Frame posities voor gespiegelde spritesheet (in correcte volgorde)
     const frames = [
         '-1px 0',      // Frame 1 (was oorspronkelijk frame 6)
@@ -107,27 +94,18 @@ function startMirroredWarriorAnimation(sprite, speed = 1.0, paused = false) {
     let lastTime = null; // Start met null zodat eerste frame direct wordt getekend
     const frameDuration = (speed * 1000) / 6; // Milliseconds per frame
     
-    console.log('Frame duration:', frameDuration, 'ms');
-    console.log('Frames array:', frames);
-    
     function animate(currentTime) {
         // Initialiseer lastTime bij eerste run
         if (lastTime === null) {
             lastTime = currentTime;
             // Teken eerste frame direct
             sprite.style.backgroundPosition = frames[currentFrame];
-            console.log(`Eerste frame getekend: ${currentFrame + 1}: ${frames[currentFrame]}`);
             currentFrame = (currentFrame + 1) % frames.length;
         }
         
         if (currentTime - lastTime >= frameDuration) {
             // Update background position
             sprite.style.backgroundPosition = frames[currentFrame];
-            
-            // Debug log eerste paar frames
-            if (currentFrame < 6) {
-                console.log(`Frame ${currentFrame + 1}: ${frames[currentFrame]}`);
-            }
             
             // Ga naar volgende frame
             currentFrame = (currentFrame + 1) % frames.length;
@@ -137,8 +115,6 @@ function startMirroredWarriorAnimation(sprite, speed = 1.0, paused = false) {
         // Continue animatie als niet gepauzeerd
         if (sprite.dataset.paused !== 'true') {
             animationId = requestAnimationFrame(animate);
-        } else {
-            console.log('Animatie gestopt - sprite is gepauzeerd');
         }
     }
     
@@ -146,10 +122,8 @@ function startMirroredWarriorAnimation(sprite, speed = 1.0, paused = false) {
     if (!paused) {
         sprite.dataset.paused = 'false';
         animationId = requestAnimationFrame(animate);
-        console.log('Animatie gestart met requestAnimationFrame');
     } else {
         sprite.dataset.paused = 'true';
-        console.log('Animatie gepauzeerd');
     }
     
     // Sla animatie data op voor controller
@@ -161,7 +135,6 @@ function startMirroredWarriorAnimation(sprite, speed = 1.0, paused = false) {
             if (!animationId) {
                 lastTime = null; // Reset timing
                 animationId = requestAnimationFrame(animate);
-                console.log('Animatie hervat');
             }
         },
         pause: () => {
@@ -169,16 +142,12 @@ function startMirroredWarriorAnimation(sprite, speed = 1.0, paused = false) {
             if (animationId) {
                 cancelAnimationFrame(animationId);
                 animationId = null;
-                console.log('Animatie gepauzeerd via controller');
             }
         },
         setSpeed: (newSpeed) => {
             speed = newSpeed;
-            console.log('Animatie snelheid veranderd naar:', newSpeed);
         }
     };
-    
-    console.log('Mirrored animation object opgeslagen:', sprite._mirroredAnimation);
 }
 
 /**

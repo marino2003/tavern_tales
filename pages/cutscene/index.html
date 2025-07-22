@@ -13,11 +13,13 @@
 
     <link href="../../styles/components/hero-sprite.css" type="text/css" rel="stylesheet">
     <link href="../../styles/components/warrior-sprite.css" type="text/css" rel="stylesheet">
+    <link href="../../styles/components/dialogue-box.css" type="text/css" rel="stylesheet">
     
     <script defer src="../../scripts/player-data.js"></script>
     <script defer src="../../scripts/transition-overlay.js"></script>
     <script defer src="../../scripts/hero-sprite.js"></script>
     <script defer src="../../scripts/warrior-sprite.js"></script>
+    <script defer src="../../scripts/dialogue-system.js"></script>
     <script defer src="script.js"></script>
   </head>
   
@@ -67,8 +69,29 @@
         <div class="warrior-sprite-container" id="warriorSpriteContainer">
           <!-- Warrior sprite wordt hier toegevoegd via JavaScript -->
         </div>
+        
+        <!-- Debug test button (tijdelijk) -->
+        <button onclick="testDialogue()" style="position: fixed; top: 10px; right: 10px; z-index: 9999; padding: 10px; background: red; color: white; border: none; cursor: pointer;">
+          TEST DIALOOG
+        </button>
       </div>
       
     </div>
+    
+    <script>
+      // Tijdelijke test functie
+      function testDialogue() {
+        console.log('Test button geklikt');
+        console.log('window.DialogueSystem:', window.DialogueSystem);
+        
+        if (window.DialogueSystem) {
+          window.DialogueSystem.showDialogue([
+            { text: "Dit is een test!", portrait: null }
+          ]);
+        } else {
+          alert('DialogueSystem niet geladen!');
+        }
+      }
+    </script>
   </body>
 </html> 

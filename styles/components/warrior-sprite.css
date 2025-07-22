@@ -20,7 +20,7 @@
     transform-origin: center center;
     
     /* Warrior idle animatie - wordt overschreven door JS voor gespiegelde versie */
-    animation: none;
+    animation: warrior-idle 1.0s steps(6) infinite;
     
     /* Transities voor smooth state changes */
     transition: transform 0.2s ease;
