@@ -2,14 +2,26 @@
   --shop-scale: 1.2;
 }
 
-/* Game Container - Fullscreen */
 .game-container {
   position: relative;
   width: 100vw;
   height: 100vh;
   margin: 0;
   overflow: hidden;
-  background: #2a1810; /* fallback dark color */
+  background: #2a1810;
+  opacity: 0;
+  animation: fadeIn 1.2s ease-out 0.2s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Background Layers */

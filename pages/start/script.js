@@ -1,6 +1,18 @@
-// Simple splash screen - click to continue to start menu
+let isTransitioning = false;
+
 function goToStartMenu() {
-  location.assign('../startmenu/index.html');
+  if (isTransitioning) return;
+  isTransitioning = true;
+  
+  const splashScreen = document.querySelector('.splash-screen');
+  
+  // Trigger fade-out animation
+  splashScreen.classList.add('fade-out');
+  
+  // Wait for animation to complete before navigating
+  setTimeout(() => {
+    location.assign('../startmenu/index.html');
+  }, 800);
 }
 
 // Event listeners
