@@ -1,7 +1,354 @@
+/* Basis button stijl (voor eenvoudige knoppen) */
 button {
   background-color: var(--button-color);
   color: var(--white);
   padding: .5em 1em;
   border: 0;
   border-radius: .25em;
+}
+
+/* Pixel Art Button - Nieuw Spel stijl */
+.pixel-button {
+  position: relative;
+  width: 284.61px;
+  height: 76.19px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'm6x11plus', monospace, 'Courier New';
+  font-size: 40px;
+  font-weight: 400;
+  color: white;
+  text-align: center;
+  line-height: 76.19px;
+  
+  /* Pixel art rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  
+  /* Subtle transform op hover/focus */
+  transition: transform 0.1s ease, filter 0.1s ease;
+  transform-origin: center center;
+}
+
+/* Button hover effect */
+.pixel-button:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
+
+/* Button active/pressed effect */
+.pixel-button:active {
+  transform: scale(0.98);
+  filter: brightness(0.9);
+}
+
+/* Pixel art button achtergrond (normale state) */
+.pixel-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  
+  /* Hier komt de complexe pixel art achtergrond */
+  background: 
+    /* Zwarte border elementen */
+    linear-gradient(to right, black 12.16px, transparent 12.16px, transparent 272.44px, black 272.44px),
+    linear-gradient(to bottom, black 2.93px, transparent 2.93px, transparent 73.26px, black 73.26px),
+    
+    /* Rode fill (#AB363A) */
+    linear-gradient(to right, #AB363A 12.16px, #AB363A 272.44px),
+    
+    /* Lichtere rode highlight (#E75F64) */
+    linear-gradient(to right, #E75F64 18.09px, #E75F64 266.08px),
+    
+    /* Main content area (#E2665B) */
+    #E2665B;
+    
+  background-size: 
+    100% 100%,
+    100% 100%,
+    100% 70.33px,
+    100% 57.92px,
+    100% 100%;
+    
+  background-position:
+    0 0,
+    0 0,  
+    0 2.93px,
+    0 8.92px,
+    0 0;
+}
+
+/* =====================================================
+   PIXEL PERFECT FIGMA BUTTON COMPONENT 
+   ===================================================== */
+
+/* Container voor de pixel-perfect knop */
+.figma-pixel-button {
+  position: relative;
+  width: 284.61px;
+  height: 76.19px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+  
+  /* Pixel art rendering voor alle elementen */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  
+  /* Hover en active effecten */
+  transition: transform 0.15s ease, filter 0.15s ease;
+  transform-origin: center center;
+  
+  /* Button animatie - start onzichtbaar */
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+}
+
+.figma-pixel-button:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
+
+.figma-pixel-button:active {
+  transform: scale(0.98);
+  filter: brightness(0.9);
+}
+
+/* Animatie voor button entrance */
+.figma-pixel-button.animate-in {
+  animation: buttonSlideIn 0.8s ease-out forwards;
+}
+
+@keyframes buttonSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Alle pixel art elementen binnen de knop */
+.figma-pixel-button > div {
+  position: absolute;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;  
+  image-rendering: crisp-edges;
+}
+
+/* De knop tekst */
+.figma-pixel-button .button-text {
+  width: 261px;
+  left: 13px;
+  top: 18px;
+  position: absolute;
+  text-align: center;
+  color: white;
+  font-size: 40px;
+  font-family: 'm6x11plus', monospace, 'Courier New';
+  font-weight: 400;
+  line-height: normal;
+  z-index: 100;
+  
+  /* Pixel font rendering */
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  text-rendering: optimizeSpeed;
+}
+
+/* Button Container Styling voor betere spacing */
+.menu-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* Kleinere gap tussen knoppen */
+  margin: 0 auto;
+}
+
+/* Responsive aanpassingen voor mobile */
+@media (max-width: 480px) {
+  .figma-pixel-button {
+    transform: scale(0.85);
+    transform-origin: center center;
+  }
+  
+  .figma-pixel-button .button-text {
+    font-size: 34px;
+  }
+  
+  .menu-buttons-container {
+    gap: 12px; /* Nog kleinere gap op mobiel */
+  }
+}
+
+@media (max-width: 350px) {
+  .figma-pixel-button {
+    transform: scale(0.75);
+  }
+  
+  .figma-pixel-button .button-text {
+    font-size: 32px;
+  }
+  
+  .menu-buttons-container {
+    gap: 10px; /* Kleinste gap voor kleine schermen */
+  }
+}
+
+/* Hover states ook voor mobile touch */
+@media (hover: hover) and (pointer: fine) {
+  .figma-pixel-button:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+  }
+}
+
+@media (hover: none) {
+  .figma-pixel-button:active {
+    transform: scale(0.95);
+    filter: brightness(0.9);
+    transition: transform 0.1s ease, filter 0.1s ease;
+  }
+}
+
+/* Alternatieve stijlen voor verschillende button states */
+.figma-pixel-button.pressed {
+  transform: scale(0.96);
+  filter: brightness(0.85);
+}
+
+.figma-pixel-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ===== COLOR VARIANTS ===== */
+
+/* SECONDARY - GRIJS VARIANT */
+.figma-pixel-button.secondary > div[style*="#AB363A"] {
+  background: #4A4A4A !important; /* Donker grijs */
+}
+
+.figma-pixel-button.secondary > div[style*="#E75F64"] {
+  background: #6B6B6B !important; /* Medium grijs */
+}
+
+.figma-pixel-button.secondary > div[style*="#E2665B"] {
+  background: #7A7A7A !important; /* Licht grijs */
+}
+
+/* TERTIARY - LICHTBLAUW VARIANT */
+.figma-pixel-button.tertiary > div[style*="#AB363A"] {
+  background: #4A90A4 !important; /* Donker lichtblauw */
+}
+
+.figma-pixel-button.tertiary > div[style*="#E75F64"] {
+  background: #5BA3B8 !important; /* Medium lichtblauw */
+}
+
+.figma-pixel-button.tertiary > div[style*="#E2665B"] {
+  background: #6BB0C4 !important; /* Licht lichtblauw */
+}
+
+/* Alternatieve gedetailleerde pixel button (als je de exacte Figma versie wilt) */
+.pixel-button-detailed {
+  position: relative;
+  width: 284.61px;
+  height: 76.19px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  font-family: 'm6x11plus', monospace, 'Courier New';
+  font-size: 40px;
+  font-weight: 400;
+  color: white;
+  text-align: center;
+  
+  /* Pixel art rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  
+  transition: transform 0.1s ease, filter 0.1s ease;
+}
+
+.pixel-button-detailed:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
+
+.pixel-button-detailed:active {
+  transform: scale(0.98);
+  filter: brightness(0.9);
+}
+
+/* Text binnen de detailed button */
+.pixel-button-detailed .button-text {
+  position: absolute;
+  width: 261px;
+  left: 13px;
+  top: 18px;
+  color: white;
+  font-size: 40px;
+  font-family: 'm6x11plus', monospace, 'Courier New';
+  font-weight: 400;
+  text-align: center;
+  line-height: normal;
+  z-index: 10;
+}
+
+/* Responsive design voor mobile */
+@media (max-width: 480px) {
+  .pixel-button,
+  .pixel-button-detailed {
+    width: 256px;
+    height: 68px;
+    font-size: 32px;
+    line-height: 68px;
+  }
+  
+  .pixel-button-detailed .button-text {
+    font-size: 32px;
+    top: 16px;
+    left: 12px;
+    width: 232px;
+  }
+}
+
+@media (max-width: 350px) {
+  .pixel-button,
+  .pixel-button-detailed {
+    width: 228px;
+    height: 61px;
+    font-size: 28px;
+    line-height: 61px;
+  }
+  
+  .pixel-button-detailed .button-text {
+    font-size: 28px;
+    top: 14px;
+    left: 11px;
+    width: 206px;
+  }
 }
