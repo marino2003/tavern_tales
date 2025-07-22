@@ -1,0 +1,79 @@
+/* Stop 1 - Hero Sprite Demo Styling */
+
+/* Hero sprite container styling */
+.hero-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    min-height: 100px;
+    /* Zorg ervoor dat er genoeg ruimte is voor geschaalde sprites */
+    overflow: visible;
+}
+
+/* Dialoog container styling */
+.dialogue-container {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.dialogue-text {
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+/* Hero control buttons */
+.hero-controls {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.hero-controls button {
+    margin: 0 8px 5px 8px;
+    padding: 8px 16px;
+    background: var(--primary-color, #3498db);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.hero-controls button:hover {
+    background: var(--primary-dark, #2980b9);
+    transform: translateY(-1px);
+}
+
+.hero-controls button:active {
+    transform: translateY(0);
+}
+
+/* Continue button spacing */
+#continue-button {
+    margin-top: 30px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .hero-container {
+        padding: 15px;
+        margin: 15px 0;
+    }
+    
+    .hero-controls button {
+        margin: 5px 4px;
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+    
+    .dialogue-container {
+        padding: 15px;
+    }
+}

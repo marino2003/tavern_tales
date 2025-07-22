@@ -104,15 +104,31 @@ function proceedToGame() {
   // Verberg eventuele error berichten
   hideValidationError();
   
-  // Sla speler naam op
-  localStorage.setItem('playerName', playerName);
+  // Sla speler naam op via PlayerData systeem
+  if (window.PlayerData) {
+    window.PlayerData.setName(playerName);
+  } else {
+    localStorage.setItem('playerName', playerName);
+  }
   
-  // Ga naar navigate pagina
-  const coordinates = '51.203275,4.450912';
-  const locationName = 'Boelaerpark';
-  const nextPage = 'stop1';
+  // Start diagonale overgangsanimatie
+  startDiagonalTransition();
+}
+
+function startDiagonalTransition() {
+  // Sluit eerst de modal
+  closeCharacterModal();
   
-  location.assign(`../navigate/index.html?coordinates=${coordinates}&locationName=${locationName}&nextPage=${nextPage}`);
+  // Maak nieuwe overgang instance
+  const transition = new TransitionOverlay({
+    duration: 1500,
+    color: '#A0303F'
+  });
+  
+  // Start overgang met navigatie callback
+  transition.transitionOut(() => {
+    location.assign('../cutscene/index.html');
+  });
 }
 
 function continueGame() {

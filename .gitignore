@@ -6,3 +6,7 @@ dist/
 *.log
 .DS_Store
 .cursor/
+scripts/README-PlayerData.md
+scripts/README-HeroSprite.md
+sprite-animation-test.html
+hero-sprite-demo.html

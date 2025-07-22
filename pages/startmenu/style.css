@@ -2,6 +2,7 @@
   --shop-scale: 2.5;
 }
 
+
 .game-container {
   position: relative;
   width: 100vw;
@@ -158,20 +159,155 @@
 }
 
 .particle:nth-child(1) {
-  left: 25%;
+  left: 10%;
   animation-delay: 0s;
   animation-duration: 18s;
 }
 
 .particle:nth-child(2) {
-  left: 75%;
+  left: 25%;
   animation-delay: -9s;
   animation-duration: 20s;
 }
 
-/* Verberg extra particles voor simplere compositie */
-.particle:nth-child(n+3) {
-  display: none;
+.particle:nth-child(3) {
+  left: 40%;
+  animation-delay: -4s;
+  animation-duration: 22s;
+  width: 2px;
+  height: 2px;
+}
+
+.particle:nth-child(4) {
+  left: 55%;
+  animation-delay: -12s;
+  animation-duration: 16s;
+  background: radial-gradient(circle, #ffc107 0%, rgba(255, 193, 7, 0) 70%);
+}
+
+.particle:nth-child(5) {
+  left: 70%;
+  animation-delay: -6s;
+  animation-duration: 25s;
+  width: 4px;
+  height: 4px;
+}
+
+.particle:nth-child(6) {
+  left: 85%;
+  animation-delay: -15s;
+  animation-duration: 19s;
+  background: radial-gradient(circle, #ff9800 0%, rgba(255, 152, 0, 0) 70%);
+}
+
+.particle:nth-child(7) {
+  left: 15%;
+  animation-delay: -3s;
+  animation-duration: 23s;
+  width: 2px;
+  height: 2px;
+}
+
+.particle:nth-child(8) {
+  left: 35%;
+  animation-delay: -10s;
+  animation-duration: 17s;
+  background: radial-gradient(circle, #cddc39 0%, rgba(205, 220, 57, 0) 70%);
+}
+
+.particle:nth-child(9) {
+  left: 60%;
+  animation-delay: -7s;
+  animation-duration: 21s;
+  width: 5px;
+  height: 5px;
+}
+
+.particle:nth-child(10) {
+  left: 80%;
+  animation-delay: -13s;
+  animation-duration: 24s;
+  background: radial-gradient(circle, #ffeb3b 0%, rgba(255, 235, 59, 0) 70%);
+}
+
+.particle:nth-child(11) {
+  left: 20%;
+  animation-delay: -8s;
+  animation-duration: 26s;
+  width: 3px;
+  height: 3px;
+}
+
+.particle:nth-child(12) {
+  left: 45%;
+  animation-delay: -2s;
+  animation-duration: 19s;
+  background: radial-gradient(circle, #fdd835 0%, rgba(253, 216, 53, 0) 70%);
+}
+
+.particle:nth-child(13) {
+  left: 65%;
+  animation-delay: -11s;
+  animation-duration: 27s;
+  width: 2px;
+  height: 2px;
+}
+
+.particle:nth-child(14) {
+  left: 90%;
+  animation-delay: -5s;
+  animation-duration: 20s;
+  background: radial-gradient(circle, #ff8f00 0%, rgba(255, 143, 0, 0) 70%);
+}
+
+.particle:nth-child(15) {
+  left: 5%;
+  animation-delay: -14s;
+  animation-duration: 28s;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #ffca28 0%, rgba(255, 202, 40, 0) 70%);
+}
+
+/* Alternatieve animatie voor sommige particles */
+.particle:nth-child(3),
+.particle:nth-child(7),
+.particle:nth-child(11),
+.particle:nth-child(13) {
+  animation-name: drift-particle;
+}
+
+@keyframes drift-particle {
+  0% {
+    bottom: -10px;
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.3) rotate(0deg);
+  }
+  15% {
+    opacity: 0.8;
+    transform: translate3d(-15px, 0, 0) scale(0.6) rotate(45deg);
+  }
+  30% {
+    transform: translate3d(10px, 0, 0) scale(0.9) rotate(90deg);
+  }
+  45% {
+    transform: translate3d(-20px, 0, 0) scale(1.1) rotate(135deg);
+  }
+  60% {
+    transform: translate3d(25px, 0, 0) scale(0.8) rotate(180deg);
+  }
+  75% {
+    transform: translate3d(-10px, 0, 0) scale(1) rotate(225deg);
+  }
+  90% {
+    opacity: 0.8;
+    transform: translate3d(15px, 0, 0) scale(0.5) rotate(270deg);
+  }
+  100% {
+    bottom: 100vh;
+    opacity: 0;
+    transform: translate3d(5px, 0, 0) scale(0.2) rotate(360deg);
+  }
 }
 
 @keyframes float-particle {
@@ -183,13 +319,22 @@
   10% {
     opacity: 1;
   }
+  25% {
+    transform: translate3d(5px, 0, 0) scale(0.8);
+  }
+  50% {
+    transform: translate3d(-8px, 0, 0) scale(1);
+  }
+  75% {
+    transform: translate3d(12px, 0, 0) scale(0.9);
+  }
   90% {
     opacity: 1;
   }
   100% {
     bottom: 100vh;
     opacity: 0;
-    transform: translate3d(20px, 0, 0) scale(1);
+    transform: translate3d(20px, 0, 0) scale(0.3);
   }
 }
 
@@ -513,7 +658,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 24px;
+  gap: 12px;
 }
 
 .modal-title {
@@ -651,7 +796,7 @@
 }
 
 .modal-continue-btn {
-  margin-top: 20px;
+  margin-top: 8px;
   transform: scale(0.8);
   align-self: center;
 }
@@ -736,7 +881,7 @@
   
   .modal-continue-btn {
     transform: scale(0.7);
-    margin-top: 16px;
+    margin-top: 6px;
   }
 }
 
@@ -746,13 +891,14 @@
   font-family: m6x11plus, monospace;
   font-size: 18px;
   text-align: center;
-  margin-top: 8px;
-  padding: 8px 12px;
+  padding: 0 12px;
   background: #ffeaea;
   border: 2px solid #d32f2f;
   border-radius: 0;
+  max-height: 0;
+  margin: 0;
   opacity: 0;
-  transform: translateY(-10px);
+  overflow: hidden;
   transition: all 0.3s ease;
   letter-spacing: 1px;
   image-rendering: pixelated;
@@ -761,14 +907,20 @@
 }
 
 .error-message.show {
+  max-height: 60px;
+  margin-top: 4px;
+  padding: 4px 8px;
   opacity: 1;
-  transform: translateY(0);
 }
 
 @media (max-width: 480px) {
   .error-message {
     font-size: 16px;
-    padding: 6px 10px;
-    margin-top: 6px;
+  }
+  
+  .error-message.show {
+    max-height: 50px;
+    margin-top: 3px;
+    padding: 3px 6px;
   }
 }
