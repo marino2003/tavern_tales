@@ -1,3 +1,8 @@
+:root {
+  --shop-scale: 2.5;
+}
+
+
 .game-container {
   position: relative;
   width: 100vw;
@@ -5,55 +10,14 @@
   margin: 0;
   overflow: hidden;
   background: #2a1810;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-
-
-/* Cutscene inhoud */
-.cutscene-content {
-  text-align: center;
-  max-width: 90%;
   opacity: 0;
-  animation: fadeInContent 1s ease-out 0.8s forwards;
-  z-index: 10;
+  animation: fadeIn 1.2s ease-out 0.2s forwards;
 }
 
-.cutscene-text {
-  margin-bottom: 2rem;
-}
-
-.cutscene-text h1 {
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
-  color: #D4AF37;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-  margin-bottom: 1.5rem;
-  font-weight: bold;
-}
-
-.cutscene-text p {
-  font-size: clamp(1rem, 3vw, 1.2rem);
-  color: #E8D4B0;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-  margin-bottom: 1rem;
-  line-height: 1.6;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.continue-btn {
-  margin-top: 2rem;
-  animation: buttonPulse 2s ease-in-out infinite 1.5s;
-}
-
-@keyframes fadeInContent {
+@keyframes fadeIn {
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(10px);
   }
   100% {
     opacity: 1;
@@ -61,39 +25,494 @@
   }
 }
 
-@keyframes buttonPulse {
-  0%, 100% {
-    transform: scale(1);
+.background-layer {
+  position: absolute;
+  top: -24%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background-size: auto 60%;
+  background-position: 0% center;
+  background-repeat: repeat-x;
+  will-change: background-position;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Achterste laag - zeer subtiele parallax */
+.layer-1 {
+  background-image: url('../../assets/startscreen_bg/background_layer_1.png');
+  z-index: 1;
+  animation: slowParallax 300s linear infinite;
+}
+
+/* Middelste laag - subtiele parallax */
+.layer-2 {
+  background-image: url('../../assets/startscreen_bg/background_layer_2.png');
+  z-index: 2;
+  animation: mediumParallax 220s linear infinite;
+}
+
+/* Voorste laag - licht bewegende parallax */
+.layer-3 {
+  background-image: url('../../assets/startscreen_bg/background_layer_3.png');
+  z-index: 3;
+  animation: fastParallax 160s linear infinite;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+
+/* Parallax Animatie Keyframes - Naadloze eindeloze loop */
+@keyframes slowParallax {
+  0% {
+    background-position-x: 0%;
+  }
+  100% {
+    background-position-x: -100%;
+  }
+}
+
+@keyframes mediumParallax {
+  0% {
+    background-position-x: 0%;
+  }
+  100% {
+    background-position-x: -100%;
+  }
+}
+
+@keyframes fastParallax {
+  0% {
+    background-position-x: 0%;
+  }
+  100% {
+    background-position-x: -100%;
+  }
+}
+
+
+/* Main Scene */
+.scene {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+
+
+/* Hero Sprite Container - Mobile First */
+.hero-sprite-container {
+  position: absolute;
+  bottom: 38%;/* Op de floor-tile-top (floor-system height) */
+  left: 10%;
+  z-index: 16; /* Boven floor-tile-top (z-index 13) */
+  opacity: 0;
+  animation: fadeInHero 1.2s ease-out 1.5s forwards;
+}
+
+@keyframes fadeInHero {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+
+.magical-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, #ffeb3b 0%, rgba(255, 235, 59, 0) 70%);
+  border-radius: 50%;
+  animation: float-particle 8s ease-out infinite;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.particle:nth-child(1) {
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.particle:nth-child(2) {
+  left: 25%;
+  animation-delay: -9s;
+  animation-duration: 20s;
+}
+
+.particle:nth-child(3) {
+  left: 40%;
+  animation-delay: -4s;
+  animation-duration: 22s;
+  width: 2px;
+  height: 2px;
+}
+
+.particle:nth-child(4) {
+  left: 55%;
+  animation-delay: -12s;
+  animation-duration: 16s;
+  background: radial-gradient(circle, #ffc107 0%, rgba(255, 193, 7, 0) 70%);
+}
+
+.particle:nth-child(5) {
+  left: 70%;
+  animation-delay: -6s;
+  animation-duration: 25s;
+  width: 4px;
+  height: 4px;
+}
+
+.particle:nth-child(6) {
+  left: 85%;
+  animation-delay: -15s;
+  animation-duration: 19s;
+  background: radial-gradient(circle, #ff9800 0%, rgba(255, 152, 0, 0) 70%);
+}
+
+.particle:nth-child(7) {
+  left: 15%;
+  animation-delay: -3s;
+  animation-duration: 23s;
+  width: 2px;
+  height: 2px;
+}
+
+.particle:nth-child(8) {
+  left: 35%;
+  animation-delay: -10s;
+  animation-duration: 17s;
+  background: radial-gradient(circle, #cddc39 0%, rgba(205, 220, 57, 0) 70%);
+}
+
+.particle:nth-child(9) {
+  left: 60%;
+  animation-delay: -7s;
+  animation-duration: 21s;
+  width: 5px;
+  height: 5px;
+}
+
+.particle:nth-child(10) {
+  left: 80%;
+  animation-delay: -13s;
+  animation-duration: 24s;
+  background: radial-gradient(circle, #ffeb3b 0%, rgba(255, 235, 59, 0) 70%);
+}
+
+.particle:nth-child(11) {
+  left: 20%;
+  animation-delay: -8s;
+  animation-duration: 26s;
+  width: 3px;
+  height: 3px;
+}
+
+.particle:nth-child(12) {
+  left: 45%;
+  animation-delay: -2s;
+  animation-duration: 19s;
+  background: radial-gradient(circle, #fdd835 0%, rgba(253, 216, 53, 0) 70%);
+}
+
+.particle:nth-child(13) {
+  left: 65%;
+  animation-delay: -11s;
+  animation-duration: 27s;
+  width: 2px;
+  height: 2px;
+}
+
+.particle:nth-child(14) {
+  left: 90%;
+  animation-delay: -5s;
+  animation-duration: 20s;
+  background: radial-gradient(circle, #ff8f00 0%, rgba(255, 143, 0, 0) 70%);
+}
+
+.particle:nth-child(15) {
+  left: 5%;
+  animation-delay: -14s;
+  animation-duration: 28s;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #ffca28 0%, rgba(255, 202, 40, 0) 70%);
+}
+
+/* Alternatieve animatie voor sommige particles */
+.particle:nth-child(3),
+.particle:nth-child(7),
+.particle:nth-child(11),
+.particle:nth-child(13) {
+  animation-name: drift-particle;
+}
+
+@keyframes drift-particle {
+  0% {
+    bottom: -10px;
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.3) rotate(0deg);
+  }
+  15% {
+    opacity: 0.8;
+    transform: translate3d(-15px, 0, 0) scale(0.6) rotate(45deg);
+  }
+  30% {
+    transform: translate3d(10px, 0, 0) scale(0.9) rotate(90deg);
+  }
+  45% {
+    transform: translate3d(-20px, 0, 0) scale(1.1) rotate(135deg);
+  }
+  60% {
+    transform: translate3d(25px, 0, 0) scale(0.8) rotate(180deg);
+  }
+  75% {
+    transform: translate3d(-10px, 0, 0) scale(1) rotate(225deg);
+  }
+  90% {
+    opacity: 0.8;
+    transform: translate3d(15px, 0, 0) scale(0.5) rotate(270deg);
+  }
+  100% {
+    bottom: 100vh;
+    opacity: 0;
+    transform: translate3d(5px, 0, 0) scale(0.2) rotate(360deg);
+  }
+}
+
+@keyframes float-particle {
+  0% {
+    bottom: -10px;
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.5);
+  }
+  10% {
+    opacity: 1;
+  }
+  25% {
+    transform: translate3d(5px, 0, 0) scale(0.8);
   }
   50% {
-    transform: scale(1.05);
+    transform: translate3d(-8px, 0, 0) scale(1);
+  }
+  75% {
+    transform: translate3d(12px, 0, 0) scale(0.9);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    bottom: 100vh;
+    opacity: 0;
+    transform: translate3d(20px, 0, 0) scale(0.3);
   }
 }
 
-/* Responsiveness voor kleine schermen */
+
+.floor-system {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  z-index: 11;
+}
+
+.floor-tile-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  background-image: url('../../assets/startscreen_bg/tiles/floor_tile_top.png');
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  background-size: auto 48px;
+  z-index: 13;
+  
+  /* Pixel perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.floor-fill {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 24px);
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 15, 11, 0.1) 0%,
+    rgba(26, 15, 11, 0.5) 8px,
+    rgba(26, 15, 11, 0.8) 16px,
+    #1a0f0b 20px
+  );
+  z-index: 12;
+}
+
+.floor-tile-top::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 15, 11, 0) 0%,
+    rgba(26, 15, 11, 0.6) 100%
+  );
+  z-index: 14;
+  pointer-events: none;
+}
+
+/* Desktop en grote schermen (1200px en breder) */
+@media (min-width: 1200px) {
+  :root {
+    --shop-scale: 2.8;
+  }
+}
+
+/* Tablets en kleine laptops (768px - 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  :root {
+    --shop-scale: 2.2;
+  }
+}
+
+
+
+/* Mobiele apparaten en smartphones (767px en smaller) */
+@media (max-width: 767px) {
+  :root {
+    --shop-scale: 2.8;
+  }
+  
+  /* Subtiele animaties voor mobiel - betere performance */
+  .layer-1 {
+    animation-duration: 400s;
+  }
+  
+  .layer-2 {
+    animation-duration: 280s;
+  }
+  
+  .layer-3 {
+    animation-duration: 200s;
+  }
+}
+
+
+
+/* Kleine mobiele apparaten en oudere smartphones (480px en smaller) */
+@media (max-width: 480px) {
+  :root {
+    --shop-scale: 3.0;
+  }
+  
+  /* Extra subtiele animaties voor kleine mobiele apparaten */
+  .layer-1 {
+    animation-duration: 500s;
+  }
+  
+  .layer-2 {
+    animation-duration: 350s;
+  }
+  
+  .layer-3 {
+    animation-duration: 250s;
+  }
+  
+  /* Performance optimalisatie voor mobiel */
+  .background-layer {
+    will-change: auto;
+  }
+}
+
+/* Warrior Sprite Container */
+.warrior-sprite-container {
+  position: absolute;
+  bottom: 37%; /* Op de floor-tile-top (zelfde hoogte als hero) */
+  right: 10%;
+  z-index: 16; /* Boven floor-tile-top (z-index 13) */
+  opacity: 0;
+  animation: fadeInWarrior 1.2s ease-out 2.0s forwards; /* Later dan hero (2s) */
+}
+
+@keyframes fadeInWarrior {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Cutscene sprite specifieke styling */
+.cutscene-hero {
+  /* Extra styling voor cutscene hero indien nodig */
+}
+
+.cutscene-warrior {
+  /* Extra styling voor cutscene warrior indien nodig */
+}
+
+/* Mobile Responsiveness voor Sprites */
+@media (max-width: 768px) {
+  .hero-sprite-container {
+    bottom: 38%;
+    right: auto;
+    left: 12%;
+    transform: translateX(-50%);
+  }
+  
+  .warrior-sprite-container {
+    bottom: 39%;
+    right: auto;
+    left: 65%;
+    transform: translateX(-50%);
+  }
+}
+
 @media (max-height: 600px) {
-  .cutscene-text {
-    margin-bottom: 1rem;
+  .hero-sprite-container {
+    bottom: 32%;
   }
   
-  .cutscene-text h1 {
-    margin-bottom: 1rem;
-  }
-  
-  .cutscene-text p {
-    margin-bottom: 0.5rem;
-  }
-  
-  .continue-btn {
-    margin-top: 1rem;
+  .warrior-sprite-container {
+    bottom: 32%;
   }
 }
 
-/* Touch feedback voor mobile */
-.continue-btn.pressed {
-  transform: scale(0.95);
+/* Landscape mode op apparaten met lage schermhoogte (horizontaal) */
+@media (max-height: 600px) and (orientation: landscape) {
+  :root {
+    --shop-scale: 2.0;
+  }
 }
-
-.continue-btn:active {
-  transform: scale(0.95);
-} 

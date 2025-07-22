@@ -11,14 +11,62 @@
     <link href="../../styles/components/button.css" type="text/css" rel="stylesheet">
     <link href="style.css" type="text/css" rel="stylesheet">
 
+    <link href="../../styles/components/hero-sprite.css" type="text/css" rel="stylesheet">
+    <link href="../../styles/components/warrior-sprite.css" type="text/css" rel="stylesheet">
+    
     <script defer src="../../scripts/player-data.js"></script>
     <script defer src="../../scripts/transition-overlay.js"></script>
+    <script defer src="../../scripts/hero-sprite.js"></script>
+    <script defer src="../../scripts/warrior-sprite.js"></script>
     <script defer src="script.js"></script>
   </head>
   
     <body>
     <div class="game-container">
-        </button>
+       <!-- Background Layers -->
+       <div class="background-layer layer-1"></div>
+       <div class="background-layer layer-2"></div>
+       <div class="background-layer layer-3"></div>
+       
+               <!-- Main Scene -->
+        <div class="scene">
+         
+         <!-- Floor System -->
+         <div class="floor-system">
+           <div class="floor-tile-top"></div>
+           <div class="floor-fill"></div>
+         </div>
+         
+         <!-- Magical Particles -->
+         <div class="magical-particles">
+           <div class="particle"></div>
+           <div class="particle"></div>
+           <div class="particle"></div>
+           <div class="particle"></div>
+           <div class="particle"></div>
+           <div class="particle"></div>
+           <div class="particle"></div>
+           <div class="particle"></div>
+           <div class="particle"></div>
+           <div class="particle"></div>
+           <div class="particle"></div>
+           <div class="particle"></div>
+           <div class="particle"></div>
+           <div class="particle"></div>
+           <div class="particle"></div>
+                   </div>
+        </div>
+        
+
+        <!-- Hero Sprite Container -->
+        <div class="hero-sprite-container" id="heroSpriteContainer">
+          <!-- Hero sprite wordt hier toegevoegd via JavaScript -->
+        </div>
+        
+        <!-- Warrior Sprite Container -->
+        <div class="warrior-sprite-container" id="warriorSpriteContainer">
+          <!-- Warrior sprite wordt hier toegevoegd via JavaScript -->
+        </div>
       </div>
       
     </div>

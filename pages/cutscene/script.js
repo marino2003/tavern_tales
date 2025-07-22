@@ -1,55 +1,72 @@
 // Cutscene Logic
 console.log('Cutscene loaded');
 
-// Touch/Click feedback voor knoppen
-function addButtonFeedback(button) {
-  // Voor mobile touch events
-  button.addEventListener('touchstart', () => {
-    button.classList.add('pressed');
-  }, { passive: true });
-  
-  button.addEventListener('touchend', () => {
-    setTimeout(() => {
-      button.classList.remove('pressed');
-    }, 100);
-  }, { passive: true });
-  
-  // Voor desktop mouse events
-  button.addEventListener('mousedown', () => {
-    button.classList.add('pressed');
-  });
-  
-  button.addEventListener('mouseup', () => {
-    button.classList.remove('pressed');
-  });
-  
-  button.addEventListener('mouseleave', () => {
-    button.classList.remove('pressed');
-  });
-}
-
-function startAdventure() {
-  console.log('Begin avontuur clicked');
-  
-  // Ga naar navigate pagina om naar eerste locatie te gaan
-  const coordinates = '51.203275,4.450912';
-  const locationName = 'Boelaerpark';
-  const nextPage = 'stop1';
-  
-  location.assign(`../navigate/index.html?coordinates=${coordinates}&locationName=${locationName}&nextPage=${nextPage}`);
-}
-
 // Event listeners toevoegen wanneer DOM geladen is
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Cutscene DOM Content Loaded');
   
-  const continueBtn = document.getElementById('continueBtn');
+  const heroContainer = document.getElementById('heroSpriteContainer');
+  const warriorContainer = document.getElementById('warriorSpriteContainer');
   
-  if (continueBtn) {
-    continueBtn.addEventListener('click', startAdventure);
-    addButtonFeedback(continueBtn);
+  console.log('Containers gevonden:', {
+    heroContainer: !!heroContainer,
+    warriorContainer: !!warriorContainer,
+    HeroSprite: !!window.HeroSprite,
+    WarriorSprite: !!window.WarriorSprite
+  });
+  
+  // Maak hero sprite
+  if (heroContainer && window.HeroSprite) {
+    const heroSprite = window.HeroSprite.create({
+      scale: 4,
+      speed: 0.8,
+      container: heroContainer,
+      className: 'hero-sprite--xlarge'
+    });
+    
+    console.log('Hero sprite toegevoegd aan cutscene', heroSprite);
   } else {
-    console.error('Continue button not found!');
+    console.error('Hero container of HeroSprite niet gevonden', { 
+      heroContainer: !!heroContainer, 
+      HeroSprite: !!window.HeroSprite 
+    });
+  }
+  
+  // Maak warrior sprite
+  if (warriorContainer && window.WarriorSprite) {
+    console.log('Creating warrior sprite met parameters:', {
+      scale: 4,
+      speed: 1.0,
+      container: warriorContainer,
+      className: 'cutscene-warrior',
+      mirrored: true
+    });
+    
+    const warriorSprite = window.WarriorSprite.create({
+      scale: 4,
+      speed: 1.0,
+      container: warriorContainer,
+      className: 'cutscene-warrior',
+      mirrored: true
+    });
+    
+    console.log('Warrior sprite toegevoegd aan cutscene', warriorSprite);
+    console.log('Warrior sprite dataset:', warriorSprite.dataset);
+    console.log('Warrior sprite mirrored animation:', warriorSprite._mirroredAnimation);
+    
+    // Check na 1 seconde of de animatie draait
+    setTimeout(() => {
+      console.log('1 seconde later - warrior sprite status:', {
+        backgroundPosition: warriorSprite.style.backgroundPosition,
+        dataset: warriorSprite.dataset,
+        hasAnimation: !!warriorSprite._mirroredAnimation
+      });
+    }, 1000);
+  } else {
+    console.error('Warrior container of WarriorSprite niet gevonden', { 
+      warriorContainer: !!warriorContainer, 
+      WarriorSprite: !!window.WarriorSprite 
+    });
   }
   
   // Start inkomende overgang

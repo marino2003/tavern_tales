@@ -1,0 +1,41 @@
+. {
+    background-image: url(assets\spritesheets\npc_1\spritesheet.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.-Warrior_Idle_1 {
+    width: 64px;
+    height: 44px;
+    background-position: -1px -1px;
+}
+
+.-Warrior_Idle_2 {
+    width: 64px;
+    height: 44px;
+    background-position: -67px -1px;
+}
+
+.-Warrior_Idle_3 {
+    width: 64px;
+    height: 44px;
+    background-position: -133px -1px;
+}
+
+.-Warrior_Idle_4 {
+    width: 64px;
+    height: 44px;
+    background-position: -199px -1px;
+}
+
+.-Warrior_Idle_5 {
+    width: 64px;
+    height: 44px;
+    background-position: -265px -1px;
+}
+
+.-Warrior_Idle_6 {
+    width: 64px;
+    height: 44px;
+    background-position: -331px -1px;
+}
