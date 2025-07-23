@@ -65,6 +65,11 @@ body {
     padding-top: max(0px, env(safe-area-inset-top));
     padding-bottom: max(0px, env(safe-area-inset-bottom));
   }
+  
+  /* Zorg dat dialogue box altijd volledig zichtbaar is */
+  .dialogue-box {
+    bottom: max(40px, env(safe-area-inset-bottom) + 30px) !important;
+  }
 }
 
 /* Landscape mode optimalisaties */

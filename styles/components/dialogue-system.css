@@ -45,9 +45,9 @@
   transform: translateY(20px);
   transition: transform 0.3s ease-out;
   
-  /* Mobile optimalisaties */
-  max-height: 40vh; /* Zorg dat dialogue box niet te groot wordt */
-  max-height: 40dvh;
+  /* Mobile optimalisaties - zorg dat dialogue box altijd volledig zichtbaar is */
+  max-height: 60vh; /* Meer ruimte voor dialogue box */
+  max-height: 60dvh;
   
   /* Safe area support */
   bottom: max(40px, env(safe-area-inset-bottom) + 20px);
@@ -103,7 +103,7 @@
   /* Text wrapping */
   word-wrap: break-word;
   overflow-wrap: break-word;
-  max-height: 120px;
+  max-height: 150px; /* Meer ruimte voor tekst */
   overflow-y: auto;
   
   /* Zorg dat tekst de volledige beschikbare ruimte gebruikt */
@@ -190,8 +190,8 @@
     right: 15px;
     bottom: max(35px, env(safe-area-inset-bottom) + 15px);
     min-height: 120px;
-    max-height: 35vh;
-    max-height: 35dvh;
+    max-height: 50vh; /* Meer ruimte op tablet */
+    max-height: 50dvh;
     padding: 16px;
     gap: 16px;
     /* Kleinere box shadow op tablet */
@@ -207,7 +207,7 @@
   
   .dialogue-text {
     font-size: 28px;
-    max-height: 100px;
+    max-height: 130px; /* Meer ruimte voor tekst op tablet */
   }
   
   .dialogue-continue {
@@ -224,8 +224,8 @@
     right: 10px;
     bottom: max(30px, env(safe-area-inset-bottom) + 10px);
     min-height: 110px;
-    max-height: 30vh;
-    max-height: 30dvh;
+    max-height: 45vh; /* Meer ruimte op mobile */
+    max-height: 45dvh;
     padding: 12px;
     gap: 12px;
     border-width: 2px;
@@ -242,7 +242,7 @@
   
   .dialogue-text {
     font-size: 24px;
-    max-height: 90px;
+    max-height: 120px; /* Meer ruimte voor tekst op mobile */
   }
   
   .dialogue-continue {
@@ -270,8 +270,8 @@
   .dialogue-box {
     bottom: max(25px, env(safe-area-inset-bottom) + 5px);
     min-height: 90px;
-    max-height: 25vh;
-    max-height: 25dvh;
+    max-height: 35vh; /* Meer ruimte in landscape */
+    max-height: 35dvh;
     padding: 10px;
     box-shadow: -3px 3px 0px rgba(0, 0, 0, 0.5), -1px 1px 0px rgba(0, 0, 0, 0.3);
     outline: 2px solid black;
@@ -279,7 +279,7 @@
   
   .dialogue-text {
     font-size: 20px;
-    max-height: 70px;
+    max-height: 100px; /* Meer ruimte voor tekst in landscape */
   }
   
   .dialogue-portrait {
