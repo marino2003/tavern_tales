@@ -113,25 +113,40 @@ function onChange() {
   if (pointerElement !== null) {
     if (direction === null) {
       pointerElement.style.visibility = 'hidden';
+      console.log('Wijzer verborgen - geen richting beschikbaar');
     } else {
       pointerElement.style.visibility = 'visible';
       if (compass === null) {
-        pointerElement.style.transform = `rotate(${direction}deg)`;
+        const rotation = direction;
+        pointerElement.style.transform = `rotate(${rotation}deg)`;
+        console.log('Wijzer roteert naar richting:', rotation, 'graden (zonder kompas)');
       } else {
-        pointerElement.style.transform = `rotate(${compass + direction}deg)`;
+        const rotation = compass + direction;
+        pointerElement.style.transform = `rotate(${rotation}deg)`;
+        console.log('Wijzer roteert naar richting:', rotation, 'graden (kompas:', compass, '+ richting:', direction, ')');
       }
     }
+  } else {
+    console.log('Wijzer element niet gevonden');
   }
 }
 
 function pointToLocation(lat1, lon1, lat2, lon2, pointerSelector, requestPermissionsButtonSelector, onShowRequestPermissions, onHideRequestPermissions) {
+  console.log('pointToLocation aangeroepen met:');
+  console.log('Huidige locatie:', lat1, lon1);
+  console.log('Doel locatie:', lat2, lon2);
+  console.log('Wijzer selector:', pointerSelector);
+  
   showRequestPermissions = onShowRequestPermissions;
   hideRequestPermissions = onHideRequestPermissions;
 
   requestPermissionsButtonElement = document.querySelector(requestPermissionsButtonSelector);
   pointerElement = document.querySelector(pointerSelector);
+  
+  console.log('Wijzer element gevonden:', pointerElement);
 
   direction = getDistance(lat1, lon1, lat2, lon2).directionInDegrees;
+  console.log('Berekende richting:', direction, 'graden');
 
   startCompass();
   onChange();

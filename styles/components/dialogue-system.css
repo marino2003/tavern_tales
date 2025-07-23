@@ -77,13 +77,16 @@
   flex-direction: column;
   height: 100%;
   position: relative;
+  
+  /* Zorg dat de content altijd de volledige hoogte gebruikt */
+  min-height: 80px;
 }
 
 .dialogue-text {
   /* Pixel font zoals character modal */
   font-family: m6x11plus, monospace;
   font-size: 32px;
-  line-height: 1.4;
+  line-height: 1.2;
   color: #000000;
   margin: 0;
   padding: 0;
@@ -95,6 +98,11 @@
   overflow-wrap: break-word;
   max-height: 120px;
   overflow-y: auto;
+  
+  /* Zorg dat tekst de volledige beschikbare ruimte gebruikt */
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
 }
 
 /* Verberg scrollbar */
@@ -129,6 +137,9 @@
   /* Subtiele knipperanimatie */
   animation: continue-subtle 2s ease-in-out infinite;
   cursor: pointer;
+  
+  /* Zorg dat indicator altijd rechtsonder blijft */
+  pointer-events: none;
 }
 
 @keyframes continue-subtle {
@@ -288,7 +299,7 @@
   position: absolute;
   bottom: 8px;
   left: 8px;
-  display: flex;
+  display: none; /* Verberg pagination dots */
   gap: 6px;
   align-items: center;
   z-index: 5;

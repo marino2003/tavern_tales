@@ -31,7 +31,20 @@ document.addEventListener('DOMContentLoaded', () => {
   if (continueBtn) {
     continueBtn.addEventListener('click', () => {
       console.log('Cutscene voltooid - navigeren naar volgende pagina');
-      window.location.href = '../navigate/';
+      // Start transitie
+      if (window.TransitionOverlay) {
+        const transition = new window.TransitionOverlay({
+          duration: 1500,
+          color: '#A0303F',
+          direction: 'left-to-right'
+        });
+        
+        transition.transitionOut(() => {
+          window.location.href = '../navigate/';
+        });
+      } else {
+        window.location.href = '../navigate/';
+      }
     });
   }
 });
@@ -48,9 +61,25 @@ function startCutsceneDialogue() {
   // Voeg hier je eigen dialoogregels toe:
   const cutsceneDialogues = [
     {
-       text: "Jouw dialoogregel hier...",
-       portrait: window.DialogueSystem.Characters.HERO
+       text: "{PLAYER}, je komst is een zegen… en onze enige hoop.",
+       portrait: window.DialogueSystem.Characters.NPC
     },
+
+    {
+      text: "Eeuwenlang lag hij te slapen, diep onder onze straten. Nu … is Dracohol ontwaakt.",
+      portrait: window.DialogueSystem.Characters.NPC
+   },
+
+   {
+    text: "Verzamel de Vier Legendarische Bieren van De Koninck.... Alleen zij kunnen de draak keren.",
+      portrait: window.DialogueSystem.Characters.NPC
+   },
+
+   {
+    text: "Als ik daarna tenminste een pintje krijg…",
+    portrait: window.DialogueSystem.Characters.HERP,
+    isLast: true // Dit is het laatste dialoog
+   },
   ];
   
   if (cutsceneDialogues.length === 0) {
@@ -64,14 +93,42 @@ function startCutsceneDialogue() {
       typingSpeed: 40, // Iets sneller voor cutscene
       onComplete: () => {
         console.log('Cutscene dialoog voltooid!');
-        // Toon continue button na dialoog
+        
+        // Toon continue button na alle dialogen
         const continueBtn = document.getElementById('continueBtn');
         if (continueBtn) {
           continueBtn.style.display = 'block';
+          console.log('Continue button wordt getoond');
+        } else {
+          console.error('Continue button niet gevonden!');
         }
       },
       onNext: (dialogue, index) => {
         console.log(`Cutscene dialoog ${index + 1} gestart`);
+        
+        // Check of dit het laatste dialoog was
+        if (dialogue.isLast) {
+          console.log('Laatste dialoog gestart - button wordt getoond na voltooiing');
+          
+          // Toon button na een korte delay met animatie
+          setTimeout(() => {
+            const continueBtn = document.getElementById('continueBtn');
+            if (continueBtn) {
+              continueBtn.style.display = 'block';
+              continueBtn.style.opacity = '0';
+              continueBtn.style.transform = 'translateX(-50%) scale(0.8) translateY(20px)';
+              
+              // Animate in
+              setTimeout(() => {
+                continueBtn.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                continueBtn.style.opacity = '1';
+                continueBtn.style.transform = 'translateX(-50%) scale(1) translateY(0)';
+              }, 100);
+              
+              console.log('Continue button wordt getoond na laatste dialoog');
+            }
+          }, 1000);
+        }
       }
     });
     

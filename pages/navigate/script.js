@@ -22,18 +22,24 @@ localStorage.setItem('coordinates', coordinatesParam);
 localStorage.setItem('locationName', locationName);
 localStorage.setItem('nextPage', nextPage);
 
-// permissions for compass
+// permissions for compass and location
 const requestPermissionsElement = document.querySelector('#request-permissions')
+const gameContainer = document.querySelector('.game-container')
+
 function onShowRequestPermissions() {
-  requestPermissionsElement.style.display = 'block';
+  requestPermissionsElement.classList.add('active');
+  gameContainer.classList.add('modal-active');
 }
 function onHideRequestPermissions() {
-  requestPermissionsElement.style.display = 'none';
+  requestPermissionsElement.classList.remove('active');
+  gameContainer.classList.remove('modal-active');
 }
-onHideRequestPermissions();
 
 // deze functie wordt opgeroepen elke keer een nieuwe locatie doorkomt
 function success(position) {
+  console.log('GPS positie ontvangen:', position.coords);
+  console.log('Doel coördinaten:', coordinates);
+  
   // point to location via compass - dit roteert je wijzer!
   pointToLocation(
     position.coords.latitude, 
@@ -48,6 +54,7 @@ function success(position) {
 
   // bereken afstand tussen mijn locatie en die van mijn doel
   const distance = getDistance(position.coords.latitude, position.coords.longitude, coordinates.latitude, coordinates.longitude).distance;
+  console.log('Afstand tot doel:', distance, 'meter');
   // laat die afstand zien
   distanceElement.textContent = distance;
 
@@ -61,6 +68,8 @@ function success(position) {
 // wanneer geen gps beschikbaar is
 function error(err) {
   console.warn('ERROR(' + err.code + '): ' + err.message);
+  // Toon permissie request als locatie niet beschikbaar is
+  onShowRequestPermissions();
 }
 
 // check if page lives in the test iframe
@@ -77,13 +86,22 @@ if (isInIframe()) {
 
 } else {
 
-  // options for geolocation
-  const options = {
-    enableHighAccuracy: true,
-    timeout: 20000,
-    maximumAge: 0
-  };
+  // Toon permissie request bij het laden van de pagina
+  onShowRequestPermissions();
 
-  // access real gps data
-  navigator.geolocation.watchPosition(success, error, options);
+  // Event listener voor de permissie button
+  document.querySelector('#request-permissions-button').addEventListener('click', function() {
+    console.log('Permissie button geklikt - start GPS tracking');
+    onHideRequestPermissions();
+    
+    // options for geolocation
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 20000,
+      maximumAge: 0
+    };
+
+    // access real gps data
+    navigator.geolocation.watchPosition(success, error, options);
+  });
 }

@@ -1,148 +1,392 @@
-/* Zorg ervoor dat compas gecentreerd staat */
-body {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 1rem;
-}
-
-/* Compas container - centraal onderdeel van de pagina */
-.compass-container {
+/* Game Container - Zelfde als startmenu */
+.game-container {
   position: relative;
-  display: inline-block;
-  margin: 2rem auto;
-  width: 450px; /* Veel groter voor centrale focus */
-  height: 450px;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: #2a1810;
+  opacity: 0;
+  animation: fadeIn 1.2s ease-out 0.2s forwards;
 }
 
-/* Responsive: extra groot op desktop, mobiel krijgt maximale beschikbare ruimte */
-@media (min-width: 768px) {
-  .compass-container {
-    width: 600px; /* Extra groot op desktop */
-    height: 600px;
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (max-width: 767px) {
-  .compass-container {
-    width: 85vw; /* 85% van scherm breedte op tablets */
-    height: 85vw;
-    max-width: 500px;
-    max-height: 500px;
-  }
-}
-
-@media (max-width: 480px) {
-  .compass-container {
-    width: 90vw; /* 90% van scherm breedte op mobiel */
-    height: 90vw;
-    max-width: 400px;
-    max-height: 400px;
-  }
-}
-
-/* Arm die het compas vasthoudt - linker hoek */
-.compass-arm {
+/* Single Background Image */
+.background-image {
   position: absolute;
   top: 0;
   left: 0;
-  max-width: 100%;
-  max-height: 100%;
-  /* Pixel art stijl behouden */
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-  /* Behoud oorspronkelijke verhoudingen */
-  object-fit: contain;
-  /* Achter het compas */
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/navigation/background 2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   z-index: 1;
-}
-
-/* Base layer (windrose achtergrond) */
-.compass-base {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  max-width: 100%;
-  max-height: 100%;
-  /* Pixel art stijl behouden */
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
-  /* Behoud oorspronkelijke verhoudingen */
-  object-fit: contain;
-  /* Boven de arm */
-  z-index: 2;
 }
 
-/* Wijzer (roteert naar doellocatie) */
-.compass-needle {
+/* Main Scene */
+.scene {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+/* Navigation Info - Gecentreerd bovenaan */
+.navigation-info {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  text-align: center;
+}
+
+.navigation-info h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-family: m6x11plus, monospace;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.navigation-info p {
+  margin: 0;
+  font-size: 1.2rem;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-family: m6x11plus, monospace;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+/* Compass container - Gecentreerd in het midden */
+.compass-container {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  max-width: 100%;
-  max-height: 100%;
-  /* Pixel art stijl behouden */
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.compass-image {
+  width: 100%;
+  height: 100%;
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
-  /* Rotatie punt in het midden */
-  transform-origin: center center;
-  /* Transition voor vloeiende rotatie */
-  transition: transform 0.3s ease-out;
-  /* Behoud oorspronkelijke verhoudingen */
-  object-fit: contain;
-  /* Bovenop alle andere lagen */
-  z-index: 3;
+  object-fit: cover;
+  pointer-events: auto;
 }
 
-/* Permissie request styling */
-#request-permissions {
-  display: none;
-  position: fixed;
+/* Compass overlay - Gecentreerd in het midden */
+.compass-overlay {
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
-  padding: 1rem;
-  border-radius: 8px;
+  width: 300px;
+  height: 300px;
+  z-index: 25;
+}
+
+.compass-windrose {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  object-fit: contain;
+  z-index: 1;
+}
+
+.compass-wijzer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  transform-origin: 50% 50%;
+  transition: transform 0.3s ease-out;
+  object-fit: contain;
+  z-index: 2;
+}
+
+/* Floor System - Zelfde als startmenu */
+.floor-system {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  z-index: 11;
+}
+
+.floor-tile-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  background-image: url('../../assets/startscreen_bg/tiles/floor_tile_top.png');
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  background-size: auto 48px;
+  z-index: 13;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.floor-fill {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 24px);
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 15, 11, 0.1) 0%,
+    rgba(26, 15, 11, 0.5) 8px,
+    rgba(26, 15, 11, 0.8) 16px,
+    #1a0f0b 20px
+  );
+  z-index: 12;
+}
+
+.floor-tile-top::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 15, 11, 0) 0%,
+    rgba(26, 15, 11, 0.6) 100%
+  );
+  z-index: 14;
+  pointer-events: none;
+}
+
+/* Magical Particles - Zelfde als startmenu */
+.magical-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 15;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, #ffeb3b 0%, rgba(255, 235, 59, 0) 70%);
+  border-radius: 50%;
+  animation: float-particle 8s ease-out infinite;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 18s; }
+.particle:nth-child(2) { left: 25%; animation-delay: -9s; animation-duration: 20s; }
+.particle:nth-child(3) { left: 40%; animation-delay: -4s; animation-duration: 22s; width: 2px; height: 2px; }
+.particle:nth-child(4) { left: 55%; animation-delay: -12s; animation-duration: 16s; background: radial-gradient(circle, #ffc107 0%, rgba(255, 193, 7, 0) 70%); }
+.particle:nth-child(5) { left: 70%; animation-delay: -6s; animation-duration: 25s; width: 4px; height: 4px; }
+.particle:nth-child(6) { left: 85%; animation-delay: -15s; animation-duration: 19s; background: radial-gradient(circle, #ff9800 0%, rgba(255, 152, 0, 0) 70%); }
+.particle:nth-child(7) { left: 15%; animation-delay: -3s; animation-duration: 23s; width: 2px; height: 2px; }
+.particle:nth-child(8) { left: 35%; animation-delay: -10s; animation-duration: 17s; background: radial-gradient(circle, #cddc39 0%, rgba(205, 220, 57, 0) 70%); }
+.particle:nth-child(9) { left: 60%; animation-delay: -7s; animation-duration: 21s; width: 5px; height: 5px; }
+.particle:nth-child(10) { left: 80%; animation-delay: -13s; animation-duration: 24s; background: radial-gradient(circle, #ffeb3b 0%, rgba(255, 235, 59, 0) 70%); }
+.particle:nth-child(11) { left: 20%; animation-delay: -8s; animation-duration: 26s; width: 3px; height: 3px; }
+.particle:nth-child(12) { left: 45%; animation-delay: -2s; animation-duration: 19s; background: radial-gradient(circle, #fdd835 0%, rgba(253, 216, 53, 0) 70%); }
+.particle:nth-child(13) { left: 65%; animation-delay: -11s; animation-duration: 27s; width: 2px; height: 2px; }
+.particle:nth-child(14) { left: 90%; animation-delay: -5s; animation-duration: 20s; background: radial-gradient(circle, #ff8f00 0%, rgba(255, 143, 0, 0) 70%); }
+.particle:nth-child(15) { left: 5%; animation-delay: -14s; animation-duration: 28s; width: 4px; height: 4px; background: radial-gradient(circle, #ffca28 0%, rgba(255, 202, 40, 0) 70%); }
+
+@keyframes float-particle {
+  0% {
+    bottom: -10px;
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.5);
+  }
+  10% { opacity: 1; }
+  25% { transform: translate3d(5px, 0, 0) scale(0.8); }
+  50% { transform: translate3d(-8px, 0, 0) scale(1); }
+  75% { transform: translate3d(12px, 0, 0) scale(0.9); }
+  90% { opacity: 1; }
+  100% {
+    bottom: 100vh;
+    opacity: 0;
+    transform: translate3d(20px, 0, 0) scale(0.3);
+  }
+}
+
+/* Modal Overlay - Zelfde als startmenu */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.game-container.modal-active {
+  filter: blur(3px);
+  transition: filter 0.3s ease;
+}
+
+.character-modal {
+  position: relative;
+  width: 380px;
+  height: 420px;
+  padding: 20px 24px;
+  background: #f8f8f8;
+  box-shadow: -6px 6px 0px rgba(0, 0, 0, 0.5), -4px 4px 0px rgba(0, 0, 0, 0.3);
+  outline: 6px solid black;
+  border: 2px solid #ddd;
+  transform: translateY(30px) scale(0.95);
+  transition: transform 0.3s ease;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.modal-overlay.active .character-modal {
+  transform: translateY(0) scale(1);
+}
+
+.modal-content {
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-title {
   text-align: center;
-  z-index: 1000;
-  max-width: 300px;
+  color: black;
+  font-size: 42px;
+  font-family: m6x11plus, monospace;
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 2px;
 }
 
-#request-permissions-button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
+.permission-info {
+  text-align: center;
+  margin: 1rem 0;
 }
 
-#request-permissions-button:hover {
-  background: #0056b3;
-}
-
-/* Styling voor de titel en afstand */
-h1 {
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-}
-
-p {
+.permission-info p {
+  color: black;
+  font-family: m6x11plus, monospace;
   font-size: 1.2rem;
-  margin-bottom: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+/* Mobile First Responsive Design */
+@media (max-width: 480px) {
+  .navigation-info h1 {
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .navigation-info p {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .compass-overlay {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .character-modal {
+    width: 90%;
+    max-width: 350px;
+    height: auto;
+    min-height: 400px;
+    padding: 18px 20px;
+  }
+  
+  .modal-content {
+    width: 100%;
+  }
+  
+  .modal-title {
+    font-size: 32px;
+    letter-spacing: 1px;
+  }
+  
+  .permission-info p {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+  }
+}
+
+@media (max-width: 360px) {
+  .compass-overlay {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .navigation-info h1 {
+    font-size: 1rem;
+  }
+  
+  .navigation-info p {
+    font-size: 0.9rem;
+  }
 }

@@ -9,6 +9,7 @@
     <link href="../../styles/reset.css" type="text/css" rel="stylesheet">
     <link href="../../styles/variables.css" type="text/css" rel="stylesheet">
     <link href="../../styles/general.css" type="text/css" rel="stylesheet">
+    <link href="../../styles/components/button.css" type="text/css" rel="stylesheet">
     <link href="style.css" type="text/css" rel="stylesheet">
 
     <script defer src="../../scripts/get-distance.js"></script>
@@ -20,23 +21,72 @@
   </head>
   <body>
 
-    <h1>Navigeer naar <span id="location-name"></span></h1>
-    <p>Nog <span id="distance"></span> meter</p>
+    <div class="game-container">
+      
+      <!-- Single Background Image -->
+      <div class="background-image"></div>
+      
+      <!-- Main Scene -->
+      <div class="scene">
+        <!-- Navigation Info -->
+        <div class="navigation-info">
+          <h1>Navigeer naar <span id="location-name"></span></h1>
+          <p>Nog <span id="distance"></span> meter</p>
+        </div>
 
-    <!-- Pixel Art Compas Container -->
-    <div class="compass-container">
-      <!-- Arm die het compas vasthoudt - achtergrond laag -->
-      <img src="../../assets/compas resized/arm.png" alt="arm" class="compass-arm" />
-      <!-- Base layer (windrose) - roteert niet -->
-      <img src="../../assets/compas resized/windrose.png" alt="compas" class="compass-base" />
-      <!-- Wijzer layer - roteert naar doellocatie -->
-      <img src="../../assets/compas resized/wijzer.png" alt="wijzer" id="point-to-location" class="compass-needle" />
+        <!-- Handholding compass container -->
+        <div class="compass-container">
+          <img src="../../assets/navigation/handholding_compass.png" alt="handholding compass" class="compass-image" />
+        </div>
+
+        <!-- Compas assets overlay in het midden -->
+        <div class="compass-overlay">
+          <!-- Windrose (basis) -->
+          <img src="../../assets/compas resized/windrose.png" alt="windrose" class="compass-windrose" />
+          <!-- Wijzer (roteert naar doellocatie) -->
+          <img src="../../assets/compas resized/wijzer.png" alt="wijzer" id="point-to-location" class="compass-wijzer" />
+        </div>
+        
+        
+        <!-- Magical Particles -->
+        <div class="magical-particles">
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+        </div>
+      </div>
+      
     </div>
 
-    <!-- Permissie request voor iOS kompas -->
-    <div id="request-permissions">
-      Mogen we je kompas gebruiken om je naar de juiste locatie te gidsen?
-      <button id="request-permissions-button">Geef goedkeuring</button>
+    <!-- Permissie request voor locatie - Modal stijl -->
+    <div class="modal-overlay" id="request-permissions">
+      <div class="character-modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <h2 class="modal-title">- Locatie Toegang -</h2>
+          
+          <div class="permission-info">
+            <p>Deze app heeft toegang tot je locatie nodig om je naar de juiste plek te gidsen.</p>
+          </div>
+          
+          <button class="pixel-button primary" id="request-permissions-button">
+            <img src="../../assets/ui/button_svg.svg" alt="" class="pixel-button-svg">
+            <span class="pixel-button-text">Geef Toegang</span>
+          </button>
+        </div>
+      </div>
     </div>
 
   </body>

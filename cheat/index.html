@@ -17,11 +17,30 @@
   <body>
 
     <h1>Cheat Navigation</h1>
+    
+    <h2>Pagina's</h2>
     <ul>
       <li><a href="../pages/start">Start page</a></li>
       <li><a href="../pages/stop1">Stop 1</a></li>
       <li><a href="../pages/stop2">Stop 2</a></li>
     </ul>
+
+    <h2>Test Navigatie - Echte Locaties</h2>
+    <div class="test-navigation">
+      <p>Test de navigatie functionaliteit met echte locaties die ver van elkaar afliggen:</p>
+      <button onclick="testNavigate('51.2194,4.4025', 'Grote Markt Antwerpen', 'stop1')">Test naar Grote Markt Antwerpen</button>
+      <button onclick="testNavigate('50.8503,4.3517', 'Grote Markt Brussel', 'stop2')">Test naar Grote Markt Brussel</button>
+      <button onclick="testNavigate('51.9225,4.4792', 'Rotterdam Centraal', 'start')">Test naar Rotterdam Centraal</button>
+      <button onclick="testNavigate('52.3676,4.9041', 'Amsterdam Centraal', 'stop1')">Test naar Amsterdam Centraal</button>
+      <button onclick="testNavigate('50.1109,8.6821', 'Frankfurt Hauptbahnhof', 'stop2')">Test naar Frankfurt (Duitsland)</button>
+    </div>
+
+    <script>
+      function testNavigate(coordinates, locationName, nextPage) {
+        const url = `../pages/navigate/index.html?coordinates=${coordinates}&locationName=${encodeURIComponent(locationName)}&nextPage=${nextPage}`;
+        window.open(url, '_blank');
+      }
+    </script>
     
   </body>
 </html>

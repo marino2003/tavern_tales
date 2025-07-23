@@ -443,7 +443,8 @@ function initDialogueSystem(options = {}) {
  * @param {Object} options - Extra opties
  */
 function showDialogue(dialogues, options = {}) {
-    if (!gameDialogue) {
+    // Maak nieuwe instance als er geen bestaat of als er opties zijn
+    if (!gameDialogue || Object.keys(options).length > 0) {
         initDialogueSystem(options);
     }
     
@@ -497,8 +498,14 @@ window.DialogueSystem = {
 // Auto-initialiseer als DOM geladen is
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-        initDialogueSystem();
+        // Alleen initialiseren als er nog geen instance is
+        if (!gameDialogue) {
+            initDialogueSystem();
+        }
     });
 } else {
-    initDialogueSystem();
+    // Alleen initialiseren als er nog geen instance is
+    if (!gameDialogue) {
+        initDialogueSystem();
+    }
 } 
