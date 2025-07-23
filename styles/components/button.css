@@ -5,7 +5,7 @@
   padding: 0;
   background: none;
   border: none;
-  font-family: m6x11plus, monospace;
+  font-family: var(--pixel-font);
   font-size: 40px;
   color: white;
   text-align: center;

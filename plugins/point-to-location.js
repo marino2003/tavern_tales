@@ -63,6 +63,9 @@ navigator.geolocation.watchPosition(success, error, options);
 /* Source: https://dev.to/orkhanjafarovr/real-compass-on-mobile-browsers-with-javascript-3emi */
 
 const isIOS = navigator.userAgent.match(/(iPod|iPhone|iPad)/) && navigator.userAgent.match(/AppleWebKit/);
+const isAndroid = /Android/.test(navigator.userAgent);
+const isMobile = isIOS || isAndroid;
+
 let compassStarted = false;
 let compassStartedViaClick = false;
 let compass = null;
@@ -75,38 +78,79 @@ let hideRequestPermissions = null;
 function startCompass() {
   if (!compassStarted) {
     compassStarted = true;
-    if (!isIOS) {
+    console.log('Starting compass... Mobile:', isMobile, 'iOS:', isIOS, 'Android:', isAndroid);
+    
+    if (!isMobile) {
+      // Desktop - gebruik deviceorientationabsolute
       window.addEventListener("deviceorientationabsolute", handler, true);
-    } else {
-      DeviceOrientationEvent.requestPermission()
-        .then((response) => {
-          if (response === "granted") {
-            window.addEventListener("deviceorientation", handler, true);
-          } else {
-            alert("Zonder kompas wordt het lastig. Richtingaanwijzing via het noorden.");
-          }
-        })
-        .catch(() => {
-          if (compassStartedViaClick) {
-            alert("Kompas niet beschikbaar. Richtingaanwijzing via het noorden.")
-          } else {
-            showRequestPermissions();
-            requestPermissionsButtonElement.onclick = () => {
-              compassStartedViaClick = true;
-              compassStarted = false;
-              hideRequestPermissions();
-              startCompass();
+      console.log('Desktop compass started');
+    } else if (isIOS) {
+      // iOS - specifieke behandeling
+      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission()
+          .then((response) => {
+            if (response === "granted") {
+              window.addEventListener("deviceorientation", handler, true);
+              console.log('iOS compass started with permission');
+            } else {
+              console.log('iOS compass permission denied, using fallback');
+              alert("Zonder kompas wordt het lastig. Richtingaanwijzing via het noorden.");
             }
-          }
-        });
+          })
+          .catch((error) => {
+            console.warn('iOS compass permission error:', error);
+            if (compassStartedViaClick) {
+              alert("Kompas niet beschikbaar. Richtingaanwijzing via het noorden.")
+            } else {
+              showRequestPermissions();
+              requestPermissionsButtonElement.onclick = () => {
+                compassStartedViaClick = true;
+                compassStarted = false;
+                hideRequestPermissions();
+                startCompass();
+              }
+            }
+          });
+      } else {
+        // Fallback voor oudere iOS versies
+        window.addEventListener("deviceorientation", handler, true);
+        console.log('iOS compass started (fallback)');
+      }
+    } else if (isAndroid) {
+      // Android - probeer verschillende event types
+      try {
+        window.addEventListener("deviceorientationabsolute", handler, true);
+        console.log('Android compass started (absolute)');
+      } catch (e) {
+        try {
+          window.addEventListener("deviceorientation", handler, true);
+          console.log('Android compass started (relative)');
+        } catch (e2) {
+          console.warn('Android compass not available:', e2);
+          alert("Kompas niet beschikbaar. Richtingaanwijzing via het noorden.")
+        }
+      }
     }
   }
 }
 
 function handler(e) {
-  compass = e.webkitCompassHeading || Math.abs(e.alpha - 360);
-  compass = -compass;
-  onChange();
+  // Verbeterde compass heading berekening
+  let heading = null;
+  
+  if (e.webkitCompassHeading !== undefined) {
+    // iOS Safari
+    heading = e.webkitCompassHeading;
+  } else if (e.alpha !== undefined) {
+    // Android en andere browsers
+    heading = Math.abs(e.alpha - 360);
+  }
+  
+  if (heading !== null) {
+    compass = -heading; // Negatief voor correcte rotatie
+    console.log('Compass heading:', heading, 'degrees');
+    onChange();
+  }
 }
 
 function onChange() {
@@ -136,6 +180,7 @@ function pointToLocation(lat1, lon1, lat2, lon2, pointerSelector, requestPermiss
   console.log('Huidige locatie:', lat1, lon1);
   console.log('Doel locatie:', lat2, lon2);
   console.log('Wijzer selector:', pointerSelector);
+  console.log('Mobile:', isMobile, 'iOS:', isIOS, 'Android:', isAndroid);
   
   showRequestPermissions = onShowRequestPermissions;
   hideRequestPermissions = onHideRequestPermissions;

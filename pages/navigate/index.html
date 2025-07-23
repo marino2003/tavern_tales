@@ -4,7 +4,21 @@
 
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Mobile browser optimizations -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Prevent zoom on input focus (iOS) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <!-- Google Fonts - Pixelify Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
 
     <link href="../../styles/reset.css" type="text/css" rel="stylesheet">
     <link href="../../styles/variables.css" type="text/css" rel="stylesheet">
@@ -47,7 +61,6 @@
           <img src="../../assets/compas resized/wijzer.png" alt="wijzer" id="point-to-location" class="compass-wijzer" />
         </div>
         
-        
         <!-- Magical Particles -->
         <div class="magical-particles">
           <div class="particle"></div>
@@ -79,6 +92,7 @@
           
           <div class="permission-info">
             <p>Deze app heeft toegang tot je locatie nodig om je naar de juiste plek te gidsen.</p>
+            <p><small>Zorg ervoor dat GPS aan staat op je telefoon.</small></p>
           </div>
           
           <button class="pixel-button primary" id="request-permissions-button">
