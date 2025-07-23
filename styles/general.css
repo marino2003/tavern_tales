@@ -68,7 +68,7 @@ body {
   
   /* Zorg dat dialogue box altijd volledig zichtbaar is */
   .dialogue-box {
-    bottom: max(40px, env(safe-area-inset-bottom) + 30px) !important;
+    bottom: max(80px, env(safe-area-inset-bottom) + 60px) !important; /* Hoger voor Safari */
   }
 }
 
