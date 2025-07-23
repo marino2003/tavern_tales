@@ -19,7 +19,7 @@
 
 .dialogue-box {
   position: absolute;
-  bottom: 80px; /* Hoger positioneren om Safari address bar te vermijden */
+  bottom: 100px; /* Nog hoger voor extra ruimte boven Safari address bar */
   left: 20px;
   right: 20px;
   min-height: 140px;
@@ -188,7 +188,7 @@
   .dialogue-box {
     left: 15px;
     right: 15px;
-    bottom: max(75px, env(safe-area-inset-bottom) + 55px); /* Hoger voor Safari */
+    bottom: max(95px, env(safe-area-inset-bottom) + 75px); /* Nog hoger voor extra ruimte */
     min-height: 120px;
     max-height: 50vh; /* Meer ruimte op tablet */
     max-height: 50dvh;
@@ -222,7 +222,7 @@
   .dialogue-box {
     left: 10px;
     right: 10px;
-    bottom: max(70px, env(safe-area-inset-bottom) + 50px); /* Hoger voor Safari */
+    bottom: max(90px, env(safe-area-inset-bottom) + 70px); /* Nog hoger voor extra ruimte */
     min-height: 110px;
     max-height: 45vh; /* Meer ruimte op mobile */
     max-height: 45dvh;
@@ -268,7 +268,7 @@
 /* Landscape mode aanpassingen */
 @media (max-height: 500px) and (orientation: landscape) {
   .dialogue-box {
-    bottom: max(65px, env(safe-area-inset-bottom) + 45px); /* Hoger voor Safari */
+    bottom: max(85px, env(safe-area-inset-bottom) + 65px); /* Nog hoger voor extra ruimte */
     min-height: 90px;
     max-height: 35vh; /* Meer ruimte in landscape */
     max-height: 35dvh;
@@ -367,24 +367,24 @@
 /* Specifieke aanpassingen voor apparaten met home indicators */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .dialogue-box {
-    bottom: max(80px, env(safe-area-inset-bottom) + 60px); /* Hoger voor Safari */
+    bottom: max(100px, env(safe-area-inset-bottom) + 80px); /* Nog hoger voor extra ruimte */
   }
   
   @media (max-width: 768px) {
     .dialogue-box {
-      bottom: max(75px, env(safe-area-inset-bottom) + 55px); /* Hoger voor Safari */
+      bottom: max(95px, env(safe-area-inset-bottom) + 75px); /* Nog hoger voor extra ruimte */
     }
   }
   
   @media (max-width: 480px) {
     .dialogue-box {
-      bottom: max(70px, env(safe-area-inset-bottom) + 50px); /* Hoger voor Safari */
+      bottom: max(90px, env(safe-area-inset-bottom) + 70px); /* Nog hoger voor extra ruimte */
     }
   }
   
   @media (max-height: 500px) and (orientation: landscape) {
     .dialogue-box {
-      bottom: max(65px, env(safe-area-inset-bottom) + 45px); /* Hoger voor Safari */
+      bottom: max(85px, env(safe-area-inset-bottom) + 65px); /* Nog hoger voor extra ruimte */
     }
   }
 } 
