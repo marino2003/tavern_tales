@@ -84,7 +84,7 @@
 
 .dialogue-text {
   /* Pixel font zoals character modal */
-  font-family: m6x11plus, monospace;
+  font-family: var(--pixel-font);
   font-size: 32px;
   line-height: 1.2;
   color: #000000;

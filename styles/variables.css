@@ -1,20 +1,18 @@
-/* Font Face Declaraties - Pixelify Sans van Google Fonts */
+/* Font Face Declaratie voor m6x11 */
 @font-face {
   font-family: 'm6x11plus';
-  src: url('../assets/fonts/m6x11plus.woff2') format('woff2'),
-       url('../assets/fonts/m6x11plus.woff') format('woff'),
-       url('../assets/fonts/m6x11plus.ttf') format('truetype');
+  src: url('../fonts/m6x11.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: swap; /* Voor betere performance op mobile */
 }
 
-/* Fallback font stack */
 :root {
   --white: #FFFFFF;
+
   --text-color: #494949;
   --button-color: #52AAE2;
   
-  /* Font stack - Pixelify Sans als primaire font */
-  --pixel-font: 'Pixelify Sans', 'Courier New', 'Courier', monospace;
+  /* Font stack met fallbacks */
+  --pixel-font: 'm6x11plus', 'Courier New', 'Courier', monospace;
 }

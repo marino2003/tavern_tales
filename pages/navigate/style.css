@@ -79,7 +79,7 @@
 }
 
 /* Compass container - Gecentreerd in het midden */
-  .compass-container {
+.compass-container {
   position: absolute;
   top: 0;
   left: 0;
@@ -344,7 +344,7 @@
   }
   
   .navigation-info p {
-  font-size: 1rem;
+    font-size: 1rem;
     letter-spacing: 0.5px;
   }
   

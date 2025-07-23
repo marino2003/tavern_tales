@@ -665,7 +665,7 @@
   text-align: center;
   color: black;
   font-size: 42px;
-  font-family: m6x11plus, monospace;
+  font-family: var(--pixel-font);
   font-weight: 400;
   margin: 0;
   letter-spacing: 2px;
@@ -711,7 +711,7 @@
   text-align: center;
   color: #444;
   font-size: 26px;
-  font-family: m6x11plus, monospace;
+  font-family: var(--pixel-font);
   font-weight: 400;
   line-height: 1.2;
   margin: 0;
@@ -732,7 +732,7 @@
   background: #f0f0f0;
   border: none;
   outline: 3px solid #000;
-  font-family: m6x11plus, monospace;
+  font-family: var(--pixel-font);
   font-size: 22px;
   color: black;
   text-align: center;
@@ -888,7 +888,7 @@
 /* Error message styling */
 .error-message {
   color: #d32f2f;
-  font-family: m6x11plus, monospace;
+  font-family: var(--pixel-font);
   font-size: 18px;
   text-align: center;
   padding: 0 12px;

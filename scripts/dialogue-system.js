@@ -217,22 +217,8 @@ class DialogueSystem {
      * Update pagina indicator
      */
     updatePagesIndicator() {
-        if (this.currentTextPages.length <= 1) {
-            this.pagesIndicator.style.display = 'none';
-            return;
-        }
-        
-        this.pagesIndicator.style.display = 'flex';
-        this.pagesIndicator.innerHTML = '';
-        
-        for (let i = 0; i < this.currentTextPages.length; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'page-dot';
-            if (i === this.currentPage) {
-                dot.classList.add('active');
-            }
-            this.pagesIndicator.appendChild(dot);
-        }
+        // Verberg pagination volledig
+        this.pagesIndicator.style.display = 'none';
     }
     
     /**

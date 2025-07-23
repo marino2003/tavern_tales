@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Test</title>
+    <link href="styles/reset.css" type="text/css" rel="stylesheet">
+    <link href="styles/variables.css" type="text/css" rel="stylesheet">
+    <style>
+        body {
+            font-family: var(--pixel-font);
+            font-size: 24px;
+            padding: 2rem;
+            background: #2a1810;
+            color: white;
+        }
+        .test-text {
+            margin: 1rem 0;
+            padding: 1rem;
+            border: 2px solid white;
+        }
+        .fallback {
+            font-family: 'Courier New', monospace;
+            color: #ffeb3b;
+        }
+    </style>
+</head>
+<body>
+    <h1>Font Test - m6x11plus</h1>
+    
+    <div class="test-text">
+        <p>Dit is tekst met het m6x11plus font:</p>
+        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+        <p>abcdefghijklmnopqrstuvwxyz</p>
+        <p>0123456789</p>
+        <p>!@#$%^&*()_+-=[]{}|;':",./<>?</p>
+    </div>
+    
+    <div class="test-text fallback">
+        <p>Dit is fallback tekst (Courier New):</p>
+        <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+        <p>abcdefghijklmnopqrstuvwxyz</p>
+        <p>0123456789</p>
+    </div>
+    
+    <div class="test-text">
+        <p>Als je het verschil ziet tussen de twee teksten hierboven, dan wordt het custom font correct geladen!</p>
+    </div>
+</body>
+</html> 
