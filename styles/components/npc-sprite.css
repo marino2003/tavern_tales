@@ -1,7 +1,7 @@
-/* Warrior Sprite Component */
-/* Herbruikbaar component voor warrior animaties */
+/* NPC Sprite Component */
+/* Herbruikbaar component voor NPC animaties */
 
-.warrior-sprite {
+.npc-sprite {
     background-image: url('../../assets/spritesheets/npc_1/spritesheet.png');
     background-repeat: no-repeat;
     background-position: 0 0;
@@ -11,87 +11,87 @@
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     
-    /* Frame afmetingen (uit spritesheet.css) */
-    width: 64px;
-    height: 44px;
+    /* Frame afmetingen voor NPC warrior (66x46 pixels) */
+    width: 66px;
+    height: 46px;
     
     /* Default scaling - kan worden overschreven */
     transform: scale(4);
     transform-origin: center center;
     
-    /* Warrior idle animatie - wordt overschreven door JS voor gespiegelde versie */
-    animation: warrior-idle 1.0s steps(6) infinite;
+    /* Idle animatie - smooth looping voor 6 frames */
+    animation: npc-idle 0.8s steps(6) infinite;
     
     /* Transities voor smooth state changes */
     transition: transform 0.2s ease;
 }
 
 /* Verschillende schaal opties */
-.warrior-sprite--small {
+.npc-sprite--small {
     transform: scale(2);
 }
 
-.warrior-sprite--normal {
+.npc-sprite--normal {
     transform: scale(3);
 }
 
-.warrior-sprite--large {
+.npc-sprite--large {
     transform: scale(4);
 }
 
-.warrior-sprite--xlarge {
+.npc-sprite--xlarge {
     transform: scale(6);
 }
 
 /* Animatie states */
-.warrior-sprite--paused {
+.npc-sprite--paused {
     animation-play-state: paused;
 }
 
-.warrior-sprite--fast {
-    animation-duration: 0.8s;
+.npc-sprite--fast {
+    animation-duration: 0.6s;
 }
 
-.warrior-sprite--slow {
-    animation-duration: 1.4s;
+.npc-sprite--slow {
+    animation-duration: 1.2s;
 }
 
-/* Keyframes voor Warrior Idle - wordt overschreven door JS voor gespiegelde versie */
-@keyframes warrior-idle {
+/* Keyframes voor NPC Warrior Idle (6 frames, 396px totaal) */
+@keyframes npc-idle {
     0% { 
         background-position: 0 0; 
     }
     100% { 
-        background-position: 0 0; 
+        background-position: -396px 0; 
     }
 }
 
 /* Responsive behavior voor mobile */
 @media (max-width: 768px) {
-    .warrior-sprite {
+    .npc-sprite {
         transform: scale(3); /* Iets kleiner op mobile */
     }
     
-    .warrior-sprite--small {
+    .npc-sprite--small {
         transform: scale(1.5);
     }
     
-    .warrior-sprite--normal {
+    .npc-sprite--normal {
         transform: scale(2);
     }
     
-    .warrior-sprite--large {
+    .npc-sprite--large {
         transform: scale(3);
     }
     
-    .warrior-sprite--xlarge {
+    .npc-sprite--xlarge {
         transform: scale(4);
     }
 }
 
 /* Hover effecten - alleen voor desktop (niet mobile game) */
 @media (hover: hover) {
-    .warrior-sprite:hover {
-        animation-duration: 0.8s; /* Sneller bij hover */
+    .npc-sprite:hover {
+        animation-duration: 0.6s; /* Sneller bij hover */
     }
 } 

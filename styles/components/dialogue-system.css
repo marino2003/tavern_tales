@@ -1,0 +1,366 @@
+/* Dialoogsysteem Component - Pixel Art Stijl */
+
+.dialogue-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+.dialogue-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.dialogue-box {
+  position: absolute;
+  bottom: 40px;
+  left: 20px;
+  right: 20px;
+  min-height: 140px;
+  
+  /* Character modal stijl - pixel art uitstraling */
+  background: #f8f8f8;
+  border: 2px solid #ddd;
+  box-shadow: -6px 6px 0px rgba(0, 0, 0, 0.5), -4px 4px 0px rgba(0, 0, 0, 0.3);
+  outline: 4px solid black;
+  
+  /* Pixel perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  
+  /* Layout */
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  gap: 20px;
+  
+  /* Animatie voor verschijnen */
+  transform: translateY(20px);
+  transition: transform 0.3s ease-out;
+}
+
+.dialogue-overlay.show .dialogue-box {
+  transform: translateY(0);
+}
+
+.dialogue-portrait {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  
+  /* Pixel art stijl zoals character modal avatar */
+  background: #e8e8e8;
+  border: 4px solid #333;
+  
+  /* Pixel art rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  
+  /* Portrait afbeelding */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: none;
+}
+
+.dialogue-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.dialogue-text {
+  /* Pixel font zoals character modal */
+  font-family: m6x11plus, monospace;
+  font-size: 32px;
+  line-height: 1.4;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  letter-spacing: 1px;
+  
+  /* Text wrapping */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+/* Verberg scrollbar */
+.dialogue-text::-webkit-scrollbar {
+  display: none;
+}
+
+.dialogue-text {
+  -ms-overflow-style: none;  /* IE en Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.dialogue-continue {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  z-index: 10;
+  
+  /* SVG indicator */
+  width: 28px;
+  height: 19px;
+  background-image: url('../../assets/ui/indicator.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  /* Pixel art styling */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  
+  /* Subtiele knipperanimatie */
+  animation: continue-subtle 2s ease-in-out infinite;
+  cursor: pointer;
+}
+
+@keyframes continue-subtle {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+/* Character typing effect */
+.dialogue-text.typing {
+  overflow: hidden;
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: #000000;
+  margin-left: 2px;
+  animation: cursor-blink 1s infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Tablet responsiveness */
+@media (max-width: 768px) {
+  .dialogue-box {
+    left: 15px;
+    right: 15px;
+    bottom: 35px;
+    min-height: 120px;
+    padding: 16px;
+    gap: 16px;
+    /* Kleinere box shadow op tablet */
+    box-shadow: -4px 4px 0px rgba(0, 0, 0, 0.5), -2px 2px 0px rgba(0, 0, 0, 0.3);
+    outline: 3px solid black;
+  }
+  
+  .dialogue-portrait {
+    width: 90px;
+    height: 90px;
+    border-width: 3px;
+  }
+  
+  .dialogue-text {
+    font-size: 28px;
+    max-height: 100px;
+  }
+  
+  .dialogue-continue {
+    width: 24px;
+    height: 16px;
+    bottom: 6px;
+    right: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dialogue-box {
+    left: 10px;
+    right: 10px;
+    bottom: 30px;
+    min-height: 110px;
+    padding: 12px;
+    gap: 12px;
+    border-width: 2px;
+    /* Kleinere box shadow op kleine mobile */
+    box-shadow: -3px 3px 0px rgba(0, 0, 0, 0.5), -1px 1px 0px rgba(0, 0, 0, 0.3);
+    outline: 2px solid black;
+  }
+  
+  .dialogue-portrait {
+    width: 80px;
+    height: 80px;
+    border-width: 2px;
+  }
+  
+  .dialogue-text {
+    font-size: 24px;
+    max-height: 90px;
+  }
+  
+  .dialogue-continue {
+    width: 20px;
+    height: 14px;
+    bottom: 4px;
+    right: 4px;
+  }
+  
+  .dialogue-pages {
+    bottom: 4px;
+    left: 4px;
+    gap: 4px;
+  }
+  
+  .page-dot {
+    width: 6px;
+    height: 6px;
+    border-width: 1px;
+  }
+}
+
+/* Landscape mode aanpassingen */
+@media (max-height: 500px) and (orientation: landscape) {
+  .dialogue-box {
+    bottom: 25px;
+    min-height: 90px;
+    padding: 10px;
+    box-shadow: -3px 3px 0px rgba(0, 0, 0, 0.5), -1px 1px 0px rgba(0, 0, 0, 0.3);
+    outline: 2px solid black;
+  }
+  
+  .dialogue-text {
+    font-size: 20px;
+    max-height: 70px;
+  }
+  
+  .dialogue-portrait {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .dialogue-continue {
+    width: 18px;
+    height: 12px;
+    bottom: 3px;
+    right: 3px;
+  }
+  
+  .dialogue-pages {
+    bottom: 3px;
+    left: 3px;
+    gap: 3px;
+  }
+  
+  .page-dot {
+    width: 5px;
+    height: 5px;
+    border-width: 1px;
+  }
+}
+
+/* Pagina indicator */
+.dialogue-pages {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  z-index: 5;
+}
+
+.page-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ccc;
+  border: 2px solid #999;
+  transition: all 0.2s ease;
+}
+
+.page-dot.active {
+  background: #333;
+  border-color: #000;
+  transform: scale(1.2);
+}
+
+/* Toegankelijkheid */
+.dialogue-box:focus-within {
+  outline: 4px solid #0066cc;
+  outline-offset: 2px;
+}
+
+/* Dark mode ondersteuning */
+@media (prefers-color-scheme: dark) {
+  .dialogue-box {
+    background: #f8f8f8;
+    border-color: #ddd;
+  }
+  
+  .dialogue-portrait {
+    background: #e8e8e8;
+    border-color: #333;
+  }
+  
+  .dialogue-text {
+    color: #000000;
+  }
+  
+  .dialogue-continue {
+    border-top-color: #333333;
+  }
+  
+  .typing-cursor {
+    background: #000000;
+  }
+}
+
+/* Specifieke aanpassingen voor apparaten met home indicators */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .dialogue-box {
+    bottom: calc(40px + env(safe-area-inset-bottom));
+  }
+  
+  @media (max-width: 768px) {
+    .dialogue-box {
+      bottom: calc(35px + env(safe-area-inset-bottom));
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .dialogue-box {
+      bottom: calc(30px + env(safe-area-inset-bottom));
+    }
+  }
+  
+  @media (max-height: 500px) and (orientation: landscape) {
+    .dialogue-box {
+      bottom: calc(25px + env(safe-area-inset-bottom));
+    }
+  }
+} 

@@ -27,22 +27,11 @@
       <div class="hero-sprite hero-sprite--normal"></div>
     </div>
     
-    <!-- Voorbeeld van gepersonaliseerde dialoog -->
-    <div class="dialogue-container">
-      <p class="dialogue-text" data-dialogue="Welkom {PLAYER}, je bent aangekomen bij je eerste locatie!">
-        Welkom, je bent aangekomen bij je eerste locatie!
-      </p>
-      
-      <p class="dialogue-text" data-dialogue="Hé {PLAYER}, kijk eens rond. Misschien vind je hier het eerste biertje...">
-        Kijk eens rond. Misschien vind je hier het eerste biertje...
-      </p>
-      
-      <!-- Interactieve demo - klik om hero te besturen -->
-      <div class="hero-controls" style="margin-top: 20px;">
-        <button onclick="toggleHero()" id="heroToggleBtn">⏸️ Pauzeer Hero</button>
-        <button onclick="heroFast()">⚡ Snel</button>
-        <button onclick="heroNormal()">🔄 Normaal</button>
-      </div>
+    <!-- Hero controls -->
+    <div class="hero-controls" style="margin-top: 20px;">
+      <button onclick="toggleHero()" id="heroToggleBtn">⏸️ Pauzeer Hero</button>
+      <button onclick="heroFast()">⚡ Snel</button>
+      <button onclick="heroNormal()">🔄 Normaal</button>
     </div>
     
     <button id="continue-button">Ga verder</button>

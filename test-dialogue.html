@@ -3,15 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dialoog Test</title>
-    <link href="styles/components/dialogue-box.css" rel="stylesheet">
+    <title>Dialoogsysteem Test</title>
+    
+    <!-- CSS imports -->
+    <link href="styles/reset.css" rel="stylesheet">
+    <link href="styles/variables.css" rel="stylesheet">
+    <link href="styles/general.css" rel="stylesheet">
+    <link href="styles/components/dialogue-system.css" rel="stylesheet">
+    <link href="styles/components/button.css" rel="stylesheet">
+    
     <style>
         body {
-            background: #333;
+            background: #2a1810;
             color: white;
             font-family: Arial, sans-serif;
             padding: 20px;
+            min-height: 100vh;
         }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .test-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
         .test-btn {
             background: #4CAF50;
             border: none;
@@ -22,182 +43,270 @@
             cursor: pointer;
             border-radius: 4px;
         }
+        
         .test-btn:hover {
             background: #45a049;
         }
+        
         .status {
             background: #222;
             padding: 10px;
             margin: 10px 0;
             border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .character-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .character-item img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border: 2px solid #333;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>🔧 Dialoog Systeem Test</h1>
-    
-    <div class="status">
-        <strong>Status:</strong> <span id="status">Laden...</span>
+    <div class="test-container">
+        <h1>🎮 Dialoogsysteem Test</h1>
+        
+        <div class="test-section">
+            <h2>📝 Basis Functionaliteit</h2>
+            <button class="test-btn" onclick="testBasicDialogue()">Test Basis Dialoog</button>
+            <button class="test-btn" onclick="testMultiDialogue()">Test Meerdere Dialogen</button>
+            <button class="test-btn" onclick="testTypingSpeed()">Test Snelle Typing</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>👥 Character Portretten</h2>
+            <div class="character-grid">
+                <div class="character-item">
+                    <img src="assets/spritesheets/hero_main/Combat Ready Idle.png" alt="Hero">
+                    <p>Hero</p>
+                </div>
+                <div class="character-item">
+                    <img src="assets/spritesheets/npc_1/spritesheet.png" alt="Warrior">
+                    <p>Warrior</p>
+                </div>
+                <div class="character-item">
+                    <img src="assets/character_port/herp.png" alt="Herp">
+                    <p>Herp</p>
+                </div>
+                <div class="character-item">
+                    <img src="assets/character_port/npc.png" alt="NPC">
+                    <p>NPC</p>
+                </div>
+            </div>
+            <button class="test-btn" onclick="testCharacterDialogues()">Test Character Dialogen</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>🎯 Geavanceerde Features</h2>
+            <button class="test-btn" onclick="testPersonalization()">Test Personalisatie</button>
+            <button class="test-btn" onclick="testCallbacks()">Test Callbacks</button>
+            <button class="test-btn" onclick="testAutoAdvance()">Test Auto Advance</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>📱 Mobile Test</h2>
+            <p>Test de responsive functionaliteit op verschillende schermformaten.</p>
+            <button class="test-btn" onclick="testMobileFeatures()">Test Mobile Features</button>
+        </div>
+        
+        <div class="status" id="status">
+            Klaar voor testing...
+        </div>
     </div>
-    
-    <button class="test-btn" onclick="testBasic()">Test Basic Dialoog</button>
-    <button class="test-btn" onclick="testWithPortrait()">Test Met Portret</button>
-    <button class="test-btn" onclick="testMultiple()">Test Meerdere Dialogen</button>
-    <button class="test-btn" onclick="testPlayerName()">Test Speler Naam</button>
-    <button class="test-btn" onclick="setTestName()">Zet Test Naam</button>
-    <button class="test-btn" onclick="showCurrentName()">Toon Huidige Naam</button>
-    <button class="test-btn" onclick="checkSystem()">Check System</button>
-    
+
+    <!-- Script imports -->
     <script src="scripts/player-data.js"></script>
     <script src="scripts/dialogue-system.js"></script>
+    
     <script>
-        const statusEl = document.getElementById('status');
-        
-        function updateStatus(msg) {
-            statusEl.textContent = msg;
-            console.log('STATUS:', msg);
+        function updateStatus(message) {
+            document.getElementById('status').textContent = message;
+            console.log(message);
         }
         
-        function testBasic() {
-            updateStatus('Testing basic dialogue...');
-            
-            if (!window.DialogueSystem) {
-                updateStatus('ERROR: DialogueSystem not loaded!');
-                return;
-            }
-            
-            window.DialogueSystem.showDialogue([{
-                text: "Dit is een test dialoog!",
-                portrait: null
-            }], {
-                onComplete: () => updateStatus('Basic test voltooid!')
-            });
-        }
-        
-        function testWithPortrait() {
-            updateStatus('Testing dialogue with portrait...');
-            
-            if (!window.DialogueSystem) {
-                updateStatus('ERROR: DialogueSystem not loaded!');
-                return;
-            }
-            
-            window.DialogueSystem.showDialogue([{
-                text: "Dit is een test met portret!",
-                portrait: 'assets/spritesheets/hero_main/Combat Ready Idle.png'
-            }], {
-                onComplete: () => updateStatus('Portrait test voltooid!')
-            });
-        }
-        
-        function testMultiple() {
-            updateStatus('Testing multiple dialogues...');
-            
-            if (!window.DialogueSystem) {
-                updateStatus('ERROR: DialogueSystem not loaded!');
-                return;
-            }
-            
-            window.DialogueSystem.showDialogue([
-                { text: "Eerste dialoog!", portrait: null },
-                { text: "Tweede dialoog!", portrait: null },
-                { text: "Derde dialoog!", portrait: null }
-            ], {
-                onComplete: () => updateStatus('Multiple test voltooid!')
-            });
-        }
-        
-        function testPlayerName() {
-            updateStatus('Testing player name dialogue...');
-            
-            if (!window.DialogueSystem || !window.PlayerData) {
-                updateStatus('ERROR: DialogueSystem of PlayerData niet geladen!');
-                return;
-            }
+        function testBasicDialogue() {
+            updateStatus('Testing basis dialoog...');
             
             window.DialogueSystem.showDialogue([
                 {
-                    text: "Hallo {PLAYER}! Welkom in de kroeg!",
-                    portrait: 'assets/character_port/npc.png'
-                },
-                {
-                    text: "Zo {PLAYER}, ben je klaar voor een avontuur?",
-                    portrait: 'assets/character_port/npc.png'
-                },
-                {
-                    text: "Veel succes, {PLAYER}! Ik zal je niet vergeten.",
-                    portrait: 'assets/character_port/npc.png'
+                    text: "Hallo! Dit is een test van het nieuwe dialoogsysteem.",
+                    portrait: null
                 }
             ], {
-                onComplete: () => updateStatus('Player name test voltooid!')
+                onComplete: () => updateStatus('Basis dialoog voltooid!')
             });
         }
         
-        function setTestName() {
-            const testName = prompt('Geef een test naam op (max 6 karakters):') || 'TEST';
+        function testMultiDialogue() {
+            updateStatus('Testing meerdere dialogen...');
             
-            if (window.PlayerData) {
-                window.PlayerData.setName(testName);
-                updateStatus(`Test naam ingesteld: ${testName.toUpperCase()}`);
-            } else {
-                updateStatus('ERROR: PlayerData niet beschikbaar!');
-            }
+            window.DialogueSystem.showDialogue([
+                {
+                    text: "Welkom bij de test!",
+                    portrait: window.DialogueSystem.Characters.HERO
+                },
+                {
+                    text: "Dit is de tweede dialoog in de reeks.",
+                    portrait: window.DialogueSystem.Characters.WARRIOR
+                },
+                {
+                    text: "En dit is de laatste dialoog van de test.",
+                    portrait: window.DialogueSystem.Characters.HERP
+                }
+            ], {
+                onComplete: () => updateStatus('Multi-dialoog voltooid!')
+            });
         }
         
-        function showCurrentName() {
-            if (window.PlayerData) {
-                const currentName = window.PlayerData.getName();
-                updateStatus(`Huidige speler naam: ${currentName}`);
-                console.log('Current player name:', currentName);
-                
-                // Test ook de personalize functie
-                const testText = "Hallo {PLAYER}, dit is een test!";
-                const personalizedText = window.PlayerData.personalize(testText);
-                console.log('Test personalization:', testText, '->', personalizedText);
-            } else {
-                updateStatus('ERROR: PlayerData niet beschikbaar!');
-            }
+        function testTypingSpeed() {
+            updateStatus('Testing snelle typing...');
+            
+            window.DialogueSystem.showDialogue([
+                {
+                    text: "Dit is een test met snelle typing animatie.",
+                    portrait: window.DialogueSystem.Characters.NPC
+                }
+            ], {
+                typingSpeed: 20,
+                onComplete: () => updateStatus('Snelle typing voltooid!')
+            });
         }
         
-        function checkSystem() {
-            console.log('=== SYSTEM CHECK ===');
-            console.log('window.DialogueSystem:', window.DialogueSystem);
-            console.log('window.PlayerData:', window.PlayerData);
-            console.log('document.body.children:', Array.from(document.body.children));
+        function testCharacterDialogues() {
+            updateStatus('Testing character dialogen...');
             
-            // Check CSS
-            const cssLoaded = document.querySelector('link[href*="dialogue-box.css"]');
-            console.log('CSS loaded:', !!cssLoaded);
+            const dialogues = [
+                {
+                    text: "Ik ben de held van dit verhaal!",
+                    portrait: window.DialogueSystem.Characters.HERO
+                },
+                {
+                    text: "En ik ben de wijze krijger die je zal helpen.",
+                    portrait: window.DialogueSystem.Characters.WARRIOR
+                },
+                {
+                    text: "Hallo! Ik ben Herp, een mysterieus figuur.",
+                    portrait: window.DialogueSystem.Characters.HERP
+                },
+                {
+                    text: "En ik ben een gewone NPC die wat te zeggen heeft.",
+                    portrait: window.DialogueSystem.Characters.NPC
+                }
+            ];
             
-            // Check for dialogue overlay in DOM
-            const overlay = document.querySelector('.dialogue-overlay');
-            console.log('Dialogue overlay in DOM:', !!overlay);
+            window.DialogueSystem.showDialogue(dialogues, {
+                onNext: (dialogue, index) => {
+                    updateStatus(`Dialoog ${index + 1}: ${dialogue.character || 'Onbekend'} spreekt`);
+                },
+                onComplete: () => updateStatus('Character dialogen voltooid!')
+            });
+        }
+        
+        function testPersonalization() {
+            updateStatus('Testing personalisatie...');
             
-            // Check PlayerData functionaliteit
-            let playerDataStatus = 'Not loaded';
+            // Simuleer speler naam
             if (window.PlayerData) {
-                const currentName = window.PlayerData.getName();
-                playerDataStatus = `Loaded (current name: ${currentName})`;
+                window.PlayerData.setName('TestSpeler');
             }
             
-            updateStatus(`System check - DialogueSystem: ${!!window.DialogueSystem}, PlayerData: ${playerDataStatus}, CSS: ${!!cssLoaded}`);
+            window.DialogueSystem.showDialogue([
+                {
+                    text: "Hallo {PLAYER}! Welkom bij de personalisatie test.",
+                    portrait: window.DialogueSystem.Characters.HERO
+                },
+                {
+                    text: "Hoe gaat het vandaag, {PLAYER}?",
+                    portrait: window.DialogueSystem.Characters.WARRIOR
+                }
+            ], {
+                onComplete: () => updateStatus('Personalisatie test voltooid!')
+            });
+        }
+        
+        function testCallbacks() {
+            updateStatus('Testing callbacks...');
+            
+            window.DialogueSystem.showDialogue([
+                {
+                    text: "Dit is de eerste dialoog met callbacks.",
+                    portrait: window.DialogueSystem.Characters.HERO
+                },
+                {
+                    text: "En dit is de tweede dialoog.",
+                    portrait: window.DialogueSystem.Characters.WARRIOR
+                }
+            ], {
+                onNext: (dialogue, index) => {
+                    updateStatus(`Callback: Dialoog ${index + 1} gestart`);
+                },
+                onComplete: () => {
+                    updateStatus('Callbacks test voltooid!');
+                    setTimeout(() => {
+                        updateStatus('Alle tests klaar!');
+                    }, 1000);
+                }
+            });
+        }
+        
+        function testAutoAdvance() {
+            updateStatus('Testing auto advance...');
+            
+            window.DialogueSystem.showDialogue([
+                {
+                    text: "Deze dialoog zal automatisch sluiten.",
+                    portrait: window.DialogueSystem.Characters.NPC
+                }
+            ], {
+                autoAdvance: true,
+                onComplete: () => updateStatus('Auto advance test voltooid!')
+            });
+        }
+        
+        function testMobileFeatures() {
+            updateStatus('Testing mobile features...');
+            
+            window.DialogueSystem.showDialogue([
+                {
+                    text: "Dit is een test van de mobile optimalisatie. De tekst zou goed leesbaar moeten zijn op kleine schermen en de touch interactie zou soepel moeten werken.",
+                    portrait: window.DialogueSystem.Characters.HERO
+                },
+                {
+                    text: "Probeer te klikken of tap om door te gaan!",
+                    portrait: window.DialogueSystem.Characters.WARRIOR
+                }
+            ], {
+                onComplete: () => updateStatus('Mobile features test voltooid!')
+            });
         }
         
         // Check status bij laden
         window.addEventListener('load', () => {
             setTimeout(() => {
                 if (window.DialogueSystem) {
-                    updateStatus('DialogueSystem geladen! Klaar voor testen.');
+                    updateStatus('Dialoogsysteem geladen! Klaar voor testing.');
                 } else {
-                    updateStatus('ERROR: DialogueSystem niet geladen!');
+                    updateStatus('ERROR: Dialoogsysteem niet geladen!');
                 }
             }, 100);
         });
-        
-        // Direct check
-        setTimeout(() => {
-            checkSystem();
-        }, 500);
     </script>
 </body>
 </html> 
