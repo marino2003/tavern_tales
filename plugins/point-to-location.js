@@ -62,9 +62,9 @@ navigator.geolocation.watchPosition(success, error, options);
 
 /* Source: https://dev.to/orkhanjafarovr/real-compass-on-mobile-browsers-with-javascript-3emi */
 
-const isIOS = navigator.userAgent.match(/(iPod|iPhone|iPad)/) && navigator.userAgent.match(/AppleWebKit/);
-const isAndroid = /Android/.test(navigator.userAgent);
-const isMobile = isIOS || isAndroid;
+const isIOSCompass = navigator.userAgent.match(/(iPod|iPhone|iPad)/) && navigator.userAgent.match(/AppleWebKit/);
+const isAndroidCompass = /Android/.test(navigator.userAgent);
+const isMobileCompass = isIOSCompass || isAndroidCompass;
 
 let compassStarted = false;
 let compassStartedViaClick = false;
@@ -78,13 +78,13 @@ let hideRequestPermissions = null;
 function startCompass() {
   if (!compassStarted) {
     compassStarted = true;
-    console.log('Starting compass... Mobile:', isMobile, 'iOS:', isIOS, 'Android:', isAndroid);
+    console.log('Starting compass... Mobile:', isMobileCompass, 'iOS:', isIOSCompass, 'Android:', isAndroidCompass);
     
-    if (!isMobile) {
+    if (!isMobileCompass) {
       // Desktop - gebruik deviceorientationabsolute
       window.addEventListener("deviceorientationabsolute", handler, true);
       console.log('Desktop compass started');
-    } else if (isIOS) {
+    } else if (isIOSCompass) {
       // iOS - specifieke behandeling
       if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
         DeviceOrientationEvent.requestPermission()
@@ -116,7 +116,7 @@ function startCompass() {
         window.addEventListener("deviceorientation", handler, true);
         console.log('iOS compass started (fallback)');
       }
-    } else if (isAndroid) {
+    } else if (isAndroidCompass) {
       // Android - probeer verschillende event types
       try {
         window.addEventListener("deviceorientationabsolute", handler, true);
@@ -180,7 +180,7 @@ function pointToLocation(lat1, lon1, lat2, lon2, pointerSelector, requestPermiss
   console.log('Huidige locatie:', lat1, lon1);
   console.log('Doel locatie:', lat2, lon2);
   console.log('Wijzer selector:', pointerSelector);
-  console.log('Mobile:', isMobile, 'iOS:', isIOS, 'Android:', isAndroid);
+  console.log('Mobile:', isMobileCompass, 'iOS:', isIOSCompass, 'Android:', isAndroidCompass);
   
   showRequestPermissions = onShowRequestPermissions;
   hideRequestPermissions = onHideRequestPermissions;

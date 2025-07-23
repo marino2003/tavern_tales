@@ -6,16 +6,30 @@ const distanceElement = document.querySelector('#distance');
 const successRadiusInMeter = 20;
 
 // haal alle query parameters op
-const coordinatesParam = getQueryParam('coordinates').split(',');
-const coordinates = {
-  latitude: parseFloat(coordinatesParam[0]),
-  longitude: parseFloat(coordinatesParam[1]),
+let coordinatesParam = getQueryParam('coordinates');
+let coordinates;
+
+// Als er geen coördinaten zijn, gebruik dummy coördinaten voor testing
+if (!coordinatesParam || coordinatesParam === 'undefined') {
+  console.log('Geen coördinaten gevonden, gebruik dummy coördinaten voor testing');
+  // Dummy coördinaten voor Antwerpen centrum
+  coordinatesParam = '51.2194,4.4025';
+  coordinates = {
+    latitude: 51.2194,
+    longitude: 4.4025
+  };
+} else {
+  coordinatesParam = coordinatesParam.split(',');
+  coordinates = {
+    latitude: parseFloat(coordinatesParam[0]),
+    longitude: parseFloat(coordinatesParam[1]),
+  };
 }
 
-const locationName = getQueryParam('locationName');
+const locationName = getQueryParam('locationName') || 'Test Locatie';
 locationNameElement.textContent = locationName;
 
-const nextPage = getQueryParam('nextPage');
+const nextPage = getQueryParam('nextPage') || 'stop1';
 
 // sla gegevens op in localStorage om later de draad terug op te kunnen pikken
 localStorage.setItem('coordinates', coordinatesParam);
@@ -26,10 +40,10 @@ localStorage.setItem('nextPage', nextPage);
 const requestPermissionsElement = document.querySelector('#request-permissions')
 const gameContainer = document.querySelector('.game-container')
 
-// Detect mobile browsers
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+// Detect mobile browsers (unieke namen om conflict met plugin te voorkomen)
+const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent);
+const isSafariBrowser = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
 
 function onShowRequestPermissions() {
   requestPermissionsElement.classList.add('active');
@@ -46,6 +60,7 @@ function success(position) {
   console.log('GPS positie ontvangen:', position.coords);
   console.log('Doel coördinaten:', coordinates);
   console.log('Accuracy:', position.coords.accuracy, 'meter');
+  console.log('Platform:', isMobileDevice ? 'Mobile' : 'Desktop');
   
   // point to location via compass - dit roteert je wijzer!
   pointToLocation(
@@ -92,6 +107,7 @@ function error(err) {
   }
   
   console.log('Error message:', errorMessage);
+  console.log('Platform:', isMobileDevice ? 'Mobile' : 'Desktop');
   
   // Toon permissie request als locatie niet beschikbaar is
   onShowRequestPermissions();
@@ -99,7 +115,7 @@ function error(err) {
 
 // iOS specifieke compass permissie functie
 async function requestCompassPermission() {
-  if (isIOS && typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+  if (isIOSDevice && typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
     try {
       const permission = await DeviceOrientationEvent.requestPermission();
       console.log('Compass permission:', permission);
@@ -126,42 +142,18 @@ if (isInIframe()) {
 
 } else {
 
-  // Check of geolocation al beschikbaar is
-  if (navigator.geolocation) {
-    // Probeer eerst locatie op te halen zonder permissie request
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        console.log('Locatie al beschikbaar:', position.coords);
-        onHideRequestPermissions();
-        // Start GPS tracking
-        const options = {
-          enableHighAccuracy: true,
-          timeout: 30000,
-          maximumAge: 10000
-        };
-        navigator.geolocation.watchPosition(success, error, options);
-      },
-      (err) => {
-        console.log('Locatie niet beschikbaar, toon permissie request');
-        onShowRequestPermissions();
-      },
-      {
-        timeout: 5000,
-        maximumAge: 0
-      }
-    );
-  } else {
-    // Toon permissie request bij het laden van de pagina
+  // Toon permissie request bij het laden van de pagina (voor zowel mobile als desktop)
+  setTimeout(() => {
     onShowRequestPermissions();
-  }
+  }, 500); // Korte delay voor betere UX
 
   // Event listener voor de permissie button
   document.querySelector('#request-permissions-button').addEventListener('click', async function() {
     console.log('Permissie button geklikt - start GPS tracking');
-    console.log('Mobile:', isMobile, 'iOS:', isIOS, 'Safari:', isSafari);
+    console.log('Mobile:', isMobileDevice, 'iOS:', isIOSDevice, 'Safari:', isSafariBrowser);
     
     // Vraag compass permissie voor iOS
-    if (isIOS) {
+    if (isIOSDevice) {
       const compassGranted = await requestCompassPermission();
       if (!compassGranted) {
         console.log('Compass permissie geweigerd, maar GPS wordt nog steeds geprobeerd');
@@ -170,11 +162,11 @@ if (isInIframe()) {
     
     onHideRequestPermissions();
     
-    // options for geolocation - geoptimaliseerd voor mobile
+    // options for geolocation - werkt voor zowel mobile als desktop
     const options = {
-      enableHighAccuracy: true,
-      timeout: 30000, // Langere timeout voor mobile
-      maximumAge: 10000 // Cache locatie voor 10 seconden
+      enableHighAccuracy: isMobileDevice, // Alleen high accuracy op mobile
+      timeout: isMobileDevice ? 30000 : 10000, // Langere timeout voor mobile
+      maximumAge: isMobileDevice ? 10000 : 5000 // Cache locatie voor 10 seconden op mobile, 5 op desktop
     };
 
     // Check of geolocation beschikbaar is
@@ -184,7 +176,7 @@ if (isInIframe()) {
       return;
     }
 
-    // access real gps data
+    // access real gps data - werkt voor zowel mobile als desktop
     try {
       navigator.geolocation.watchPosition(success, error, options);
     } catch (e) {

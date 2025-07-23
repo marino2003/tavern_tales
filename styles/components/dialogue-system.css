@@ -19,9 +19,9 @@
 
 .dialogue-box {
   position: absolute;
-  bottom: max(40px, env(safe-area-inset-bottom) + 20px);
-  left: max(20px, env(safe-area-inset-left) + 10px);
-  right: max(20px, env(safe-area-inset-right) + 10px);
+  bottom: 40px;
+  left: 20px;
+  right: 20px;
   min-height: 140px;
   
   /* Character modal stijl - pixel art uitstraling */
@@ -45,9 +45,12 @@
   transform: translateY(20px);
   transition: transform 0.3s ease-out;
   
-  /* Zorg dat dialogue box altijd zichtbaar is */
-  max-height: calc(100vh - 80px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-  overflow: hidden;
+  /* Mobile optimalisaties */
+  max-height: 40vh; /* Zorg dat dialogue box niet te groot wordt */
+  max-height: 40dvh;
+  
+  /* Safe area support */
+  bottom: max(40px, env(safe-area-inset-bottom) + 20px);
 }
 
 .dialogue-overlay.show .dialogue-box {
@@ -183,16 +186,17 @@
 /* Tablet responsiveness */
 @media (max-width: 768px) {
   .dialogue-box {
-    left: max(15px, env(safe-area-inset-left) + 8px);
-    right: max(15px, env(safe-area-inset-right) + 8px);
+    left: 15px;
+    right: 15px;
     bottom: max(35px, env(safe-area-inset-bottom) + 15px);
     min-height: 120px;
+    max-height: 35vh;
+    max-height: 35dvh;
     padding: 16px;
     gap: 16px;
     /* Kleinere box shadow op tablet */
     box-shadow: -4px 4px 0px rgba(0, 0, 0, 0.5), -2px 2px 0px rgba(0, 0, 0, 0.3);
     outline: 3px solid black;
-    max-height: calc(100vh - 70px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   }
   
   .dialogue-portrait {
@@ -216,17 +220,18 @@
 
 @media (max-width: 480px) {
   .dialogue-box {
-    left: max(10px, env(safe-area-inset-left) + 5px);
-    right: max(10px, env(safe-area-inset-right) + 5px);
+    left: 10px;
+    right: 10px;
     bottom: max(30px, env(safe-area-inset-bottom) + 10px);
     min-height: 110px;
+    max-height: 30vh;
+    max-height: 30dvh;
     padding: 12px;
     gap: 12px;
     border-width: 2px;
     /* Kleinere box shadow op kleine mobile */
     box-shadow: -3px 3px 0px rgba(0, 0, 0, 0.5), -1px 1px 0px rgba(0, 0, 0, 0.3);
     outline: 2px solid black;
-    max-height: calc(100vh - 60px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   }
   
   .dialogue-portrait {
@@ -263,8 +268,10 @@
 /* Landscape mode aanpassingen */
 @media (max-height: 500px) and (orientation: landscape) {
   .dialogue-box {
-    bottom: 25px;
+    bottom: max(25px, env(safe-area-inset-bottom) + 5px);
     min-height: 90px;
+    max-height: 25vh;
+    max-height: 25dvh;
     padding: 10px;
     box-shadow: -3px 3px 0px rgba(0, 0, 0, 0.5), -1px 1px 0px rgba(0, 0, 0, 0.3);
     outline: 2px solid black;
@@ -360,24 +367,24 @@
 /* Specifieke aanpassingen voor apparaten met home indicators */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .dialogue-box {
-    bottom: calc(40px + env(safe-area-inset-bottom));
+    bottom: max(40px, env(safe-area-inset-bottom) + 20px);
   }
   
   @media (max-width: 768px) {
     .dialogue-box {
-      bottom: calc(35px + env(safe-area-inset-bottom));
+      bottom: max(35px, env(safe-area-inset-bottom) + 15px);
     }
   }
   
   @media (max-width: 480px) {
     .dialogue-box {
-      bottom: calc(30px + env(safe-area-inset-bottom));
+      bottom: max(30px, env(safe-area-inset-bottom) + 10px);
     }
   }
   
   @media (max-height: 500px) and (orientation: landscape) {
     .dialogue-box {
-      bottom: calc(25px + env(safe-area-inset-bottom));
+      bottom: max(25px, env(safe-area-inset-bottom) + 5px);
     }
   }
 } 

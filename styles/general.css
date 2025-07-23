@@ -1,21 +1,8 @@
 /* Mobile-first base styles */
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
 html {
   box-sizing: border-box;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
+  height: 100%;
+  overflow: hidden; /* Voorkom scrollen op html niveau */
 }
 
 *, *:before, *:after {
@@ -26,27 +13,51 @@ body {
   color: var(--text-color);
   background-color: var(--white);
   font-family: sans-serif;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  touch-action: manipulation;
+  
+  /* Mobile optimalisaties */
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height voor mobile browsers */
+  overflow: hidden; /* Voorkom scrollen */
+  position: fixed; /* Fix body positie */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  
+  /* Touch optimalisaties */
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version */
+  
+  /* Prevent zoom on input focus */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  
+  /* Smooth scrolling voor browsers die het ondersteunen */
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Prevent zoom on input focus (iOS) */
-input, textarea, select {
-  font-size: 16px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+/* Zorg dat alle pagina's de volledige viewport gebruiken */
+.game-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
-/* Safe area support voor moderne mobiele apparaten */
+/* Safe area support voor notches en home indicators */
 @supports (padding: max(0px)) {
   body {
     padding-left: max(0px, env(safe-area-inset-left));
@@ -57,17 +68,24 @@ input, textarea, select {
 }
 
 /* Landscape mode optimalisaties */
-@media (orientation: landscape) and (max-height: 500px) {
+@media (orientation: landscape) {
+  body {
+    /* Zorg dat content altijd zichtbaar blijft in landscape */
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+}
+
+/* Kleine schermen optimalisaties */
+@media (max-width: 360px) {
   body {
     font-size: 14px;
   }
 }
 
-/* Prevent pull-to-refresh op iOS */
-html {
-  overscroll-behavior: none;
-}
-
-body {
-  overscroll-behavior: none;
+/* Grote schermen optimalisaties */
+@media (min-width: 1200px) {
+  body {
+    font-size: 16px;
+  }
 }

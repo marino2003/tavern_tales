@@ -62,32 +62,20 @@ class DialogueSystem {
     }
     
     /**
-     * Bind events
+     * Bind event listeners
      */
     bindEvents() {
-        // Touch en click events voor mobile optimalisatie
-        const events = ['click', 'touchstart'];
+        // Klik/touch events
+        this.overlay.addEventListener('click', (e) => this.handleInteraction(e));
+        this.overlay.addEventListener('touchend', (e) => this.handleInteraction(e));
         
-        events.forEach(eventType => {
-            this.overlay.addEventListener(eventType, (event) => {
-                this.handleInteraction(event);
-            }, { passive: false });
-        });
-        
-        // Voorkom ongewenste scroll op mobile
-        this.overlay.addEventListener('touchmove', (event) => {
-            event.preventDefault();
-        }, { passive: false });
-        
-        // Voorkom zoom op double tap
-        let lastTouchEnd = 0;
-        this.overlay.addEventListener('touchend', (event) => {
-            const now = (new Date()).getTime();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
+        // Keyboard ondersteuning
+        document.addEventListener('keydown', (e) => {
+            if (this.isShowing && (e.key === ' ' || e.key === 'Enter')) {
+                e.preventDefault();
+                this.handleInteraction(e);
             }
-            lastTouchEnd = now;
-        }, false);
+        });
     }
     
     /**
@@ -230,7 +218,7 @@ class DialogueSystem {
      */
     updatePagesIndicator() {
         // Verberg pagination volledig
-        this.pagesIndicator.style.display = 'none';
+            this.pagesIndicator.style.display = 'none';
     }
     
     /**

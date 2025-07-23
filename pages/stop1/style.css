@@ -1,40 +1,5 @@
 /* Stop 1 - Hero Sprite Demo Styling */
 
-/* Mobile-first body styling */
-body {
-  background-color: #2a1810;
-  color: white;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-/* Game container optimalisaties */
-.game-container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  overflow: hidden;
-  background: #2a1810;
-  
-  /* Mobile optimalisaties */
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: none;
-  
-  /* Safe area support */
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-
 /* Hero sprite container styling */
 .hero-container {
     display: flex;
