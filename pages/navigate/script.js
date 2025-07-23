@@ -126,8 +126,34 @@ if (isInIframe()) {
 
 } else {
 
-  // Toon permissie request bij het laden van de pagina
-  onShowRequestPermissions();
+  // Check of geolocation al beschikbaar is
+  if (navigator.geolocation) {
+    // Probeer eerst locatie op te halen zonder permissie request
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log('Locatie al beschikbaar:', position.coords);
+        onHideRequestPermissions();
+        // Start GPS tracking
+        const options = {
+          enableHighAccuracy: true,
+          timeout: 30000,
+          maximumAge: 10000
+        };
+        navigator.geolocation.watchPosition(success, error, options);
+      },
+      (err) => {
+        console.log('Locatie niet beschikbaar, toon permissie request');
+        onShowRequestPermissions();
+      },
+      {
+        timeout: 5000,
+        maximumAge: 0
+      }
+    );
+  } else {
+    // Toon permissie request bij het laden van de pagina
+    onShowRequestPermissions();
+  }
 
   // Event listener voor de permissie button
   document.querySelector('#request-permissions-button').addEventListener('click', async function() {

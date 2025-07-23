@@ -1,0 +1,163 @@
+/* Mobile Optimizations - Algemene mobile optimalisaties */
+
+/* Voorkom ongewenste scroll en zoom gedrag */
+html, body {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Touch optimalisaties */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* Input velden moeten wel selecteerbaar zijn */
+input, textarea, select {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  touch-action: auto;
+}
+
+/* Voorkom zoom op input focus (iOS) */
+input, textarea, select {
+  font-size: 16px;
+}
+
+/* Safe area support voor moderne apparaten */
+@supports (padding: max(0px)) {
+  .game-container {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-top: max(0px, env(safe-area-inset-top));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+  
+  .modal-overlay {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-top: max(0px, env(safe-area-inset-top));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Landscape mode optimalisaties */
+@media (orientation: landscape) and (max-height: 500px) {
+  .game-container {
+    font-size: 14px;
+  }
+  
+  .dialogue-box {
+    bottom: max(20px, env(safe-area-inset-bottom) + 10px);
+    min-height: 80px;
+    padding: 10px;
+  }
+  
+  .dialogue-text {
+    font-size: 18px;
+    max-height: 60px;
+  }
+}
+
+/* Kleine schermen optimalisaties */
+@media (max-width: 360px) {
+  .game-container {
+    font-size: 12px;
+  }
+  
+  .dialogue-box {
+    left: max(5px, env(safe-area-inset-left) + 2px);
+    right: max(5px, env(safe-area-inset-right) + 2px);
+    bottom: max(20px, env(safe-area-inset-bottom) + 8px);
+    padding: 8px;
+    gap: 8px;
+  }
+  
+  .dialogue-text {
+    font-size: 20px;
+    max-height: 80px;
+  }
+  
+  .dialogue-portrait {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* Hoge schermen optimalisaties */
+@media (min-height: 800px) {
+  .dialogue-box {
+    bottom: max(60px, env(safe-area-inset-bottom) + 30px);
+    min-height: 160px;
+  }
+  
+  .dialogue-text {
+    font-size: 36px;
+    max-height: 140px;
+  }
+  
+  .dialogue-portrait {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* Voorkom pull-to-refresh op iOS */
+html {
+  overscroll-behavior-y: none;
+}
+
+/* Optimaliseer voor verschillende pixel densities */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .dialogue-box {
+    border-width: 1px;
+    outline-width: 2px;
+  }
+  
+  .dialogue-portrait {
+    border-width: 2px;
+  }
+}
+
+/* Voorkom ongewenste animaties op mobile voor betere performance */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark mode ondersteuning */
+@media (prefers-color-scheme: dark) {
+  .dialogue-box {
+    background: #f8f8f8;
+    border-color: #ddd;
+  }
+  
+  .dialogue-text {
+    color: #000000;
+  }
+}
+
+/* Specifieke optimalisaties voor apparaten met home indicators */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .dialogue-box {
+    bottom: max(40px, env(safe-area-inset-bottom) + 20px);
+  }
+  
+  .modal-overlay {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .game-container {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+} 

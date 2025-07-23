@@ -40,10 +40,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         transition.transitionOut(() => {
-          window.location.href = '../navigate/';
+          // Voeg dummy coördinaten toe voor testing
+          const dummyCoordinates = '51.2194,4.4025'; // Antwerpen centrum
+          const dummyLocationName = 'De Koninck Brouwerij';
+          const dummyNextPage = 'stop1';
+          
+          // Sla dummy data op in localStorage
+          localStorage.setItem('coordinates', dummyCoordinates);
+          localStorage.setItem('locationName', dummyLocationName);
+          localStorage.setItem('nextPage', dummyNextPage);
+          
+          window.location.href = `../navigate/index.html?coordinates=${dummyCoordinates}&locationName=${encodeURIComponent(dummyLocationName)}&nextPage=${dummyNextPage}`;
         });
       } else {
-        window.location.href = '../navigate/';
+        // Voeg dummy coördinaten toe voor testing
+        const dummyCoordinates = '51.2194,4.4025'; // Antwerpen centrum
+        const dummyLocationName = 'De Koninck Brouwerij';
+        const dummyNextPage = 'stop1';
+        
+        // Sla dummy data op in localStorage
+        localStorage.setItem('coordinates', dummyCoordinates);
+        localStorage.setItem('locationName', dummyLocationName);
+        localStorage.setItem('nextPage', dummyNextPage);
+        
+        window.location.href = `../navigate/index.html?coordinates=${dummyCoordinates}&locationName=${encodeURIComponent(dummyLocationName)}&nextPage=${dummyNextPage}`;
       }
     });
   }
