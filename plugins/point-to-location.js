@@ -162,11 +162,17 @@ function onChange() {
       pointerElement.style.visibility = 'visible';
       if (compass === null) {
         const rotation = direction;
-        pointerElement.style.transform = `rotate(${rotation}deg)`;
+        // Gebruik requestAnimationFrame voor soepelere animatie
+        requestAnimationFrame(() => {
+          pointerElement.style.transform = `rotate(${rotation}deg)`;
+        });
         console.log('Wijzer roteert naar richting:', rotation, 'graden (zonder kompas)');
       } else {
         const rotation = compass + direction;
-        pointerElement.style.transform = `rotate(${rotation}deg)`;
+        // Gebruik requestAnimationFrame voor soepelere animatie
+        requestAnimationFrame(() => {
+          pointerElement.style.transform = `rotate(${rotation}deg)`;
+        });
         console.log('Wijzer roteert naar richting:', rotation, 'graden (kompas:', compass, '+ richting:', direction, ')');
       }
     }

@@ -88,6 +88,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* Dynamic viewport height */
   pointer-events: none;
   z-index: 15;
 }
@@ -99,6 +100,7 @@
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
   object-fit: cover;
+  object-position: center;
   pointer-events: auto;
 }
 
@@ -108,8 +110,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
-  height: 300px;
+  width: min(300px, 80vw); /* Responsive grootte */
+  height: min(300px, 80vw);
   z-index: 25;
 }
 
@@ -136,7 +138,7 @@
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
   transform-origin: 50% 50%;
-  transition: transform 0.3s ease-out;
+  transition: transform 0.1s linear; /* Soepelere animatie */
   object-fit: contain;
   z-index: 2;
 }
@@ -356,8 +358,8 @@
   }
   
   .compass-overlay {
-    width: 250px;
-    height: 250px;
+    width: min(250px, 70vw);
+    height: min(250px, 70vw);
   }
   
   .character-modal {
@@ -383,10 +385,35 @@
   }
 }
 
+/* Landscape mode optimalisaties */
+@media (orientation: landscape) {
+  .compass-container {
+    height: 100vh;
+    height: 100dvh;
+  }
+  
+  .compass-overlay {
+    width: min(200px, 40vh);
+    height: min(200px, 40vh);
+  }
+  
+  .navigation-info {
+    top: max(1rem, env(safe-area-inset-top) + 0.25rem);
+  }
+  
+  .navigation-info h1 {
+    font-size: 1rem;
+  }
+  
+  .navigation-info p {
+    font-size: 0.9rem;
+  }
+}
+
 @media (max-width: 360px) {
   .compass-overlay {
-    width: 200px;
-    height: 200px;
+    width: min(200px, 60vw);
+    height: min(200px, 60vw);
   }
   
   .navigation-info h1 {
