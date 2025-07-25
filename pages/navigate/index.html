@@ -37,22 +37,37 @@
       
       <!-- Main Scene -->
       <div class="scene">
-        <!-- Navigation Info -->
-        <div class="navigation-info">
-          <h1>Navigeer naar <span id="location-name"></span></h1>
-          <p>Nog <span id="distance"></span> meter</p>
+        
+        <!-- Vereenvoudigde Navigatie Component -->
+        <div class="navigation-component">
+          <div class="navigation-content">
+            <div class="cafe-photo">
+              <img src="../../assets/navigation/cafe-placeholder.jpg" alt="Café" id="cafe-photo">
+            </div>
+            <div class="navigation-text">
+              <div class="location-name" id="location-name">Café Beveren</div>
+              <div class="navigation-info">
+                <span class="distance" id="distance">500m</span>
+                <span class="beer-count" id="beer-count">2/4</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Handholding compass container -->
+        <!-- Bier Voortgang Indicator -->
+        <div class="beer-progress">
+          <div class="beer-icon">🍺</div>
+          <div class="beer-count-small" id="beer-count-small">2/4</div>
+        </div>
+
+        <!-- Compass Container -->
         <div class="compass-container">
           <img src="../../assets/navigation/handholding_compass.png" alt="handholding compass" class="compass-image" />
         </div>
 
-        <!-- Compas assets overlay in het midden -->
+        <!-- Compass Overlay -->
         <div class="compass-overlay">
-          <!-- Windrose (basis) -->
           <img src="../../assets/compas resized/windrose.png" alt="windrose" class="compass-windrose" />
-          <!-- Wijzer (roteert naar doellocatie) -->
           <img src="../../assets/compas resized/wijzer.png" alt="wijzer" id="point-to-location" class="compass-wijzer" />
         </div>
         

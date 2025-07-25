@@ -51,34 +51,123 @@
   z-index: 10;
 }
 
-/* Navigation Info - Gecentreerd bovenaan */
-.navigation-info {
+/* Vereenvoudigde Navigatie Component */
+.navigation-component {
   position: absolute;
   top: max(2rem, env(safe-area-inset-top) + 1rem);
   left: 50%;
   transform: translateX(-50%);
+  width: 90%;
+  max-width: 420px;
+  background: #f8f8f8;
+  border: 6px solid black;
+  border-radius: 0;
+  box-shadow: -6px 6px 0px rgba(0, 0, 0, 0.5), -4px 4px 0px rgba(0, 0, 0, 0.3);
   z-index: 20;
-  text-align: center;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  padding: 16px;
 }
 
-.navigation-info h1 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.5rem;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+.navigation-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cafe-photo {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  background: #e8e8e8;
+  border: 3px solid #333;
+  flex-shrink: 0;
+  box-shadow: inset 2px 2px 0px rgba(255,255,255,0.7), inset -2px -2px 0px rgba(0,0,0,0.2);
+}
+
+.cafe-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.navigation-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.location-name {
   font-family: var(--pixel-font);
-  font-weight: 400;
-  letter-spacing: 1px;
-}
-
-.navigation-info p {
+  font-size: 22px;
+  font-weight: bold;
+  color: black;
   margin: 0;
-  font-size: 1.2rem;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  font-family: var(--pixel-font);
-  font-weight: 400;
   letter-spacing: 1px;
+}
+
+.navigation-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.distance {
+  font-family: var(--pixel-font);
+  font-size: 18px;
+  color: black;
+  letter-spacing: 1px;
+}
+
+.beer-count {
+  font-family: var(--pixel-font);
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  letter-spacing: 1px;
+}
+
+/* Bier Voortgang Indicator */
+.beer-progress {
+  position: absolute;
+  top: calc(max(2rem, env(safe-area-inset-top) + 1rem) + 120px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #F6F6F6;
+  border: 3px solid #FF6262;
+  border-radius: 0;
+  z-index: 20;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  padding: 8px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.beer-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.beer-count-small {
+  font-family: var(--pixel-font);
+  font-size: 18px;
+  color: #929292;
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
 
 /* Compass container - Gecentreerd in het midden */
@@ -88,7 +177,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  height: 100dvh; /* Dynamic viewport height */
+  height: 100dvh;
   pointer-events: none;
   z-index: 15;
 }
@@ -110,7 +199,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: min(300px, 80vw); /* Responsive grootte */
+  width: min(300px, 80vw);
   height: min(300px, 80vw);
   z-index: 25;
 }
@@ -138,7 +227,7 @@
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
   transform-origin: 50% 50%;
-  transition: transform 0.1s linear; /* Soepelere animatie */
+  transition: transform 0.1s linear;
   object-fit: contain;
   z-index: 2;
 }
@@ -341,20 +430,86 @@
   letter-spacing: 1px;
 }
 
+/* Hints Sectie */
+.hints-section {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 2px solid #eee;
+}
+
+.hint-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 4px 0;
+}
+
+.hint-item:last-child {
+  margin-bottom: 0;
+}
+
+.hint-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.hint-text {
+  font-family: var(--pixel-font);
+  font-size: 12px;
+  color: #666;
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+}
+
 /* Mobile First Responsive Design */
 @media (max-width: 480px) {
+  .navigation-component {
+    width: 95%;
+    max-width: 380px;
+    top: max(1rem, env(safe-area-inset-top) + 0.5rem);
+    padding: 14px;
+  }
+  
+  .navigation-content {
+    gap: 14px;
+  }
+  
+  .cafe-photo {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .location-name {
+    font-size: 20px;
+  }
+  
   .navigation-info {
-    top: max(1.5rem, env(safe-area-inset-top) + 0.5rem);
+    gap: 16px;
   }
   
-  .navigation-info h1 {
-    font-size: 1.2rem;
-    letter-spacing: 0.5px;
+  .distance {
+    font-size: 16px;
   }
   
-  .navigation-info p {
-    font-size: 1rem;
-    letter-spacing: 0.5px;
+  .beer-count {
+    font-size: 16px;
+  }
+  
+  .beer-progress {
+    top: calc(max(1rem, env(safe-area-inset-top) + 0.5rem) + 110px);
+    padding: 6px 10px;
+    gap: 10px;
+  }
+  
+  .beer-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+  }
+  
+  .beer-count-small {
+    font-size: 16px;
   }
   
   .compass-overlay {
@@ -387,6 +542,53 @@
 
 /* Landscape mode optimalisaties */
 @media (orientation: landscape) {
+  .navigation-component {
+    top: max(0.5rem, env(safe-area-inset-top) + 0.25rem);
+    max-width: 320px;
+    padding: 12px;
+  }
+  
+  .navigation-content {
+    gap: 12px;
+  }
+  
+  .cafe-photo {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .location-name {
+    font-size: 18px;
+  }
+  
+  .navigation-info {
+    gap: 12px;
+  }
+  
+  .distance {
+    font-size: 14px;
+  }
+  
+  .beer-count {
+    font-size: 14px;
+  }
+  
+  .beer-progress {
+    top: calc(max(0.5rem, env(safe-area-inset-top) + 0.25rem) + 90px);
+    padding: 5px 8px;
+    gap: 8px;
+  }
+  
+  .beer-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 14px;
+  }
+  
+  .beer-count-small {
+    font-size: 14px;
+  }
+  
   .compass-container {
     height: 100vh;
     height: 100dvh;
@@ -396,31 +598,47 @@
     width: min(200px, 40vh);
     height: min(200px, 40vh);
   }
-  
-  .navigation-info {
-    top: max(1rem, env(safe-area-inset-top) + 0.25rem);
-  }
-  
-  .navigation-info h1 {
-    font-size: 1rem;
-  }
-  
-  .navigation-info p {
-    font-size: 0.9rem;
-  }
 }
 
 @media (max-width: 360px) {
+  .navigation-component {
+    width: 98%;
+    max-width: 340px;
+  }
+  
+  .cafe-photo {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .location-name {
+    font-size: 18px;
+  }
+  
+  .distance {
+    font-size: 14px;
+  }
+  
+  .beer-count {
+    font-size: 14px;
+  }
+  
+  .beer-progress {
+    top: calc(max(1rem, env(safe-area-inset-top) + 0.5rem) + 100px);
+  }
+  
+  .beer-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 14px;
+  }
+  
+  .beer-count-small {
+    font-size: 14px;
+  }
+  
   .compass-overlay {
     width: min(200px, 60vw);
     height: min(200px, 60vw);
-  }
-  
-  .navigation-info h1 {
-    font-size: 1rem;
-  }
-  
-  .navigation-info p {
-    font-size: 0.9rem;
   }
 }

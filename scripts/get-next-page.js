@@ -20,4 +20,3 @@ function getNextPage() {
   // als er niets gevonden is navigeren we naar de startpagina
   return './pages/start/index.html';
 };
-g
