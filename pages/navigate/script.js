@@ -10,12 +10,20 @@ document.addEventListener('DOMContentLoaded', function() {
   const requestPermissionsButton = document.getElementById('request-permissions-button');
   const gameContainer = document.querySelector('.game-container');
   
+  // Transition overlay initialiseren
+  const transitionOverlay = new TransitionOverlay({
+    duration: 1500,
+    color: '#A0303F',
+    direction: 'left-to-right'
+  });
+  
   // Test data - in echte implementatie komt dit uit de game state
   const currentLocation = {
     name: 'Café Beveren',
     distance: 500,
     collectedBeers: 2,
-    totalBeers: 4
+    totalBeers: 4,
+    hasArrived: false
   };
   
   // UI updaten met locatie data
@@ -34,6 +42,25 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateDistance(newDistance) {
     currentLocation.distance = Math.round(newDistance);
     distanceElement.textContent = `${currentLocation.distance}m`;
+    
+    // Check of gebruiker is aangekomen (binnen 50 meter)
+    if (currentLocation.distance <= 50 && !currentLocation.hasArrived) {
+      currentLocation.hasArrived = true;
+      triggerArrivalTransition();
+    }
+  }
+  
+  // Trigger overgang wanneer gebruiker aankomt
+  function triggerArrivalTransition() {
+    console.log('Gebruiker is aangekomen! Start overgang...');
+    
+    // Start transition out
+    transitionOverlay.transitionOut(() => {
+      // Navigeer naar de minigame intro pagina
+      window.location.href = '../minigame-intro/index.html';
+    }).then(() => {
+      console.log('Transition out voltooid');
+    });
   }
   
   // Locatie permissies aanvragen

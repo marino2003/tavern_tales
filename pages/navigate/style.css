@@ -138,8 +138,7 @@
 .beer-progress {
   position: absolute;
   top: calc(max(2rem, env(safe-area-inset-top) + 1rem) + 120px);
-  left: 50%;
-  transform: translateX(-50%);
+  right: 5%;
   background: #F6F6F6;
   border: 3px solid #FF6262;
   border-radius: 0;
@@ -497,9 +496,8 @@
   }
   
   .beer-progress {
-    top: calc(max(1rem, env(safe-area-inset-top) + 0.5rem) + 110px);
-    padding: 6px 10px;
-    gap: 10px;
+    top: calc(max(1rem, env(safe-area-inset-top) + 0.5rem) + 100px);
+    right: 5%;
   }
   
   .beer-icon {
@@ -575,6 +573,7 @@
   
   .beer-progress {
     top: calc(max(0.5rem, env(safe-area-inset-top) + 0.25rem) + 90px);
+    right: 5%;
     padding: 5px 8px;
     gap: 8px;
   }
@@ -624,7 +623,8 @@
   }
   
   .beer-progress {
-    top: calc(max(1rem, env(safe-area-inset-top) + 0.5rem) + 100px);
+    top: max(1rem, env(safe-area-inset-top) + 0.5rem);
+    left: calc(50% + 180px);
   }
   
   .beer-icon {
