@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
       inputMaxLength: 20,
       showActions: true,
       primaryButtonText: 'Indienen',
-      secondaryButtonText: 'Annuleren',
+      secondaryButtonText: null,
       customContent: `
         <div class="modal-text">
           <p>Wat was de oorspronkelijke functie van Den Engel?</p>
@@ -63,9 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
       `,
       onPrimaryClick: (value) => {
         submitAnswer(value);
-      },
-      onSecondaryClick: () => {
-        answerModal.close();
       }
     });
     
