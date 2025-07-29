@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Afstand berekenen en updaten
+  // Afstand berekenen en updaten  
   function updateDistanceToTarget(userLat, userLon) {
     if (userLat && userLon) {
       const result = getDistance(userLat, userLon, targetLocation.lat, targetLocation.lon);
@@ -53,20 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       distanceElement.textContent = displayDistance;
-      
-      // Update compas wijzer naar doellocatie
-      if (typeof pointToLocation === 'function') {
-        pointToLocation(
-          userLat, 
-          userLon, 
-          targetLocation.lat, 
-          targetLocation.lon, 
-          '#point-to-location', 
-          '#request-permissions-button',
-          function() { /* onShow - al gehandeld door modal */ },
-          function() { /* onHide - al gehandeld door modal */ }
-        );
-      }
     
       // Check of gebruiker is aangekomen (binnen 50 meter)
       if (distanceInMeters <= 50 && !targetLocation.hasArrived) {
@@ -76,35 +62,50 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Locatie tracking starten
-  function startLocationTracking() {
+  // Compas functies voor pointToLocation plugin
+  function initializeCompass() {
+    // Modal functies
+    function onShowRequestPermissions() {
+      requestPermissionsModal.classList.add('active');
+      gameContainer.classList.add('modal-active');
+    }
+
+    function onHideRequestPermissions() {
+      requestPermissionsModal.classList.remove('active'); 
+      gameContainer.classList.remove('modal-active');
+    }
+    
+    // Start compas tracking met watchPosition zoals bedoeld in de plugin
     if (navigator.geolocation) {
-      // Eerste positie ophalen
-      navigator.geolocation.getCurrentPosition(
-        function(position) {
-          const { latitude, longitude } = position.coords;
-          updateDistanceToTarget(latitude, longitude);
-        },
-        function(error) {
-          console.error('Locatie error:', error);
-          // Toon fallback afstand
-          distanceElement.textContent = 'Locatie niet beschikbaar';
-        }
-      );
-      
-      // Continue tracking (elke 10 seconden)
       const watchId = navigator.geolocation.watchPosition(
         function(position) {
           const { latitude, longitude } = position.coords;
+          
+          // Update afstand
           updateDistanceToTarget(latitude, longitude);
+          
+          // Update compas richting
+          if (typeof pointToLocation === 'function') {
+            pointToLocation(
+              latitude, 
+              longitude, 
+              targetLocation.lat, 
+              targetLocation.lon, 
+              '#point-to-location', 
+              '#request-permissions-button',
+              onShowRequestPermissions,
+              onHideRequestPermissions
+            );
+          }
         },
         function(error) {
           console.error('Locatie tracking error:', error);
+          distanceElement.textContent = 'Locatie niet beschikbaar';
         },
         {
           enableHighAccuracy: true,
           timeout: 10000,
-          maximumAge: 10000
+          maximumAge: 5000
         }
       );
       
@@ -113,6 +114,12 @@ document.addEventListener('DOMContentLoaded', function() {
         navigator.geolocation.clearWatch(watchId);
       };
     }
+  }
+  
+  // Locatie tracking starten (legacy functie)
+  function startLocationTracking() {
+    // Nu gewoon de compas initialisatie aanroepen
+    initializeCompass();
   }
   
   // Trigger overgang wanneer gebruiker aankomt
@@ -136,23 +143,14 @@ document.addEventListener('DOMContentLoaded', function() {
   // Locatie permissies aanvragen
   function requestLocationPermissions() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function(position) {
-          // Succes - modal sluiten
-          requestPermissionsModal.classList.remove('active');
-          gameContainer.classList.remove('modal-active');
-          
-          // Start locatie tracking
-          startLocationTracking();
-          
-          console.log('Locatie toegang verleend');
-        },
-        function(error) {
-          console.error('Locatie error:', error);
-          // Toon error message aan gebruiker
-          distanceElement.textContent = 'Locatie toegang geweigerd';
-        }
-      );
+      // Modal sluiten
+      requestPermissionsModal.classList.remove('active');
+      gameContainer.classList.remove('modal-active');
+      
+      // Start compas tracking
+      initializeCompass();
+      
+      console.log('Locatie toegang verleend - compas gestart');
     } else {
       console.error('Geolocation niet ondersteund');
       distanceElement.textContent = 'Geolocation niet ondersteund';
@@ -170,8 +168,8 @@ document.addEventListener('DOMContentLoaded', function() {
     requestPermissionsModal.classList.add('active');
     gameContainer.classList.add('modal-active');
   } else {
-    // Niet in iframe - start direct locatie tracking
-    startLocationTracking();
+    // Niet in iframe - start direct compas tracking
+    initializeCompass();
   }
   
   // UI initialiseren
