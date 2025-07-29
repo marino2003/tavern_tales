@@ -11,25 +11,30 @@ document.addEventListener('DOMContentLoaded', function() {
   // Dialoog data voor minigame intro
   const minigameIntroDialogues = [
     {
-      character: "NPC",
-      text: "Dus jij bent de beruchte ‘viltjesjager’",
+      character: "Barvrouw",
+      text: "Ah, een nieuwe held in Den Engel! Ik zie dat je de viltjesjager bent waar iedereen over praat.",
       portrait: "../../assets/character_port/npc.png"
     },
     {
-      character: "NPC",
-      text: "Dracohol liet hier iets achter.",
-      portrait: "../../assets/spritesheets/hero_main/Combat Ready Idle.png"
-    },
-    {
-      character: "NPC",
-      text: "Hij bracht mij deze puzzel",
-      portrait: "../../assets/spritesheets/hero_main/Combat Ready Idle.png"
-    },
-    {
-      character: "NPC",
-      text: "'Dit was geen normale kroeg. Kijk om je heen. Wat zie je?'",
+      character: "Barvrouw",
+      text: "Dracohol was hier gisteren. Hij liet een raadsel achter en zei dat alleen iemand met echte kennis van de stad het zou kunnen oplossen.",
       portrait: "../../assets/character_port/npc.png"
     },
+    {
+      character: "Barvrouw",
+      text: "'Dit was geen normale kroeg', zei hij. 'Kijk om je heen. Wat zie je? Wat was dit oorspronkelijk?'",
+      portrait: "../../assets/character_port/npc.png"
+    },
+    {
+      character: "Barvrouw",
+      text: "Hij heeft hier een van de verloren bieren verstopt. Maar om het te vinden, moet je eerst het geheim van Den Engel ontdekken.",
+      portrait: "../../assets/character_port/npc.png"
+    },
+    {
+      character: "Barvrouw",
+      text: "Stap buiten en kijk goed naar de gevel. De geschiedenis van deze plek ligt voor je open, als je maar goed kijkt.",
+      portrait: "../../assets/character_port/npc.png"
+    }
   ];
   
   // Dialoog systeem initialiseren

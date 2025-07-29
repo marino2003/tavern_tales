@@ -1,4 +1,4 @@
-// Minigame 1 pagina script
+// Minigame 1 - Complete UI Herwerking
 document.addEventListener('DOMContentLoaded', function() {
   
   // Transition overlay initialiseren
@@ -9,48 +9,164 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // Elementen ophalen
-  const tutorialModal = document.getElementById('tutorialModal');
-  const startMinigameBtn = document.getElementById('startMinigameBtn');
-  const questSummary = document.getElementById('questSummary');
+  const minigameScrollOverlay = document.getElementById('minigameScrollOverlay');
+  const startMinigameButton = document.getElementById('startMinigameButton');
+  const gameInterface = document.getElementById('gameInterface');
   const hintButton = document.getElementById('hintButton');
-  const hintModal = document.getElementById('hintModal');
-  const closeHintBtn = document.getElementById('closeHintBtn');
+  const answerButton = document.getElementById('answerButton');
   
-  // Tutorial modal verbergen en quest summary + hint button tonen
-  function startMinigame() {
+  // Modal components
+  let hintModal = null;
+  let answerModal = null;
+  let successModal = null;
+  
+  // Game state
+  let gameStarted = false;
+  
+  // Initialiseer alle modals
+  function initModals() {
+    // Hint modal - Toont hints
+    hintModal = new ModalComponent({
+      id: 'hintModal',
+      title: '- HINT -',
+      showCloseButton: true,
+      showInput: false,
+      showActions: true,
+      primaryButtonText: 'Sluiten',
+      secondaryButtonText: null,
+      customContent: `
+        <div class="modal-text">
+          <p>Stap buiten en kijk naar de gevel van Den Engel. Wat voor soort winkel zie je daar?</p>
+          <p>Let op de details in de gevel en de historische elementen.</p>
+        </div>
+      `,
+      onPrimaryClick: () => {
+        hintModal.close();
+      }
+    });
+    
+    // Answer modal - Voor antwoord invoer
+    answerModal = new ModalComponent({
+      id: 'answerModal',
+      title: '- ANTWOORD -',
+      showCloseButton: true,
+      showInput: true,
+      inputPlaceholder: 'Type hier je antwoord...',
+      inputMaxLength: 20,
+      showActions: true,
+      primaryButtonText: 'Indienen',
+      secondaryButtonText: 'Annuleren',
+      customContent: `
+        <div class="modal-text">
+          <p>Wat was de oorspronkelijke functie van Den Engel?</p>
+        </div>
+      `,
+      onPrimaryClick: (value) => {
+        submitAnswer(value);
+      },
+      onSecondaryClick: () => {
+        answerModal.close();
+      }
+    });
+    
+    // Success modal - Beloning
+    successModal = new ModalComponent({
+      id: 'successModal',
+      title: '- GEFELICITEERD -',
+      showCloseButton: false,
+      showInput: false,
+      showActions: true,
+      primaryButtonText: 'Verder',
+      secondaryButtonText: null,
+      customContent: `
+        <div class="success-content">
+          <div class="success-icon">🎉</div>
+          <div class="modal-text">
+            <p>Je hebt het geheim van Den Engel ontdekt! Het was inderdaad een drogisterij.</p>
+            <p>Dracohol heeft hier een van de verloren bieren verstopt.</p>
+          </div>
+          <div class="success-reward">
+            <div class="beer-icon">🍺</div>
+            <span class="reward-text">+1 Bier gevonden!</span>
+          </div>
+        </div>
+      `,
+      onPrimaryClick: () => {
+        continueToNext();
+      }
+    });
+  }
+  
+  // Start de game
+  function startGame() {
     console.log('Start minigame...');
     
-    // Tutorial modal verbergen
-    tutorialModal.style.display = 'none';
+    // Fade out scroll overlay
+    minigameScrollOverlay.style.opacity = '0';
+    minigameScrollOverlay.style.transform = 'scale(0.9)';
     
-    // Quest summary tonen
-    questSummary.style.display = 'block';
-    
-    // Hint button tonen
-    hintButton.style.display = 'flex';
-    
-    console.log('Tutorial verborgen, quest summary en hint button getoond');
+    setTimeout(() => {
+      minigameScrollOverlay.style.display = 'none';
+      gameStarted = true;
+      gameInterface.style.display = 'flex';
+      
+      // Fade in game interface
+      gameInterface.style.opacity = '0';
+      gameInterface.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        gameInterface.style.opacity = '1';
+        gameInterface.style.transform = 'translateY(0)';
+      }, 100);
+    }, 300);
   }
   
-  // Hint modal tonen
+  // Toon hint
   function showHint() {
     console.log('Toon hint...');
-    hintModal.style.display = 'flex';
+    hintModal.show();
   }
   
-  // Hint modal verbergen
-  function hideHint() {
-    console.log('Verberg hint...');
-    hintModal.style.display = 'none';
+  // Toon answer modal
+  function showAnswerModal() {
+    console.log('Toon answer modal...');
+    answerModal.show();
   }
   
-  // Terug naar navigatie functie
-  function backToNavigation() {
-    console.log('Terug naar navigatie...');
+  // Antwoord indienen
+  function submitAnswer(userAnswer) {
+    const correctAnswers = ['drogisterij', 'drogist', 'apotheek', 'pharmacy'];
+    
+    console.log('Antwoord ingediend:', userAnswer);
+    
+    const normalizedAnswer = userAnswer.toLowerCase().trim();
+    const isCorrect = correctAnswers.some(answer => 
+      normalizedAnswer.includes(answer) || answer.includes(normalizedAnswer)
+    );
+    
+    if (isCorrect) {
+      console.log('Correct antwoord!');
+      answerModal.close();
+      showSuccess();
+    } else {
+      console.log('Fout antwoord');
+      answerModal.showError('Dat is niet het juiste antwoord. Probeer het nog eens!');
+    }
+  }
+  
+  // Toon success
+  function showSuccess() {
+    console.log('Toon success...');
+    successModal.show();
+  }
+  
+  // Ga verder naar volgende pagina
+  function continueToNext() {
+    console.log('Ga verder...');
     
     // Start transition out
     transitionOverlay.transitionOut(() => {
-      // Navigeer terug naar navigatie pagina
+      // Navigeer naar volgende pagina
       window.location.href = '../navigate/index.html';
     }).then(() => {
       console.log('Transition out voltooid');
@@ -58,27 +174,28 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Event listeners
-  if (startMinigameBtn) {
-    startMinigameBtn.addEventListener('click', startMinigame);
+  if (startMinigameButton) {
+    startMinigameButton.addEventListener('click', startGame);
   }
   
   if (hintButton) {
     hintButton.addEventListener('click', showHint);
   }
   
-  if (closeHintBtn) {
-    closeHintBtn.addEventListener('click', hideHint);
+  if (answerButton) {
+    answerButton.addEventListener('click', showAnswerModal);
   }
   
   // Keyboard shortcuts
   document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
-      // Escape verbergt hint modal of gaat terug
       event.preventDefault();
-      if (hintModal.style.display === 'flex') {
-        hideHint();
+      if (gameStarted) {
+        // Terug naar navigatie
+        continueToNext();
       } else {
-        backToNavigation();
+        // Terug naar navigatie
+        continueToNext();
       }
     }
   });
@@ -97,24 +214,25 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   function handleSwipe() {
-    const swipeThreshold = 50;
-    const swipeDistance = touchEndY - touchStartY;
+    const swipeDistance = touchStartY - touchEndY;
+    const minSwipeDistance = 50;
     
-    if (Math.abs(swipeDistance) > swipeThreshold) {
-      if (swipeDistance < 0) {
-        // Swipe naar boven - ga terug
-        backToNavigation();
+    if (Math.abs(swipeDistance) > minSwipeDistance) {
+      if (swipeDistance > 0) {
+        // Swipe omhoog - geen actie
+      } else {
+        // Swipe omlaag - geen actie
       }
     }
   }
   
-  // Auto-focus op start button voor accessibility
-  setTimeout(() => {
-    if (startMinigameBtn) {
-      startMinigameBtn.focus();
-    }
-  }, 1000);
+  // Initialiseer modals
+  initModals();
+  
+  // Start met scroll overlay zichtbaar
+  minigameScrollOverlay.style.opacity = '1';
+  minigameScrollOverlay.style.transform = 'scale(1)';
+  minigameScrollOverlay.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
   
   console.log('Minigame 1 pagina geladen');
-  
 }); 

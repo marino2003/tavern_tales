@@ -7,6 +7,15 @@
   font-display: swap; /* Voor betere performance op mobile */
 }
 
+/* Font Face Declaratie voor OldeTome */
+@font-face {
+  font-family: 'OldeTome';
+  src: url('../fonts/OldeTome.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --white: #FFFFFF;
 
@@ -15,4 +24,5 @@
   
   /* Font stack met fallbacks */
   --pixel-font: 'm6x11plus', 'Courier New', 'Courier', monospace;
+  --title-font: 'OldeTome', serif;
 }

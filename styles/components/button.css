@@ -52,6 +52,12 @@
   white-space: nowrap;
   line-height: 1;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
 
 /* Primair - Rood (default - geen filter) */
