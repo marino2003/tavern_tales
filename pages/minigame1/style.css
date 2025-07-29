@@ -196,7 +196,7 @@
 
 
 
-/* Game Interface - Verbeterde Spacing */
+/* Game Interface - Verbeterde Spacing zoals Navigate */
 .game-interface {
   position: fixed;
   top: 0;
@@ -208,13 +208,13 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: env(safe-area-inset-top, 30px) 30px env(safe-area-inset-bottom, 40px) 30px;
+  padding: max(2rem, env(safe-area-inset-top) + 1rem) max(2rem, 20px) max(3rem, env(safe-area-inset-bottom) + 2rem) max(2rem, 20px);
   box-sizing: border-box;
   z-index: 15;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Quest Display - Gefixt */
+/* Quest Display - Betere Spacing */
 .quest-display {
   background: rgba(255, 255, 255, 0.95);
   border: 3px solid #333;
@@ -226,7 +226,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(4px);
   width: 100%;
-  max-width: 350px;
+  max-width: 400px;
   margin: 0 auto;
   flex-shrink: 0;
 }
@@ -248,7 +248,7 @@
   text-align: left;
 }
 
-/* Action Buttons - Gefixt */
+/* Action Buttons - Betere Spacing */
 .action-buttons {
   display: flex;
   flex-direction: column;
@@ -256,7 +256,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 350px;
+  max-width: 400px;
   flex-shrink: 0;
 }
 
@@ -379,12 +379,12 @@
   }
   
   .game-interface {
-    padding: env(safe-area-inset-top, 25px) 25px env(safe-area-inset-bottom, 35px) 25px;
+    padding: max(1.5rem, env(safe-area-inset-top) + 0.5rem) max(1.5rem, 15px) max(2rem, env(safe-area-inset-bottom) + 1rem) max(1.5rem, 15px);
   }
   
   .quest-display {
     padding: 12px 16px;
-    max-width: 320px;
+    max-width: 360px;
   }
   
   .quest-icon {
@@ -397,7 +397,7 @@
   
   .action-buttons {
     gap: 16px;
-    max-width: 320px;
+    max-width: 360px;
   }
   
   .action-buttons .pixel-button {
@@ -451,12 +451,12 @@
   }
   
   .game-interface {
-    padding: env(safe-area-inset-top, 20px) 20px env(safe-area-inset-bottom, 30px) 20px;
+    padding: max(1rem, env(safe-area-inset-top) + 0.25rem) max(1rem, 10px) max(1.5rem, env(safe-area-inset-bottom) + 0.5rem) max(1rem, 10px);
   }
   
   .quest-display {
     padding: 10px 14px;
-    max-width: 300px;
+    max-width: 320px;
   }
   
   .quest-icon {
@@ -469,7 +469,7 @@
   
   .action-buttons {
     gap: 14px;
-    max-width: 300px;
+    max-width: 320px;
   }
   
   .action-buttons .pixel-button {
@@ -523,12 +523,12 @@
   }
   
   .game-interface {
-    padding: env(safe-area-inset-top, 15px) 20px env(safe-area-inset-bottom, 25px) 20px;
+    padding: max(0.75rem, env(safe-area-inset-top) + 0.25rem) max(0.75rem, 12px) max(1.25rem, env(safe-area-inset-bottom) + 0.5rem) max(0.75rem, 12px);
   }
   
   .quest-display {
     padding: 8px 12px;
-    max-width: 280px;
+    max-width: 300px;
   }
   
   .quest-icon {
@@ -541,7 +541,7 @@
   
   .action-buttons {
     gap: 12px;
-    max-width: 280px;
+    max-width: 300px;
   }
   
   .action-buttons .pixel-button {

@@ -80,6 +80,14 @@ class ModalComponent {
     title.textContent = this.options.title;
     modalContent.appendChild(title);
     
+    // Custom content (komt nu vóór input)
+    if (this.options.customContent) {
+      const customContentDiv = document.createElement('div');
+      customContentDiv.className = 'modal-custom-content';
+      customContentDiv.innerHTML = this.options.customContent;
+      modalContent.appendChild(customContentDiv);
+    }
+    
     // Input container
     if (this.options.showInput) {
       const inputContainer = document.createElement('div');
@@ -113,14 +121,6 @@ class ModalComponent {
       this.errorElement.className = 'error-message';
       this.errorElement.textContent = 'Vul eerst je antwoord in!';
       modalContent.appendChild(this.errorElement);
-    }
-    
-    // Custom content
-    if (this.options.customContent) {
-      const customContentDiv = document.createElement('div');
-      customContentDiv.className = 'modal-custom-content';
-      customContentDiv.innerHTML = this.options.customContent;
-      modalContent.appendChild(customContentDiv);
     }
     
     // Actions

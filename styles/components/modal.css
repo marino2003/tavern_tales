@@ -51,7 +51,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .modal-overlay.active .modal-container {
@@ -112,20 +112,21 @@
   margin: 0;
   padding: 0;
   flex: 1;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
-/* Modal Title - Gefixt */
+/* Modal Title - Bovenaan gepositioneerd */
 .modal-title {
   text-align: center;
   color: #333;
   font-size: 28px;
   font-family: var(--pixel-font);
   font-weight: 400;
-  margin: 0;
+  margin: 0 0 24px 0;
   letter-spacing: 1.5px;
   width: 100%;
   text-transform: uppercase;
+  flex-shrink: 0;
 }
 
 /* Input Styling - Volledig Herwerkt */
@@ -236,30 +237,66 @@
   }
 }
 
-/* Modal Actions - Gefixt */
+/* Modal Actions - Mobile-First Gamedesign */
 .modal-actions {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   justify-content: center;
   align-items: center;
-  margin: 0;
+  margin: auto 0 0 0;
   width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
+/* Modal Buttons - Perfect Gecentreerd */
 .modal-btn {
-  transform: scale(0.9);
+  transform: scale(0.8);
   width: 100%;
-  max-width: 280px;
-  transition: transform 0.2s ease;
+  max-width: 260px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-btn:hover {
-  transform: scale(0.92);
+  transform: scale(0.82);
 }
 
 .modal-btn:active {
-  transform: scale(0.88) translateY(2px);
+  transform: scale(0.78) translateY(2px);
+}
+
+/* Modal Button Text - Absolute Perfect Centering */
+.modal-btn .pixel-button-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 10;
+  pointer-events: none;
+  font-size: inherit;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Modal Button SVG - Proper Positioning */
+.modal-btn .pixel-button-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* Custom Content - Gefixt */
@@ -400,20 +437,22 @@
   }
   
   .modal-actions {
-    gap: 14px;
+    gap: 16px;
+    padding: 0 15px;
+    margin: 20px 0 0 0;
   }
   
   .modal-btn {
-    transform: scale(0.85);
-    max-width: 260px;
+    transform: scale(0.75);
+    max-width: 240px;
   }
   
   .modal-btn:hover {
-    transform: scale(0.87);
+    transform: scale(0.77);
   }
   
   .modal-btn:active {
-    transform: scale(0.83) translateY(2px);
+    transform: scale(0.73) translateY(2px);
   }
 }
 
@@ -464,19 +503,21 @@
   }
   
   .modal-actions {
-    gap: 12px;
+    gap: 14px;
+    padding: 0 10px;
+    margin: 16px 0 0 0;
   }
   
   .modal-btn {
-    transform: scale(0.8);
-    max-width: 240px;
+    transform: scale(0.7);
+    max-width: 220px;
   }
   
   .modal-btn:hover {
-    transform: scale(0.82);
+    transform: scale(0.72);
   }
   
   .modal-btn:active {
-    transform: scale(0.78) translateY(2px);
+    transform: scale(0.68) translateY(2px);
   }
 } 
