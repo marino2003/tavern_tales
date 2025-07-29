@@ -53,11 +53,25 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       distanceElement.textContent = displayDistance;
+      
+      // Update compas wijzer naar doellocatie
+      if (typeof pointToLocation === 'function') {
+        pointToLocation(
+          userLat, 
+          userLon, 
+          targetLocation.lat, 
+          targetLocation.lon, 
+          '#point-to-location', 
+          '#request-permissions-button',
+          function() { /* onShow - al gehandeld door modal */ },
+          function() { /* onHide - al gehandeld door modal */ }
+        );
+      }
     
-    // Check of gebruiker is aangekomen (binnen 50 meter)
+      // Check of gebruiker is aangekomen (binnen 50 meter)
       if (distanceInMeters <= 50 && !targetLocation.hasArrived) {
         targetLocation.hasArrived = true;
-      triggerArrivalTransition();
+        triggerArrivalTransition();
       }
     }
   }
