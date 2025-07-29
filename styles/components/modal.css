@@ -1,12 +1,13 @@
 /* Modal Component - Herbruikbare modal styling gebaseerd op startmenu */
 
-/* Modal Overlay */
+/* Modal Overlay - Gefixt */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
+  height: 100dvh;
   background: rgba(0, 0, 0, 0.6);
   z-index: 100;
   display: flex;
@@ -30,14 +31,14 @@
   transition: filter 0.3s ease;
 }
 
-/* Modal Container */
+/* Modal Container - Verbeterd */
 .modal-container {
   position: relative;
   width: 100%;
-  max-width: 380px;
+  max-width: 400px;
   height: auto;
-  min-height: 420px;
-  padding: 20px;
+  min-height: 400px;
+  padding: 30px;
   background: #f8f8f8;
   box-shadow: -6px 6px 0px rgba(0, 0, 0, 0.5), -4px 4px 0px rgba(0, 0, 0, 0.3);
   outline: 6px solid black;
@@ -48,6 +49,9 @@
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .modal-overlay.active .modal-container {
@@ -98,40 +102,40 @@
   justify-content: center;
 }
 
-/* Modal Content - Verbeterde Layout */
+/* Modal Content - Volledig Herwerkt */
 .modal-content {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
   margin: 0;
   padding: 0;
+  flex: 1;
+  justify-content: center;
 }
 
-/* Modal Title - Verbeterd */
+/* Modal Title - Gefixt */
 .modal-title {
   text-align: center;
   color: #333;
-  font-size: 32px;
+  font-size: 28px;
   font-family: var(--pixel-font);
   font-weight: 400;
-  margin: 0 0 8px 0;
+  margin: 0;
   letter-spacing: 1.5px;
   width: 100%;
   text-transform: uppercase;
 }
 
-/* Input Styling - Gefixt */
+/* Input Styling - Volledig Herwerkt */
 .input-container {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60px;
   width: 100%;
-  margin: 10px 0;
+  margin: 0;
 }
 
 .modal-input {
@@ -139,14 +143,13 @@
   border: none;
   outline: 3px solid #000;
   font-family: var(--pixel-font);
-  font-size: 20px;
+  font-size: 18px;
   color: black;
   text-align: center;
   width: 100%;
-  max-width: 280px;
-  height: 44px;
-  z-index: 2;
-  padding: 8px 16px;
+  max-width: 300px;
+  height: 48px;
+  padding: 12px 16px;
   letter-spacing: 1px;
   border-radius: 0;
   box-sizing: border-box;
@@ -233,42 +236,43 @@
   }
 }
 
-/* Modal Actions - Verbeterde Layout */
+/* Modal Actions - Gefixt */
 .modal-actions {
   display: flex;
   flex-direction: column;
   gap: 16px;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  width: 100%;
-}
-
-.modal-btn {
-  transform: scale(0.85);
-  width: 100%;
-  max-width: 260px;
-  transition: transform 0.2s ease;
-}
-
-.modal-btn:hover {
-  transform: scale(0.87);
-}
-
-.modal-btn:active {
-  transform: scale(0.83) translateY(2px);
-}
-
-/* Custom Content - Verbeterd */
-.modal-custom-content {
   margin: 0;
   width: 100%;
 }
 
-/* Modal Text - Verbeterde Centrering */
+.modal-btn {
+  transform: scale(0.9);
+  width: 100%;
+  max-width: 280px;
+  transition: transform 0.2s ease;
+}
+
+.modal-btn:hover {
+  transform: scale(0.92);
+}
+
+.modal-btn:active {
+  transform: scale(0.88) translateY(2px);
+}
+
+/* Custom Content - Gefixt */
+.modal-custom-content {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+}
+
+/* Modal Text - Perfect Gecentreerd */
 .modal-text {
   text-align: center;
-  margin: 0 0 24px 0;
+  margin: 0;
   padding: 0;
   width: 100%;
   box-sizing: border-box;
@@ -279,11 +283,11 @@
   font-size: 16px;
   color: #444;
   line-height: 1.4;
-  margin: 0 auto 14px auto;
+  margin: 0 auto 16px auto;
   letter-spacing: 0.3px;
   text-align: center;
-  padding: 0 8px;
-  max-width: 300px;
+  padding: 0;
+  max-width: 320px;
 }
 
 .modal-text p:last-child {
@@ -352,28 +356,29 @@
 @media (max-width: 480px) {
   .modal-container {
     width: 95%;
-    max-width: 350px;
-    padding: 18px;
+    max-width: 360px;
+    padding: 25px;
+    min-height: 380px;
   }
   
   .modal-content {
-    gap: 16px;
+    gap: 20px;
   }
   
   .modal-title {
-    font-size: 28px;
+    font-size: 24px;
   }
   
   .modal-input {
-    font-size: 18px;
-    max-width: 260px;
-    height: 40px;
-    padding: 8px 12px;
+    font-size: 16px;
+    max-width: 280px;
+    height: 44px;
+    padding: 10px 14px;
   }
   
   .modal-text p {
-    font-size: 16px;
-    padding: 0 8px;
+    font-size: 15px;
+    max-width: 280px;
   }
   
   .success-icon {
@@ -395,49 +400,49 @@
   }
   
   .modal-actions {
-    gap: 12px;
-    margin-top: 16px;
+    gap: 14px;
   }
   
   .modal-btn {
-    transform: scale(0.8);
-    max-width: 220px;
+    transform: scale(0.85);
+    max-width: 260px;
   }
   
   .modal-btn:hover {
-    transform: scale(0.82);
+    transform: scale(0.87);
   }
   
   .modal-btn:active {
-    transform: scale(0.78) translateY(2px);
+    transform: scale(0.83) translateY(2px);
   }
 }
 
 @media (max-width: 360px) {
   .modal-container {
     width: 98%;
-    max-width: 320px;
-    padding: 16px;
+    max-width: 340px;
+    padding: 20px;
+    min-height: 360px;
   }
   
   .modal-content {
-    gap: 14px;
+    gap: 18px;
   }
   
   .modal-title {
-    font-size: 24px;
+    font-size: 22px;
   }
   
   .modal-input {
-    font-size: 16px;
-    max-width: 240px;
-    height: 38px;
-    padding: 6px 10px;
+    font-size: 15px;
+    max-width: 260px;
+    height: 42px;
+    padding: 8px 12px;
   }
   
   .modal-text p {
     font-size: 14px;
-    padding: 0 6px;
+    max-width: 260px;
   }
   
   .success-icon {
@@ -459,20 +464,19 @@
   }
   
   .modal-actions {
-    gap: 10px;
-    margin-top: 14px;
+    gap: 12px;
   }
   
   .modal-btn {
-    transform: scale(0.75);
-    max-width: 200px;
+    transform: scale(0.8);
+    max-width: 240px;
   }
   
   .modal-btn:hover {
-    transform: scale(0.77);
+    transform: scale(0.82);
   }
   
   .modal-btn:active {
-    transform: scale(0.73) translateY(2px);
+    transform: scale(0.78) translateY(2px);
   }
 } 

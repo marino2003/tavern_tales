@@ -196,7 +196,7 @@
 
 
 
-/* Game Interface - Volledig Herwerkt */
+/* Game Interface - Verbeterde Spacing */
 .game-interface {
   position: fixed;
   top: 0;
@@ -208,7 +208,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: env(safe-area-inset-top, 20px) 20px env(safe-area-inset-bottom, 20px) 20px;
+  padding: env(safe-area-inset-top, 30px) 30px env(safe-area-inset-bottom, 40px) 30px;
   box-sizing: border-box;
   z-index: 15;
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -379,7 +379,7 @@
   }
   
   .game-interface {
-    padding: env(safe-area-inset-top, 15px) 15px env(safe-area-inset-bottom, 15px) 15px;
+    padding: env(safe-area-inset-top, 25px) 25px env(safe-area-inset-bottom, 35px) 25px;
   }
   
   .quest-display {
@@ -451,7 +451,7 @@
   }
   
   .game-interface {
-    padding: env(safe-area-inset-top, 10px) 10px env(safe-area-inset-bottom, 10px) 10px;
+    padding: env(safe-area-inset-top, 20px) 20px env(safe-area-inset-bottom, 30px) 20px;
   }
   
   .quest-display {
@@ -523,7 +523,7 @@
   }
   
   .game-interface {
-    padding: env(safe-area-inset-top, 8px) 15px env(safe-area-inset-bottom, 8px) 15px;
+    padding: env(safe-area-inset-top, 15px) 20px env(safe-area-inset-bottom, 25px) 20px;
   }
   
   .quest-display {
