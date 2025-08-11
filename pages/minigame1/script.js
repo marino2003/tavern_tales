@@ -243,6 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Voeg een hint toe dat de speler moet klikken
     setTimeout(() => {
       const hintText = document.createElement('div');
+      hintText.className = 'hint-text';
       hintText.textContent = 'Klik op de bolleke om verder te gaan';
       hintText.style.cssText = `
         position: fixed;
@@ -271,6 +272,15 @@ document.addEventListener('DOMContentLoaded', function() {
   function handleBollekeClick() {
     console.log('Bolleke geklikt, toon vervolg dialoog...');
     
+    // Vloeiend uitfaden van de hint tekst
+    const hintText = document.querySelector('.hint-text');
+    if (hintText) {
+      hintText.classList.add('fade-out');
+      setTimeout(() => {
+        hintText.remove();
+      }, 300);
+    }
+    
     // Voeg een klik effect toe
     bollekeReward.style.transform = 'scale(0.95)';
     
@@ -294,16 +304,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Vervolg dialoog van de barvrouw
     const followUpDialogues = [
-      {
-        character: 'Barvrouw',
-        text: 'Nu heb je je eerste bolleke!',
-        portrait: '../../assets/character_port/npc.png'
-      },
-      {
-        character: 'Barvrouw',
-        text: 'Er zijn nog drie andere cafés waar Dracohol bieren heeft verstopt.',
-        portrait: '../../assets/character_port/npc.png'
-      },
       {
         character: 'Barvrouw',
         text: 'Wat wil je nu doen?',
@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const choiceDialogues = [
       {
         character: 'Barvrouw',
-        text: 'Je kunt hier blijven hangen of naar de volgende locatie gaan.',
+        text: 'Moet je geljk door, of heb je nog tijd voor een pintje?',
         portrait: '../../assets/character_port/npc.png'
       }
     ];
@@ -361,13 +361,13 @@ document.addEventListener('DOMContentLoaded', function() {
     choiceInterface.className = 'choice-interface';
     choiceInterface.innerHTML = `
       <div class="choice-buttons">
-        <button class="pixel-button secondary choice-button" id="stayButton">
-          <img src="../../assets/ui/button_svg.svg" alt="" class="pixel-button-svg">
-          <span class="pixel-button-text">Ik blijf nog even hangen</span>
-        </button>
         <button class="pixel-button primary choice-button" id="continueButton">
           <img src="../../assets/ui/button_svg.svg" alt="" class="pixel-button-svg">
           <span class="pixel-button-text">Ga naar de volgende locatie</span>
+        </button>
+        <button class="pixel-button secondary choice-button" id="stayButton">
+          <img src="../../assets/ui/button_svg.svg" alt="" class="pixel-button-svg">
+          <span class="pixel-button-text">Ik blijf nog even hangen</span>
         </button>
       </div>
     `;
@@ -394,12 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const stayDialogues = [
       {
         character: 'Barvrouw',
-        text: 'Blijf gerust nog wat langer in Den Engel.',
-        portrait: '../../assets/character_port/npc.png'
-      },
-      {
-        character: 'Barvrouw',
-        text: 'Tik op "Ga verder" wanneer je klaar bent om te vertrekken.',
+        text: 'Ik schenk hem voor je in! Neem zolang als je wilt.',
         portrait: '../../assets/character_port/npc.png'
       }
     ];
@@ -429,12 +424,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const continueDialogues = [
       {
         character: 'Barvrouw',
-        text: 'Goede keuze! Ga naar de Grote Markt.',
+        text: 'Bedankt {PLAYER},',
         portrait: '../../assets/character_port/npc.png'
       },
       {
         character: 'Barvrouw',
-        text: 'Daar vind je je volgende uitdaging.',
+        text: 'je bent de enige die opstaat tegen Dracohol.',
+        portrait: '../../assets/character_port/npc.png'
+      },
+      {
+        character: 'Barvrouw',
+        text: 'Kom gerust nog eens langs, tot ziens!',
         portrait: '../../assets/character_port/npc.png'
       }
     ];
