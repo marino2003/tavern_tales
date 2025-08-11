@@ -282,6 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     setTimeout(() => {
       bollekeReward.style.display = 'none';
+      console.log('Bolleke reward verborgen, ga naar showFollowUpDialogue...');
       showFollowUpDialogue();
     }, 600);
   }
@@ -289,6 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Toon vervolg dialoog na bolleke animatie
   function showFollowUpDialogue() {
     console.log('Toon vervolg dialoog...');
+    console.log('DialogueSystem beschikbaar:', !!window.DialogueSystem);
     
     // Vervolg dialoog van de barvrouw
     const followUpDialogues = [
@@ -304,7 +306,35 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       {
         character: 'Barvrouw',
-        text: 'Ga naar de Grote Markt om je volgende uitdaging te vinden!',
+        text: 'Wat wil je nu doen?',
+        portrait: '../../assets/character_port/npc.png'
+      }
+    ];
+    
+    console.log('Follow-up dialogen:', followUpDialogues);
+    
+    // Gebruik het bestaande dialoog systeem
+    const dialogueInstance = window.DialogueSystem.initDialogueSystem({
+      typingSpeed: 50,
+      onComplete: () => {
+        console.log('Vervolg dialoog voltooid, toon keuzes...');
+        showChoiceDialog();
+      }
+    });
+    
+    console.log('Dialogue instance gemaakt:', dialogueInstance);
+    dialogueInstance.startDialogue(followUpDialogues);
+  }
+  
+  // Toon keuze dialoog
+  function showChoiceDialog() {
+    console.log('Toon keuze dialoog...');
+    
+    // Keuze dialoog van de barvrouw
+    const choiceDialogues = [
+      {
+        character: 'Barvrouw',
+        text: 'Je kunt hier blijven hangen of naar de volgende locatie gaan.',
         portrait: '../../assets/character_port/npc.png'
       }
     ];
@@ -313,12 +343,168 @@ document.addEventListener('DOMContentLoaded', function() {
     const dialogueInstance = window.DialogueSystem.initDialogueSystem({
       typingSpeed: 50,
       onComplete: () => {
-        console.log('Vervolg dialoog voltooid, ga naar navigatie...');
+        console.log('Keuze dialoog voltooid, toon keuzes...');
+        showChoiceButtons();
+      }
+    });
+    
+    dialogueInstance.startDialogue(choiceDialogues);
+  }
+  
+  // Toon keuze knoppen
+  function showChoiceButtons() {
+    console.log('Toon keuze knoppen...');
+    
+    // Maak keuze interface
+    const choiceInterface = document.createElement('div');
+    choiceInterface.id = 'choiceInterface';
+    choiceInterface.className = 'choice-interface';
+    choiceInterface.innerHTML = `
+      <div class="choice-buttons">
+        <button class="pixel-button secondary choice-button" id="stayButton">
+          <img src="../../assets/ui/button_svg.svg" alt="" class="pixel-button-svg">
+          <span class="pixel-button-text">Ik blijf nog even hangen</span>
+        </button>
+        <button class="pixel-button primary choice-button" id="continueButton">
+          <img src="../../assets/ui/button_svg.svg" alt="" class="pixel-button-svg">
+          <span class="pixel-button-text">Ga naar de volgende locatie</span>
+        </button>
+      </div>
+    `;
+    
+    // Voeg toe aan body
+    document.body.appendChild(choiceInterface);
+    
+    // Event listeners
+    document.getElementById('stayButton').addEventListener('click', handleStayChoice);
+    document.getElementById('continueButton').addEventListener('click', handleContinueChoice);
+  }
+  
+  // Handle "blijf hangen" keuze
+  function handleStayChoice() {
+    console.log('Speler kiest om te blijven...');
+    
+    // Verwijder keuze interface
+    const choiceInterface = document.getElementById('choiceInterface');
+    if (choiceInterface) {
+      choiceInterface.remove();
+    }
+    
+    // Toon "blijf hangen" dialoog
+    const stayDialogues = [
+      {
+        character: 'Barvrouw',
+        text: 'Blijf gerust nog wat langer in Den Engel.',
+        portrait: '../../assets/character_port/npc.png'
+      },
+      {
+        character: 'Barvrouw',
+        text: 'Tik op "Ga verder" wanneer je klaar bent om te vertrekken.',
+        portrait: '../../assets/character_port/npc.png'
+      }
+    ];
+    
+    const dialogueInstance = window.DialogueSystem.initDialogueSystem({
+      typingSpeed: 50,
+      onComplete: () => {
+        console.log('Blijf dialoog voltooid, toon quest interface...');
+        showStayQuestInterface();
+      }
+    });
+    
+    dialogueInstance.startDialogue(stayDialogues);
+  }
+  
+  // Handle "ga verder" keuze
+  function handleContinueChoice() {
+    console.log('Speler kiest om verder te gaan...');
+    
+    // Verwijder keuze interface
+    const choiceInterface = document.getElementById('choiceInterface');
+    if (choiceInterface) {
+      choiceInterface.remove();
+    }
+    
+    // Toon "ga verder" dialoog
+    const continueDialogues = [
+      {
+        character: 'Barvrouw',
+        text: 'Goede keuze! Ga naar de Grote Markt.',
+        portrait: '../../assets/character_port/npc.png'
+      },
+      {
+        character: 'Barvrouw',
+        text: 'Daar vind je je volgende uitdaging.',
+        portrait: '../../assets/character_port/npc.png'
+      }
+    ];
+    
+    const dialogueInstance = window.DialogueSystem.initDialogueSystem({
+      typingSpeed: 50,
+      onComplete: () => {
+        console.log('Ga verder dialoog voltooid, navigeer...');
         continueToNext();
       }
     });
     
-    dialogueInstance.startDialogue(followUpDialogues);
+    dialogueInstance.startDialogue(continueDialogues);
+  }
+  
+  // Toon quest interface voor "blijf hangen"
+  function showStayQuestInterface() {
+    console.log('Toon quest interface...');
+    
+    // Maak quest bericht
+    const questMessage = document.createElement('div');
+    questMessage.id = 'questMessage';
+    questMessage.className = 'quest-message';
+    questMessage.innerHTML = `
+      <div class="quest-content">
+        <img src="../../assets/ui/vergroot_glas.png" alt="Quest icon" class="quest-icon">
+        <div class="quest-text">Blijf gerust nog wat langer in Den Engel. Tik op "Ga verder" wanneer je klaar bent om te vertrekken.</div>
+      </div>
+    `;
+    
+    // Maak "ga verder" knop
+    const continueButton = document.createElement('button');
+    continueButton.id = 'finalContinueButton';
+    continueButton.className = 'pixel-button primary final-continue-button';
+    continueButton.innerHTML = `
+      <img src="../../assets/ui/button_svg.svg" alt="" class="pixel-button-svg">
+      <span class="pixel-button-text">Ga naar de volgende locatie</span>
+    `;
+    
+    // Voeg toe aan body
+    document.body.appendChild(questMessage);
+    document.body.appendChild(continueButton);
+    
+    // Event listener
+    continueButton.addEventListener('click', () => {
+      console.log('Final continue button geklikt...');
+      
+      // Verwijder quest interface
+      questMessage.remove();
+      continueButton.remove();
+      
+      // Toon afscheid dialoog
+      const farewellDialogues = [
+        {
+          character: 'Barvrouw',
+          text: 'Tot ziens! Veel succes met je zoektocht.',
+          portrait: '../../assets/character_port/npc.png'
+        }
+      ];
+      
+      const dialogueInstance = window.DialogueSystem.initDialogueSystem({
+        typingSpeed: 50,
+        onComplete: () => {
+          console.log('Afscheid dialoog voltooid, navigeer...');
+          continueToNext();
+        }
+      });
+      
+      dialogueInstance.startDialogue(farewellDialogues);
+    });
   }
   
   // Ga verder naar volgende pagina
