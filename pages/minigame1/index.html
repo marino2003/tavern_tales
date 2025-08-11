@@ -16,11 +16,13 @@
     <link href="../../styles/general.css" type="text/css" rel="stylesheet">
     <link href="../../styles/components/button.css" type="text/css" rel="stylesheet">
     <link href="../../styles/components/modal.css" type="text/css" rel="stylesheet">
+    <link href="../../styles/components/dialogue-system.css" type="text/css" rel="stylesheet">
     <link href="style.css" type="text/css" rel="stylesheet">
 
     <script defer src="../../scripts/player-data.js"></script>
     <script defer src="../../scripts/transition-overlay.js"></script>
     <script defer src="../../scripts/modal-component.js"></script>
+    <script defer src="../../scripts/dialogue-system.js"></script>
     <script defer src="script.js"></script>
   </head>
   <body>
@@ -79,6 +81,24 @@
           </div>
           
         </div>
+        
+        <!-- Bolleke Reward Animation -->
+        <div class="bolleke-reward" id="bollekeReward" style="display: none;">
+          <div class="bolleke-container">
+            <img src="../../assets/minigame/bolleke.png" alt="Bolleke" class="bolleke-image">
+            <div class="reward-text">+1 Bolleke!</div>
+            <div class="reward-sparkles">
+              <div class="sparkle"></div>
+              <div class="sparkle"></div>
+              <div class="sparkle"></div>
+              <div class="sparkle"></div>
+              <div class="sparkle"></div>
+              <div class="sparkle"></div>
+            </div>
+          </div>
+        </div>
+        
+
         
         <!-- Magical Particles -->
         <div class="magical-particles">

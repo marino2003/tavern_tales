@@ -54,11 +54,39 @@ function setPersonalizedText(selector, text) {
   }
 }
 
+/**
+ * Haalt speler data op uit localStorage
+ * @returns {Object} Speler data object
+ */
+function getPlayerData() {
+  const data = localStorage.getItem('playerData');
+  if (data) {
+    return JSON.parse(data);
+  }
+  
+  // Default speler data
+  return {
+    beersFound: 0,
+    currentLocation: null,
+    visitedLocations: []
+  };
+}
+
+/**
+ * Sla speler data op in localStorage
+ * @param {Object} playerData - Speler data object
+ */
+function savePlayerData(playerData) {
+  localStorage.setItem('playerData', JSON.stringify(playerData));
+}
+
 // Export functies voor gebruik in andere scripts
 window.PlayerData = {
   getName: getPlayerName,
   setName: setPlayerName,
   personalize: personalizeDialogue,
   updateElements: updateDialogueElements,
-  setText: setPersonalizedText
+  setText: setPersonalizedText,
+  getData: getPlayerData,
+  saveData: savePlayerData
 }; 
