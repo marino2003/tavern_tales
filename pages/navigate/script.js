@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     name: 'Den Engel',
     lat: 51.2194, // Den Engel café in Antwerpen
     lon: 4.4025,
-    collectedBeers: 2,
+    collectedBeers: 1,
     totalBeers: 4,
     hasArrived: false
   };

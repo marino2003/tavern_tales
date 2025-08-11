@@ -12,27 +12,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const minigameIntroDialogues = [
     {
       character: "Barvrouw",
-      text: "Ah, een nieuwe held in Den Engel! Ik zie dat je de viltjesjager bent waar iedereen over praat.",
+      text: "Dus jij bent de beruchte ‘viltjesjager’!",
       portrait: "../../assets/character_port/npc.png"
     },
     {
       character: "Barvrouw",
-      text: "Dracohol was hier gisteren. Hij liet een raadsel achter en zei dat alleen iemand met echte kennis van de stad het zou kunnen oplossen.",
+      text: "Dracohol liet hier iets achter, maar niet waar je ’t verwacht",
       portrait: "../../assets/character_port/npc.png"
     },
     {
       character: "Barvrouw",
-      text: "'Dit was geen normale kroeg', zei hij. 'Kijk om je heen. Wat zie je? Wat was dit oorspronkelijk?'",
-      portrait: "../../assets/character_port/npc.png"
-    },
-    {
-      character: "Barvrouw",
-      text: "Hij heeft hier een van de verloren bieren verstopt. Maar om het te vinden, moet je eerst het geheim van Den Engel ontdekken.",
-      portrait: "../../assets/character_port/npc.png"
-    },
-    {
-      character: "Barvrouw",
-      text: "Stap buiten en kijk goed naar de gevel. De geschiedenis van deze plek ligt voor je open, als je maar goed kijkt.",
+      text: "Dit was geen kroeg. Kijk om je heen. Wat zie je?",
       portrait: "../../assets/character_port/npc.png"
     }
   ];
