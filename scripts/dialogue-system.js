@@ -109,7 +109,7 @@ class DialogueSystem {
             text = window.PlayerData.personalize(dialogue.text);
         }
         
-        // Split tekst in pagina's
+        // Split tekst direct zonder layout dependency
         this.currentTextPages = this.splitTextIntoPages(text);
         this.currentPage = 0;
         
@@ -124,52 +124,135 @@ class DialogueSystem {
     
     updatePortrait(portraitPath) {
         if (portraitPath) {
-            // Zorg ervoor dat het pad correct is
             const fullPath = portraitPath.startsWith('assets/') ? `../../${portraitPath}` : portraitPath;
             this.portrait.style.backgroundImage = `url(${fullPath})`;
+            this.portrait.style.backgroundSize = 'contain';
+            this.portrait.style.backgroundPosition = 'center';
+            this.portrait.style.backgroundRepeat = 'no-repeat';
             this.portrait.style.display = 'block';
+            this.portrait.style.visibility = 'visible';
         } else {
             this.portrait.style.display = 'none';
         }
     }
     
     splitTextIntoPages(text) {
-        const pages = [];
-        const words = text.split(' ');
-        let currentPage = '';
-        
-        // Bereken maximale karakters per pagina op basis van beschikbare ruimte
         const maxCharsPerPage = this.calculateMaxCharsPerPage();
         
-        for (let word of words) {
-            // Check of dit woord past op huidige pagina
-            if ((currentPage + ' ' + word).length <= maxCharsPerPage) {
-                currentPage += (currentPage ? ' ' : '') + word;
+        if (text.length <= maxCharsPerPage) {
+            return [text];
+        }
+        
+        const pages = [];
+        const chunks = this.createSmartChunks(text);
+        let currentPage = '';
+        
+        for (const chunk of chunks) {
+            const potentialPage = currentPage + (currentPage ? ' ' : '') + chunk;
+            
+            if (potentialPage.length <= maxCharsPerPage) {
+                currentPage = potentialPage;
             } else {
-                // Start nieuwe pagina
-                if (currentPage) {
+                if (currentPage.trim()) {
                     pages.push(currentPage.trim());
                 }
-                currentPage = word;
+                
+                if (chunk.length <= maxCharsPerPage) {
+                    currentPage = chunk;
+                } else {
+                    const words = chunk.split(' ');
+                    let tempPage = '';
+                    
+                    for (const word of words) {
+                        if ((tempPage + (tempPage ? ' ' : '') + word).length <= maxCharsPerPage) {
+                            tempPage += (tempPage ? ' ' : '') + word;
+                        } else {
+                            if (tempPage.trim()) {
+                                pages.push(tempPage.trim());
+                            }
+                            tempPage = word;
+                        }
+                    }
+                    currentPage = tempPage;
+                }
             }
         }
         
-        // Voeg laatste pagina toe
-        if (currentPage) {
+        if (currentPage.trim()) {
             pages.push(currentPage.trim());
         }
         
         return pages.length > 0 ? pages : [text];
     }
     
-    calculateMaxCharsPerPage() {
-        // Schatting op basis van box grootte en font
-        const boxWidth = this.box.offsetWidth - 120; // Ruimte voor portrait en padding
-        const fontSize = parseInt(window.getComputedStyle(this.textElement).fontSize);
-        const charsPerLine = Math.floor(boxWidth / (fontSize * 0.6)); // Geschatte karakter breedte
-        const linesPerPage = 3; // Maximaal 3 regels per pagina
+    createSmartChunks(text) {
+        const breakPoints = [
+            /([.!?]+\s+)/g,
+            /(,\s+)/g,
+            /(\s+en\s+)/g,
+            /(\s+maar\s+)/g,
+            /(\s+dus\s+)/g,
+            /(\s+want\s+)/g,
+            /(\s+omdat\s+)/g,
+            /(\s+terwijl\s+)/g,
+            /(\s+zodat\s+)/g
+        ];
         
-        return charsPerLine * linesPerPage;
+        let chunks = [text];
+        
+        for (const regex of breakPoints) {
+            const newChunks = [];
+            for (const chunk of chunks) {
+                const parts = chunk.split(regex);
+                let currentPart = '';
+                
+                for (const part of parts) {
+                    if (regex.test(part)) {
+                        currentPart += part;
+                        if (currentPart.trim()) {
+                            newChunks.push(currentPart.trim());
+                        }
+                        currentPart = '';
+                    } else {
+                        currentPart += part;
+                    }
+                }
+                
+                if (currentPart.trim()) {
+                    newChunks.push(currentPart.trim());
+                }
+            }
+            chunks = newChunks.filter(chunk => chunk.trim());
+        }
+        
+        return chunks.length > 0 ? chunks : [text];
+    }
+    
+    calculateMaxCharsPerPage() {
+        const screenWidth = window.innerWidth;
+        let availableWidth, maxHeight, fontSize;
+        
+        if (screenWidth <= 480) {
+            availableWidth = screenWidth - 20 - 24 - 80 - 12;
+            maxHeight = 120;
+            fontSize = 24;
+        } else if (screenWidth <= 768) {
+            availableWidth = screenWidth - 30 - 32 - 90 - 16;
+            maxHeight = 130;
+            fontSize = 28;
+        } else {
+            availableWidth = screenWidth - 40 - 40 - 100 - 20;
+            maxHeight = 150;
+            fontSize = 32;
+        }
+        
+        const avgCharWidth = fontSize * 0.65;
+        const lineHeight = fontSize * 1.2;
+        
+        const charsPerLine = Math.floor(availableWidth / avgCharWidth);
+        const maxLines = Math.floor(maxHeight / lineHeight);
+        
+        return Math.max(50, charsPerLine * maxLines);
     }
     
     updatePagesIndicator() {
@@ -360,8 +443,8 @@ function showDialogue(dialogues, options = {}) {
 
 
 const Characters = {
-    HERO: '../../assets/spritesheets/hero_main/Combat Ready Idle.png',
-    WARRIOR: '../../assets/spritesheets/npc_1/spritesheet.png',
+    HERO: '../../assets/character_port/herp.png',
+    WARRIOR: '../../assets/character_port/npc.png',
     HERP: '../../assets/character_port/herp.png',
     NPC: '../../assets/character_port/npc.png'
 };

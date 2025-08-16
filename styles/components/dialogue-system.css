@@ -78,6 +78,14 @@
   display: none;
 }
 
+.dialogue-portrait[style*="display: block"] {
+  display: block !important;
+  visibility: visible !important;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
 .dialogue-content {
   flex: 1;
   display: flex;
