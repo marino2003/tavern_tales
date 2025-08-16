@@ -1,4 +1,4 @@
-
+git
 class TransitionOverlay {
   constructor(config = {}) {
     this.config = {
@@ -112,7 +112,7 @@ class TransitionOverlay {
 
         waitTime = Math.max(100, Math.min(targetWaitTime, totalDuration * 0.7));
         
-        console.log('TransitionIn - Elapsed:', elapsed, 'Wait time:', waitTime, 'Target:', targetWaitTime);
+
       }
       
 

@@ -78,23 +78,23 @@ function startCutsceneDialogue() {
     window.DialogueSystem.showDialogue(cutsceneDialogues, {
       typingSpeed: 40, // Iets sneller voor cutscene
       onComplete: () => {
-        console.log('Cutscene dialoog voltooid!');
+
         
         // Toon continue button na alle dialogen
         const continueBtn = document.getElementById('continueBtn');
         if (continueBtn) {
           continueBtn.style.display = 'block';
-          console.log('Continue button wordt getoond');
+
         } else {
           console.error('Continue button niet gevonden!');
         }
       },
       onNext: (dialogue, index) => {
-        console.log(`Cutscene dialoog ${index + 1} gestart`);
+
         
         // Check of dit het laatste dialoog was
         if (dialogue.isLast) {
-          console.log('Laatste dialoog gestart - button wordt getoond na voltooiing');
+
           
           // Toon button na een korte delay met animatie
           setTimeout(() => {
@@ -111,14 +111,14 @@ function startCutsceneDialogue() {
                 continueBtn.style.transform = 'translateX(-50%) scale(1) translateY(0)';
               }, 100);
               
-              console.log('Continue button wordt getoond na laatste dialoog');
+
             }
           }, 1000);
         }
       }
     });
     
-    console.log('showDialogue aangeroepen succesvol');
+
   } catch (error) {
     console.error('Fout bij het starten van dialoog:', error);
   }

@@ -39,13 +39,13 @@ function toggleHero() {
 function heroFast() {
   if (window.heroController) {
     window.heroController.fast();
-    console.log('Hero animatie: snel (0.6s)');
+
   }
 }
 
 function heroNormal() {
   if (window.heroController) {
     window.heroController.normalSpeed();
-    console.log('Hero animatie: normaal (0.8s)');
+
   }
 }

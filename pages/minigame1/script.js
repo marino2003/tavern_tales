@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Handle "blijf hangen" keuze
   function handleStayChoice() {
-    console.log('Speler kiest om te blijven...');
+
     
     // Verwijder keuze interface
     const choiceInterface = document.getElementById('choiceInterface');
@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const dialogueInstance = window.DialogueSystem.initDialogueSystem({
       typingSpeed: 50,
       onComplete: () => {
-        console.log('Blijf dialoog voltooid, toon quest interface...');
+
         showStayQuestInterface();
       }
     });
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Handle "ga verder" keuze
   function handleContinueChoice() {
-    console.log('Speler kiest om verder te gaan...');
+
     
     // Verwijder keuze interface
     const choiceInterface = document.getElementById('choiceInterface');
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const dialogueInstance = window.DialogueSystem.initDialogueSystem({
       typingSpeed: 50,
       onComplete: () => {
-        console.log('Ga verder dialoog voltooid, navigeer...');
+
         continueToNext();
       }
     });
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Toon quest interface voor "blijf hangen"
   function showStayQuestInterface() {
-    console.log('Toon quest interface...');
+
     
     // Maak quest bericht
     const questMessage = document.createElement('div');
@@ -388,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Event listener
     continueButton.addEventListener('click', () => {
-      console.log('Final continue button geklikt...');
+
       
       // Verwijder quest interface
       questMessage.remove();
@@ -406,7 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const dialogueInstance = window.DialogueSystem.initDialogueSystem({
         typingSpeed: 50,
         onComplete: () => {
-          console.log('Afscheid dialoog voltooid, navigeer...');
+
           continueToNext();
         }
       });

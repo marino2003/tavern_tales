@@ -21,40 +21,13 @@
 }
 
 
-.sprite,
-.pixel-art,
-.game-asset {
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-  -ms-interpolation-mode: nearest-neighbor;
-}
 
 
-.pixel-animation {
-  animation-timing-function: steps(1, end);
-}
 
 
-.sprite-sheet {
-  background-repeat: no-repeat;
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-}
 
 
-.character {
-  width: 32px;
-  height: 32px;
-  background-image: url('../assets/character-sprite.png');
-  animation: walk 0.8s steps(4) infinite;
-}
 
-@keyframes walk {
-  from { background-position: 0 0; }
-  to { background-position: -128px 0; }
-}
 
 
 @media (max-width: 393px) {

@@ -357,13 +357,7 @@ function showDialogue(dialogues, options = {}) {
     return gameDialogue;
 }
 
-function createDialogue(character, text, portrait = null) {
-    return {
-        character: character,
-        text: text,
-        portrait: portrait
-    };
-}
+
 
 const Characters = {
     HERO: '../../assets/spritesheets/hero_main/Combat Ready Idle.png',
@@ -377,7 +371,7 @@ window.DialogueSystem = {
     DialogueSystem,
     initDialogueSystem,
     showDialogue,
-    createDialogue,
+
     Characters,
     
     // Toegang tot actieve instance

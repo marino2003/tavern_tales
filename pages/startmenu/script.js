@@ -47,7 +47,7 @@ function updateInputUnderscores() {
 
 // Knop functies
 function startNewGame() {
-  console.log('startNewGame function called');
+
   openCharacterModal();
 }
 
