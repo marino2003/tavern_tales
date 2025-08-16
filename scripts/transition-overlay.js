@@ -1,4 +1,4 @@
-git
+
 class TransitionOverlay {
   constructor(config = {}) {
     this.config = {
