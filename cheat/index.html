@@ -1,63 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
   <head>
-
     <meta charset="UTF-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="../styles/reset.css" type="text/css" rel="stylesheet">
-    <link href="../styles/variables.css" type="text/css" rel="stylesheet">
-    <link href="../styles/general.css" type="text/css" rel="stylesheet">
-    <link href="style.css" type="text/css" rel="stylesheet">
-
-    <script defer src="script.js"></script>
-
+    <title>Game Navigation</title>
+    <style>
+      body { font-family: Arial, sans-serif; max-width: 600px; margin: 2rem auto; padding: 1rem; }
+      h1 { color: #333; }
+      h2 { color: #666; margin-top: 2rem; }
+      button { padding: 8px 12px; margin: 4px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+      button:hover { background: #0056b3; }
+      .flow-buttons { display: flex; flex-direction: column; gap: 8px; max-width: 400px; }
+      .flow-buttons a { text-decoration: none; }
+    </style>
   </head>
   <body>
 
-    <h1>Cheat Navigation - IDL3 Location Game</h1>
+    <h1>Game Navigation</h1>
     
-    <h2>Hoofdpagina's</h2>
-    <ul>
-      <li><a href="../index.html">Hoofdpagina (index.html)</a> - Startpagina die doorverwijst naar de juiste locatie</li>
-      <li><a href="../pages/startmenu/index.html">Start Menu</a> - Hoofdmenu van de game met start knop</li>
-      <li><a href="../pages/start/index.html">Start Page</a> - Eerste game pagina na het starten</li>
-    </ul>
-
-    <h2>Game Pagina's</h2>
-    <ul>
-      <li><a href="../pages/navigate/index.html">Navigatie Pagina</a> - Pagina voor locatie-gebaseerde navigatie</li>
-      <li><a href="../pages/cutscene/index.html">Cutscene</a> - Verhalende cutscene pagina</li>
-      <li><a href="../pages/minigame-intro/index.html">Minigame Intro</a> - Introductie voor minigames</li>
-      <li><a href="../pages/minigame1/index.html">Minigame 1</a> - Eerste minigame (Bolleke spel)</li>
-    </ul>
-
-    <h2>Stop Pagina's</h2>
-    <ul>
-      <li><a href="../pages/stop1/index.html">Stop 1</a> - Eerste stop/locatie in de game</li>
-      <li><a href="../pages/stop2/index.html">Stop 2</a> - Tweede stop/locatie in de game</li>
-    </ul>
-
-    <h2>Test Pagina's</h2>
-    <ul>
-      <li><em>Alle test bestanden zijn verwijderd voor een schonere codebase</em></li>
-    </ul>
-
-    <h2>Test Navigatie - Echte Locaties</h2>
-    <div class="test-navigation">
-      <p>Test de navigatie functionaliteit met echte locaties die ver van elkaar afliggen:</p>
-      <button onclick="testNavigate('51.2194,4.4025', 'Grote Markt Antwerpen', 'stop1')">Test naar Grote Markt Antwerpen</button>
-      <button onclick="testNavigate('50.8503,4.3517', 'Grote Markt Brussel', 'stop2')">Test naar Grote Markt Brussel</button>
-      <button onclick="testNavigate('51.9225,4.4792', 'Rotterdam Centraal', 'start')">Test naar Rotterdam Centraal</button>
-      <button onclick="testNavigate('52.3676,4.9041', 'Amsterdam Centraal', 'stop1')">Test naar Amsterdam Centraal</button>
-      <button onclick="testNavigate('50.1109,8.6821', 'Frankfurt Hauptbahnhof', 'stop2')">Test naar Frankfurt (Duitsland)</button>
+    <h2>Game Flow</h2>
+    <div class="flow-buttons">
+      <a href="../index.html"><button>1. Index (Start)</button></a>
+      <a href="../pages/startmenu/index.html"><button>2. Start Menu</button></a>
+      <a href="../pages/start/index.html"><button>3. Start Page</button></a>
+      <a href="../pages/cutscene/index.html"><button>4. Cutscene</button></a>
+      <a href="../pages/navigate/index.html"><button>5. Navigate</button></a>
+      <a href="../pages/minigame-intro/index.html"><button>6. Minigame Intro</button></a>
+      <a href="../pages/minigame1/index.html"><button>7. Minigame 1</button></a>
+      <a href="../pages/stop1/index.html"><button>8. Stop 1</button></a>
+      <a href="../pages/stop2/index.html"><button>9. Stop 2</button></a>
     </div>
 
+    <h2>Quick Actions</h2>
+    <button onclick="resetGame()">Reset Game</button>
+    <button onclick="setName()">Set Player Name</button>
+    <button onclick="skipToMinigame()">Skip to Minigame</button>
+
     <script>
-      function testNavigate(coordinates, locationName, nextPage) {
-        const url = `../pages/navigate/index.html?coordinates=${coordinates}&locationName=${encodeURIComponent(locationName)}&nextPage=${nextPage}`;
-        window.open(url, '_blank');
+      function resetGame() {
+        localStorage.clear();
+        alert('Game reset!');
+      }
+
+      function setName() {
+        const name = prompt('Player name:');
+        if (name) {
+          localStorage.setItem('playerName', name);
+          alert('Name set: ' + name);
+        }
+      }
+
+      function skipToMinigame() {
+        localStorage.setItem('playerName', 'Dev');
+        window.location.href = '../pages/minigame1/index.html';
       }
     </script>
     

@@ -486,6 +486,4 @@ document.addEventListener('DOMContentLoaded', function() {
   minigameScrollOverlay.style.opacity = '1';
   minigameScrollOverlay.style.transform = 'scale(1)';
   minigameScrollOverlay.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-  
-  console.log('Minigame 1 pagina geladen');
 }); 
