@@ -1,7 +1,3 @@
-/**
- * Modal Component - Herbruikbare modal component
- * Gebaseerd op het character modal van de startmenu
- */
 class ModalComponent {
   constructor(options = {}) {
     this.options = {

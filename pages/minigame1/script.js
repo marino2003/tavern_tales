@@ -1,14 +1,11 @@
-// Minigame 1 - Complete UI Herwerking
 document.addEventListener('DOMContentLoaded', function() {
   
-  // Transition overlay initialiseren
   const transitionOverlay = new TransitionOverlay({
     duration: 1500,
     color: '#A0303F',
     direction: 'left-to-right'
   });
   
-  // Elementen ophalen
   const minigameScrollOverlay = document.getElementById('minigameScrollOverlay');
   const startMinigameButton = document.getElementById('startMinigameButton');
   const gameInterface = document.getElementById('gameInterface');
@@ -16,23 +13,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const answerButton = document.getElementById('answerButton');
   const bollekeReward = document.getElementById('bollekeReward');
   
-  // Debug: check of bollekeReward element bestaat
-  console.log('bollekeReward element bij initialisatie:', bollekeReward);
-  console.log('bollekeReward element HTML:', bollekeReward ? bollekeReward.outerHTML : 'niet gevonden');
-  
-  // Modal components
   let hintModal = null;
   let answerModal = null;
-  
-  // Dialogue system
   let dialogueSystem = null;
-  
-  // Game state
   let gameStarted = false;
   
-  // Initialiseer alle modals
   function initModals() {
-    // Hint modal - Toont hints
     hintModal = new ModalComponent({
       id: 'hintModal',
       title: '- HINT -',
@@ -52,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
     
-    // Answer modal - Voor antwoord invoer
     answerModal = new ModalComponent({
       id: 'answerModal',
       title: '- ANTWOORD -',
@@ -73,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
     
-    // Initialiseer dialoog systeem
     dialogueSystem = window.DialogueSystem.initDialogueSystem({
       typingSpeed: 50,
       autoAdvance: false,
@@ -81,11 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Start de game
   function startGame() {
-    console.log('Start minigame...');
-    
-    // Fade out scroll overlay
     minigameScrollOverlay.style.opacity = '0';
     minigameScrollOverlay.style.transform = 'scale(0.9)';
     
@@ -93,8 +73,6 @@ document.addEventListener('DOMContentLoaded', function() {
       minigameScrollOverlay.style.display = 'none';
       gameStarted = true;
       gameInterface.style.display = 'flex';
-      
-      // Fade in game interface
       gameInterface.style.opacity = '0';
       gameInterface.style.transform = 'translateY(20px)';
       
@@ -105,19 +83,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 300);
   }
   
-  // Toon hint
   function showHint() {
-    console.log('Toon hint...');
     hintModal.show();
   }
   
-  // Toon answer modal
   function showAnswerModal() {
-    console.log('Toon answer modal...');
     answerModal.show();
   }
   
-  // Antwoord indienen
   function submitAnswer(userAnswer) {
     const correctAnswers = ['drogisterij', 'drogist', 'apotheek', 'pharmacy'];
     
@@ -129,35 +102,24 @@ document.addEventListener('DOMContentLoaded', function() {
     );
     
     if (isCorrect) {
-      console.log('Correct antwoord!');
       answerModal.close();
-      console.log('Modal gesloten, ga naar showSuccess...');
       showSuccess();
     } else {
-      console.log('Fout antwoord');
       answerModal.showError('Dat is niet het juiste antwoord. Probeer het nog eens!');
     }
   }
   
-  // Update speler data (bier gevonden)
   function updatePlayerData() {
     const playerData = window.PlayerData.getData();
     playerData.beersFound = Math.min(playerData.beersFound + 1, 4);
     window.PlayerData.saveData(playerData);
-    console.log('Bier gevonden! Totaal:', playerData.beersFound);
   }
   
-  // Toon success dialoog
   function showSuccess() {
-    console.log('Toon success dialoog...');
-    
-    // Update speler data (bier gevonden)
     updatePlayerData();
     
-    // Verberg game interface
     gameInterface.style.display = 'none';
     
-    // Toon dialoog met bestaande dialoog systeem
     const successDialogues = [
       {
         character: 'Barvrouw',
@@ -181,14 +143,9 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     ];
     
-    // Gebruik het bestaande dialoog systeem
-    console.log('DialogueSystem beschikbaar:', !!window.DialogueSystem);
-    
-    // Maak een nieuwe dialoog instance met de callback
     const dialogueInstance = window.DialogueSystem.initDialogueSystem({
       typingSpeed: 50,
       onComplete: () => {
-        console.log('Dialoog voltooid, toon bolleke beloning...');
         showBollekeReward();
       }
     });
@@ -196,19 +153,13 @@ document.addEventListener('DOMContentLoaded', function() {
     dialogueInstance.startDialogue(successDialogues);
   }
   
-  // Toon bolleke beloning animatie
   function showBollekeReward() {
-    console.log('Toon bolleke beloning...');
-    console.log('bollekeReward element:', bollekeReward);
-    
     if (!bollekeReward) {
-      console.error('bollekeReward element niet gevonden!');
       alert('bollekeReward element niet gevonden!');
       continueToNext();
       return;
     }
     
-    // Toon bolleke reward interface
     bollekeReward.style.display = 'flex';
     bollekeReward.style.position = 'absolute';
     bollekeReward.style.top = '0';
@@ -220,27 +171,11 @@ document.addEventListener('DOMContentLoaded', function() {
     bollekeReward.style.opacity = '0';
     bollekeReward.style.transition = 'opacity 0.5s ease';
     
-    console.log('Bolleke reward display set naar flex');
-    console.log('Bolleke reward style.display:', bollekeReward.style.display);
-    
-    // Trigger animatie
     setTimeout(() => {
       bollekeReward.style.opacity = '1';
-      console.log('Bolleke reward opacity set naar 1');
-      console.log('Bolleke reward style.opacity:', bollekeReward.style.opacity);
-      
-      // Test CSS properties
-      const computedStyle = window.getComputedStyle(bollekeReward);
-      console.log('Bolleke reward computed opacity:', computedStyle.opacity);
-      console.log('Bolleke reward computed display:', computedStyle.display);
-      console.log('Bolleke reward computed z-index:', computedStyle.zIndex);
     }, 100);
     
-    // Event listener voor klikken om verder te gaan
     bollekeReward.addEventListener('click', handleBollekeClick, { once: true });
-    console.log('Click event listener toegevoegd aan bollekeReward');
-    
-    // Voeg een hint toe dat de speler moet klikken
     setTimeout(() => {
       const hintText = document.createElement('div');
       hintText.className = 'hint-text';
@@ -268,11 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 2000);
   }
   
-  // Handle bolleke klik
   function handleBollekeClick() {
-    console.log('Bolleke geklikt, toon vervolg dialoog...');
-    
-    // Vloeiend uitfaden van de hint tekst
     const hintText = document.querySelector('.hint-text');
     if (hintText) {
       hintText.classList.add('fade-out');
@@ -281,26 +212,19 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 300);
     }
     
-    // Voeg een klik effect toe
     bollekeReward.style.transform = 'scale(0.95)';
     
-    // Fade out bolleke reward
     setTimeout(() => {
       bollekeReward.style.opacity = '0';
-      console.log('Bolleke reward fade out gestart');
     }, 100);
     
     setTimeout(() => {
       bollekeReward.style.display = 'none';
-      console.log('Bolleke reward verborgen, ga naar showFollowUpDialogue...');
       showFollowUpDialogue();
     }, 600);
   }
   
-  // Toon vervolg dialoog na bolleke animatie
   function showFollowUpDialogue() {
-    console.log('Toon vervolg dialoog...');
-    console.log('DialogueSystem beschikbaar:', !!window.DialogueSystem);
     
     // Vervolg dialoog van de barvrouw
     const followUpDialogues = [

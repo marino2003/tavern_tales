@@ -1,30 +1,14 @@
-// Player Data Management
-// Functies voor het beheren van spelergegevens door de game
-
-/**
- * Haalt de speler naam op uit localStorage
- * @returns {string} De speler naam of een fallback
- */
 function getPlayerName() {
   const playerName = localStorage.getItem('playerName');
-  return playerName || 'vriend'; // Fallback als er geen naam is
+  return playerName || 'vriend';
 }
 
-/**
- * Sla speler naam op in localStorage
- * @param {string} name - De naam om op te slaan
- */
 function setPlayerName(name) {
   if (name && name.trim()) {
     localStorage.setItem('playerName', name.trim().toUpperCase());
   }
 }
 
-/**
- * Vervangt placeholder tekst in dialogen met de speler naam
- * @param {string} text - Tekst met {PLAYER} placeholders
- * @returns {string} Tekst met vervangen naam
- */
 function personalizeDialogue(text) {
   const playerName = getPlayerName();
   return text.replace(/\{PLAYER\}/g, playerName);

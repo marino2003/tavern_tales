@@ -1,7 +1,5 @@
-// Vereenvoudigde Navigatie pagina script
 document.addEventListener('DOMContentLoaded', function() {
   
-  // Elementen ophalen
   const locationNameElement = document.getElementById('location-name');
   const distanceElement = document.getElementById('distance');
   const beerCountElement = document.getElementById('beer-count');
@@ -10,14 +8,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const requestPermissionsButton = document.getElementById('request-permissions-button');
   const gameContainer = document.querySelector('.game-container');
   
-  // Transition overlay initialiseren
   const transitionOverlay = new TransitionOverlay({
     duration: 1500,
     color: '#A0303F',
     direction: 'left-to-right'
   });
   
-  // Den Engel locatie coördinaten (Antwerpen)
   const targetLocation = {
     name: 'Den Engel',
     lat: 51.2194, // Den Engel café in Antwerpen

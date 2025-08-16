@@ -1,44 +1,29 @@
-/**
- * Herbruikbaar Dialoogsysteem
- * Modulair en efficiënt systeem voor dialoog weergave
- */
-
 class DialogueSystem {
     constructor(options = {}) {
-        // Configuratie
         this.typingSpeed = options.typingSpeed || 50;
         this.autoAdvance = options.autoAdvance || false;
         this.skipTypingOnTouch = options.skipTypingOnTouch !== false;
         
-        // State
         this.currentDialogue = null;
         this.currentIndex = 0;
         this.currentPage = 0;
         this.isTyping = false;
         this.isShowing = false;
         
-        // Text pagination
         this.currentTextPages = [];
-        this.maxCharsPerPage = 150; // Aanpasbaar
+        this.maxCharsPerPage = 150;
         
-        // Callbacks
         this.onComplete = options.onComplete || null;
         this.onNext = options.onNext || null;
         
-        // Initialisatie
         this.initializeElements();
         this.bindEvents();
     }
     
-    /**
-     * Maak DOM elementen aan
-     */
     initializeElements() {
-        // Maak overlay
         this.overlay = document.createElement('div');
         this.overlay.className = 'dialogue-overlay';
         
-        // HTML structuur
         this.overlay.innerHTML = `
             <div class="dialogue-box">
                 <div class="dialogue-portrait"></div>
