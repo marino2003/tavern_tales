@@ -33,8 +33,7 @@ Vijfde argument: een functie die wordt aangeroepen als er een foto genomen is (f
 //
 
 function callback(base64) {
-  console.log('the image was captured');
-  console.log(base64);
+  // Image captured callback
 }
 
 startCamera(false, '#video', '#canvas', '#capture', callback);
@@ -46,7 +45,7 @@ async function startCamera(useFrontCamera, videoSelector, canvasSelector, captur
   let canvasElement = document.querySelector(canvasSelector);
   let captureButton = document.querySelector(captureSelector);
 
-  if (!videoElement) console.error('Video selector could not find a valid element');
+  if (!videoElement) return;
 
   let videoConfiguration = { facingMode: { exact: "environment" } };
   if (useFrontCamera) videoConfiguration = { facingMode: "user" };

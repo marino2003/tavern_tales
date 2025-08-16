@@ -94,8 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
   function submitAnswer(userAnswer) {
     const correctAnswers = ['drogisterij', 'drogist', 'apotheek', 'pharmacy'];
     
-    console.log('Antwoord ingediend:', userAnswer);
-    
     const normalizedAnswer = userAnswer.toLowerCase().trim();
     const isCorrect = correctAnswers.some(answer => 
       normalizedAnswer.includes(answer) || answer.includes(normalizedAnswer)
@@ -433,19 +431,12 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Ga verder naar volgende pagina
   function continueToNext() {
-    console.log('Ga verder...');
-    
-    // Sla volgende pagina op in localStorage
     localStorage.setItem('nextPage', '../stop2/index.html');
-    localStorage.setItem('coordinates', '51.2194,4.4025'); // Grote Markt Antwerpen
+    localStorage.setItem('coordinates', '51.2194,4.4025');
     localStorage.setItem('locationName', 'Grote Markt Antwerpen');
     
-    // Start transition out
     transitionOverlay.transitionOut(() => {
-      // Navigeer naar navigatie pagina
       window.location.href = '../navigate/index.html';
-    }).then(() => {
-      console.log('Transition out voltooid');
     });
   }
   

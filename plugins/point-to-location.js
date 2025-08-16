@@ -78,12 +78,9 @@ let hideRequestPermissions = null;
 function startCompass() {
   if (!compassStarted) {
     compassStarted = true;
-    console.log('Starting compass... Mobile:', isMobileCompass, 'iOS:', isIOSCompass, 'Android:', isAndroidCompass);
     
     if (!isMobileCompass) {
-      // Desktop - gebruik deviceorientationabsolute
       window.addEventListener("deviceorientationabsolute", handler, true);
-      console.log('Desktop compass started');
     } else if (isIOSCompass) {
       // iOS - specifieke behandeling
       if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
@@ -91,9 +88,7 @@ function startCompass() {
           .then((response) => {
             if (response === "granted") {
               window.addEventListener("deviceorientation", handler, true);
-              console.log('iOS compass started with permission');
             } else {
-              console.log('iOS compass permission denied, using fallback');
               alert("Zonder kompas wordt het lastig. Richtingaanwijzing via het noorden.");
             }
           })
@@ -112,21 +107,15 @@ function startCompass() {
             }
           });
       } else {
-        // Fallback voor oudere iOS versies
         window.addEventListener("deviceorientation", handler, true);
-        console.log('iOS compass started (fallback)');
       }
     } else if (isAndroidCompass) {
-      // Android - probeer verschillende event types
       try {
         window.addEventListener("deviceorientationabsolute", handler, true);
-        console.log('Android compass started (absolute)');
       } catch (e) {
         try {
           window.addEventListener("deviceorientation", handler, true);
-          console.log('Android compass started (relative)');
         } catch (e2) {
-          console.warn('Android compass not available:', e2);
           alert("Kompas niet beschikbaar. Richtingaanwijzing via het noorden.")
         }
       }
@@ -148,8 +137,7 @@ function handler(e) {
   
   if (heading !== null) {
     compass = -heading; // Negatief voor correcte rotatie
-    console.log('Compass heading:', heading, 'degrees');
-    onChange();
+      onChange();
   }
 }
 
@@ -157,47 +145,31 @@ function onChange() {
   if (pointerElement !== null) {
     if (direction === null) {
       pointerElement.style.visibility = 'hidden';
-      console.log('Wijzer verborgen - geen richting beschikbaar');
     } else {
       pointerElement.style.visibility = 'visible';
       if (compass === null) {
         const rotation = direction;
-        // Gebruik requestAnimationFrame voor soepelere animatie
         requestAnimationFrame(() => {
           pointerElement.style.transform = `rotate(${rotation}deg)`;
         });
-        console.log('Wijzer roteert naar richting:', rotation, 'graden (zonder kompas)');
       } else {
         const rotation = compass + direction;
-        // Gebruik requestAnimationFrame voor soepelere animatie
         requestAnimationFrame(() => {
           pointerElement.style.transform = `rotate(${rotation}deg)`;
         });
-        console.log('Wijzer roteert naar richting:', rotation, 'graden (kompas:', compass, '+ richting:', direction, ')');
       }
     }
-  } else {
-    console.log('Wijzer element niet gevonden');
   }
 }
 
 function pointToLocation(lat1, lon1, lat2, lon2, pointerSelector, requestPermissionsButtonSelector, onShowRequestPermissions, onHideRequestPermissions) {
-  console.log('pointToLocation aangeroepen met:');
-  console.log('Huidige locatie:', lat1, lon1);
-  console.log('Doel locatie:', lat2, lon2);
-  console.log('Wijzer selector:', pointerSelector);
-  console.log('Mobile:', isMobileCompass, 'iOS:', isIOSCompass, 'Android:', isAndroidCompass);
-  
   showRequestPermissions = onShowRequestPermissions;
   hideRequestPermissions = onHideRequestPermissions;
 
   requestPermissionsButtonElement = document.querySelector(requestPermissionsButtonSelector);
   pointerElement = document.querySelector(pointerSelector);
-  
-  console.log('Wijzer element gevonden:', pointerElement);
 
   direction = getDistance(lat1, lon1, lat2, lon2).directionInDegrees;
-  console.log('Berekende richting:', direction, 'graden');
 
   startCompass();
   onChange();

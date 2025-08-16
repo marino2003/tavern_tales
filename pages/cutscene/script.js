@@ -1,23 +1,15 @@
-// Cutscene Logic
-console.log('Cutscene loaded');
-
-// Event listeners toevoegen wanneer DOM geladen is
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialiseer hero sprite
   if (window.HeroSprite) {
     const heroElement = document.getElementById('heroSprite');
     if (heroElement) {
       window.heroController = new HeroSprite.Controller(heroElement);
-      console.log('🎮 Hero sprite controller geladen voor cutscene!');
     }
   }
 
-  // Initialiseer NPC sprite
   if (window.NPCSprite) {
     const npcElement = document.getElementById('npcSprite');
     if (npcElement) {
       window.npcController = new NPCSprite.Controller(npcElement);
-      console.log('⚔️ NPC sprite controller geladen voor cutscene!');
     }
   }
 
@@ -26,12 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
     startCutsceneDialogue();
   }, 2000);
 
-  // Continue button functionaliteit
   const continueBtn = document.getElementById('continueBtn');
   if (continueBtn) {
     continueBtn.addEventListener('click', () => {
-      console.log('Cutscene voltooid - navigeren naar volgende pagina');
-      // Start transitie
       if (window.TransitionOverlay) {
         const transition = new window.TransitionOverlay({
           duration: 1500,
@@ -40,20 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         transition.transitionOut(() => {
-          // Voeg dummy coördinaten toe voor testing
           window.location.href = '../navigate/?coordinates=51.2194,4.4025&locationName=Test%20Cafe&nextPage=stop1';
         });
       } else {
-        // Voeg dummy coördinaten toe voor testing
         window.location.href = '../navigate/?coordinates=51.2194,4.4025&locationName=Test%20Cafe&nextPage=stop1';
       }
     });
   }
 });
 
-// Cutscene dialoog sequentie
 function startCutsceneDialogue() {
-  console.log('Starten cutscene dialoog...');
   
   if (!window.DialogueSystem) {
     console.error('DialogueSystem niet geladen!');

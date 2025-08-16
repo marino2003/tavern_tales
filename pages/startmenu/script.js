@@ -1,24 +1,10 @@
-// Start Menu Logic
-console.log('Start Menu loaded');
-
-// Modal functionaliteit
 function openCharacterModal() {
-  console.log('openCharacterModal called');
   const modal = document.getElementById('characterModal');
   const gameContainer = document.querySelector('.game-container');
   
-  console.log('Modal elements found:', {
-    modal: !!modal,
-    gameContainer: !!gameContainer
-  });
-  
   if (modal && gameContainer) {
-    console.log('Adding active classes');
     modal.classList.add('active');
     gameContainer.classList.add('modal-active');
-    console.log('Modal should now be visible');
-  } else {
-    console.error('Modal or gameContainer not found!', { modal, gameContainer });
   }
 }
 
@@ -167,8 +153,6 @@ function addButtonFeedback(button) {
 
 // Event listeners toevoegen wanneer DOM geladen is
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM Content Loaded - Starting initialization');
-  
   const newGameBtn = document.getElementById('newGameBtn');
   const continueBtn = document.getElementById('continueBtn');
   const closeModalBtn = document.getElementById('closeModalBtn');
@@ -176,25 +160,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const playerNameInput = document.getElementById('playerName');
   const modalOverlay = document.getElementById('characterModal');
   
-  console.log('Found elements:', {
-    newGameBtn: !!newGameBtn,
-    continueBtn: !!continueBtn,
-    closeModalBtn: !!closeModalBtn,
-    continueModalBtn: !!continueModalBtn,
-    playerNameInput: !!playerNameInput,
-    modalOverlay: !!modalOverlay
-  });
-  
   if (newGameBtn) {
-    console.log('Adding event listener to newGameBtn');
-    
     let isProcessing = false;
     
     const handleNewGame = (eventType) => {
       if (isProcessing) return;
       isProcessing = true;
       
-      console.log(`New Game button clicked via ${eventType} event!`);
       startNewGame();
       
       setTimeout(() => {
@@ -202,21 +174,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 500);
     };
     
-    // Click event voor desktop
     newGameBtn.addEventListener('click', (e) => {
       e.preventDefault();
       handleNewGame('CLICK');
     });
     
-    // Touch event voor mobile
     newGameBtn.addEventListener('touchend', (e) => {
       e.preventDefault();
       handleNewGame('TOUCHEND');
     }, { passive: false });
     
     addButtonFeedback(newGameBtn);
-  } else {
-    console.error('newGameBtn not found!');
   }
   
   if (continueBtn) {

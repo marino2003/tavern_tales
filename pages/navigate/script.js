@@ -118,37 +118,24 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCompass();
   }
   
-  // Trigger overgang wanneer gebruiker aankomt
   function triggerArrivalTransition() {
-    console.log('Gebruiker is aangekomen bij Den Engel! Start overgang...');
-    
-    // Stop locatie tracking
     if (window.stopLocationTracking) {
       window.stopLocationTracking();
     }
     
-    // Start transition out
     transitionOverlay.transitionOut(() => {
-      // Navigeer naar de minigame intro pagina
       window.location.href = '../minigame-intro/index.html';
-    }).then(() => {
-      console.log('Transition out voltooid');
     });
   }
   
   // Locatie permissies aanvragen
   function requestLocationPermissions() {
     if (navigator.geolocation) {
-      // Modal sluiten
       requestPermissionsModal.classList.remove('active');
       gameContainer.classList.remove('modal-active');
       
-      // Start compas tracking
       initializeCompass();
-      
-      console.log('Locatie toegang verleend - compas gestart');
     } else {
-      console.error('Geolocation niet ondersteund');
       distanceElement.textContent = 'Geolocation niet ondersteund';
     }
   }
@@ -158,20 +145,15 @@ document.addEventListener('DOMContentLoaded', function() {
     requestPermissionsButton.addEventListener('click', requestLocationPermissions);
   }
   
-  // Check of we in een iframe zitten
   if (window.isInIframe && window.isInIframe()) {
-    // In iframe - toon permissie modal
     requestPermissionsModal.classList.add('active');
     gameContainer.classList.add('modal-active');
   } else {
-    // Niet in iframe - start direct compas tracking
     initializeCompass();
   }
   
-  // UI initialiseren
   updateNavigationUI();
   
-  // Expose functies voor andere scripts
   window.updateDistanceToTarget = updateDistanceToTarget;
   window.targetLocation = targetLocation;
   
