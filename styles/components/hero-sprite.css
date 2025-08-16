@@ -1,32 +1,31 @@
-/* Hero Sprite Component */
-/* Herbruikbaar component voor hero animaties */
+
 
 .hero-sprite {
     background-image: url('../../assets/spritesheets/hero_main/Combat Ready Idle.png');
     background-repeat: no-repeat;
     background-position: 0 0;
     
-    /* Pixel art rendering voor scherpe sprites */
+
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     
-    /* Optimale frame afmetingen (gevonden via testing) */
+
     width: 19px;
     height: 24px;
     
-    /* Default scaling - kan worden overschreven */
+
     transform: scale(4);
     transform-origin: center center;
     
-    /* Idle animatie - smooth looping */
+
     animation: hero-idle 0.8s steps(5) infinite;
     
-    /* Transities voor smooth state changes */
+
     transition: transform 0.2s ease;
 }
 
-/* Verschillende schaal opties */
+
 .hero-sprite--small {
     transform: scale(2);
 }
@@ -43,7 +42,7 @@
     transform: scale(6);
 }
 
-/* Animatie states */
+
 .hero-sprite--paused {
     animation-play-state: paused;
 }
@@ -56,7 +55,7 @@
     animation-duration: 1.2s;
 }
 
-/* Keyframes voor Combat Ready Idle (5 frames, 110px totaal) */
+
 @keyframes hero-idle {
     0% { 
         background-position: 0 0; 
@@ -66,10 +65,10 @@
     }
 }
 
-/* Responsive behavior voor mobile */
+
 @media (max-width: 768px) {
     .hero-sprite {
-        transform: scale(3); /* Iets kleiner op mobile */
+        transform: scale(3);
     }
     
     .hero-sprite--small {
@@ -89,9 +88,9 @@
     }
 }
 
-/* Hover effecten - alleen voor desktop (niet mobile game) */
+
 @media (hover: hover) {
     .hero-sprite:hover {
-        animation-duration: 0.6s; /* Sneller bij hover */
+        animation-duration: 0.6s;
     }
 } 

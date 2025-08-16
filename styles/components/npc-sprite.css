@@ -1,32 +1,31 @@
-/* NPC Sprite Component */
-/* Herbruikbaar component voor NPC animaties */
+
 
 .npc-sprite {
     background-image: url('../../assets/spritesheets/npc_1/spritesheet.png');
     background-repeat: no-repeat;
     background-position: 0 0;
     
-    /* Pixel art rendering voor scherpe sprites */
+
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     
-    /* Frame afmetingen voor NPC warrior (66x46 pixels) */
+
     width: 66px;
     height: 46px;
     
-    /* Default scaling - kan worden overschreven */
+
     transform: scale(4);
     transform-origin: center center;
     
-    /* Idle animatie - smooth looping voor 6 frames */
+
     animation: npc-idle 0.8s steps(6) infinite;
     
-    /* Transities voor smooth state changes */
+
     transition: transform 0.2s ease;
 }
 
-/* Verschillende schaal opties */
+
 .npc-sprite--small {
     transform: scale(2);
 }
@@ -43,7 +42,7 @@
     transform: scale(6);
 }
 
-/* Animatie states */
+
 .npc-sprite--paused {
     animation-play-state: paused;
 }
@@ -56,7 +55,7 @@
     animation-duration: 1.2s;
 }
 
-/* Keyframes voor NPC Warrior Idle (6 frames, 396px totaal) */
+
 @keyframes npc-idle {
     0% { 
         background-position: 0 0; 
@@ -66,10 +65,10 @@
     }
 }
 
-/* Responsive behavior voor mobile */
+
 @media (max-width: 768px) {
     .npc-sprite {
-        transform: scale(3); /* Iets kleiner op mobile */
+        transform: scale(3);
     }
     
     .npc-sprite--small {
@@ -89,9 +88,9 @@
     }
 }
 
-/* Hover effecten - alleen voor desktop (niet mobile game) */
+
 @media (hover: hover) {
     .npc-sprite:hover {
-        animation-duration: 0.6s; /* Sneller bij hover */
+        animation-duration: 0.6s;
     }
 } 

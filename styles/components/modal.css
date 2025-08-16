@@ -1,6 +1,6 @@
-/* Modal Component - Herbruikbare modal styling gebaseerd op startmenu */
 
-/* Modal Overlay - Gefixt */
+
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -25,13 +25,13 @@
   visibility: visible;
 }
 
-/* Blur effect voor achtergrond */
+
 .game-container.modal-active {
   filter: blur(3px);
   transition: filter 0.3s ease;
 }
 
-/* Modal Container - Verbeterd */
+
 .modal-container {
   position: relative;
   width: 100%;
@@ -58,7 +58,7 @@
   transform: translateY(0) scale(1);
 }
 
-/* Close Button */
+
 .modal-close-btn {
   position: absolute;
   left: 16px;
@@ -102,7 +102,7 @@
   justify-content: center;
 }
 
-/* Modal Content - Verbeterde Spacing */
+
 .modal-content {
   width: 100%;
   display: flex;
@@ -115,7 +115,7 @@
   justify-content: flex-start;
 }
 
-/* Modal Title - Consistente Spacing */
+
 .modal-title {
   text-align: center;
   color: #333;
@@ -129,7 +129,7 @@
   flex-shrink: 0;
 }
 
-/* Input Styling - Volledig Herwerkt */
+
 .input-container {
   position: relative;
   display: flex;
@@ -180,12 +180,12 @@
   text-align: center;
 }
 
-/* Input Underscores - Verborgen voor cleaner look */
+
 .input-underscores {
   display: none;
 }
 
-/* Error Message - Subtielere styling */
+
 .error-message {
   color: #c62828;
   font-family: var(--pixel-font);
@@ -214,7 +214,7 @@
   opacity: 1;
 }
 
-/* Input Error State - Consistent met error message */
+
 .modal-input.error {
   outline-color: #e57373;
   background: #ffebee;
@@ -238,7 +238,7 @@
   }
 }
 
-/* Modal Actions - Consistente Spacing */
+
 .modal-actions {
   display: flex;
   flex-direction: column;
@@ -252,7 +252,7 @@
   flex-shrink: 0;
 }
 
-/* Modal Buttons - Betere Touch Targets */
+
 .modal-btn {
   transform: scale(0.85);
   width: 100%;
@@ -269,7 +269,7 @@
   transform: scale(0.82) translateY(1px);
 }
 
-/* Modal Button Text - Absolute Perfect Centering */
+
 .modal-btn .pixel-button-text {
   position: absolute;
   top: 50%;
@@ -288,7 +288,7 @@
   white-space: nowrap;
 }
 
-/* Modal Button SVG - Proper Positioning */
+
 .modal-btn .pixel-button-svg {
   display: block;
   width: 100%;
@@ -297,14 +297,14 @@
   z-index: 1;
 }
 
-/* Custom Content - Gefixt */
+
 .modal-custom-content {
   margin: 0;
   width: 100%;
   text-align: center;
 }
 
-/* Modal Text - Perfect Gecentreerd */
+
 .modal-text {
   text-align: center;
   margin: 0;
@@ -329,7 +329,7 @@
   margin-bottom: 0;
 }
 
-/* Success Content */
+
 .success-content {
   text-align: center;
 }
@@ -377,7 +377,7 @@
   letter-spacing: 0.5px;
 }
 
-/* Responsive Design - Geleidelijke Transitions */
+
 @media (max-width: 480px) {
   .modal-container {
     width: 92%;

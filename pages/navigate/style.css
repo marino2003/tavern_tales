@@ -1,4 +1,4 @@
-/* Game Container - Zelfde als startmenu */
+
 .game-container {
   position: fixed;
   top: 0;
@@ -24,7 +24,7 @@
   }
 }
 
-/* Single Background Image */
+
 .background-image {
   position: absolute;
   top: 0;
@@ -41,7 +41,7 @@
   image-rendering: crisp-edges;
 }
 
-/* Main Scene */
+
 .scene {
   position: absolute;
   bottom: 0;
@@ -51,14 +51,14 @@
   z-index: 10;
 }
 
-/* Navigatie Component volgens Figma Design */
+
 .navigation-component {
   position: absolute;
   top: max(2rem, env(safe-area-inset-top) + 1rem);
   left: 50%;
   transform: translateX(-50%);
   width: 420px;
-  height: 168px; /* Verhoogd van 160px naar 168px voor extra gap ruimte */
+  height: 168px;
   z-index: 20;
 }
 
@@ -155,7 +155,7 @@
   margin: 0;
 }
 
-/* Bier Voortgang Indicator - Nu onder het navigatie component */
+
 .beer-progress {
   width: 200px; /* Smaller dan navigatie component (410px) */
   height: 42px;
@@ -185,7 +185,7 @@
   flex-shrink: 0;
 }
 
-/* Compass container - Gecentreerd in het midden */
+
 .compass-container {
   position: absolute;
   top: 0;
@@ -208,7 +208,7 @@
   pointer-events: auto;
 }
 
-/* Compass overlay - Gecentreerd in het midden */
+
 .compass-overlay {
   position: absolute;
   top: 50%;
@@ -247,7 +247,7 @@
   z-index: 2;
 }
 
-/* Floor System - Zelfde als startmenu */
+
 .floor-system {
   position: absolute;
   bottom: 0;
@@ -305,7 +305,7 @@
   pointer-events: none;
 }
 
-/* Magical Particles - Zelfde als startmenu */
+
 .magical-particles {
   position: absolute;
   top: 0;
@@ -362,7 +362,7 @@
   }
 }
 
-/* Modal Overlay - Zelfde als startmenu */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -445,7 +445,7 @@
   letter-spacing: 1px;
 }
 
-/* Hints Sectie */
+
 .hints-section {
   margin-top: 12px;
   padding-top: 12px;
@@ -477,7 +477,7 @@
   letter-spacing: 0.5px;
 }
 
-/* Mobile First Responsive Design */
+
 @media (max-width: 480px) {
   .navigation-component {
     width: 95%;
@@ -559,7 +559,7 @@
   }
 }
 
-/* Landscape mode optimalisaties */
+
 @media (orientation: landscape) {
   .navigation-component {
     width: 95%;

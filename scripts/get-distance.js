@@ -1,14 +1,11 @@
-// Degrees to Radians
 function degreesToRadians(degrees) {
   return degrees * Math.PI / 180;
 }
 
-// Redians to Degrees
 function radiansToDegrees(radians) {
   return radians * 180 / Math.PI;
 }
 
-// Calculate Distance Between LatLongs
 function getDistance(lat1, lon1, lat2, lon2) {
   const earthRadiusKm = 6371;
 
@@ -41,7 +38,6 @@ function getDistance(lat1, lon1, lat2, lon2) {
   };
 }
 
-// Convert Bearing
 function convertWindDirection(direction) {
   let result = '';
   if (direction < 22.5) {

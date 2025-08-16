@@ -27,17 +27,13 @@ class ModalComponent {
     this.init();
   }
   
-  /**
-   * Initialiseer de modal
-   */
+
   init() {
     this.createModal();
     this.bindEvents();
   }
   
-  /**
-   * Maak de modal HTML
-   */
+
   createModal() {
     // Maak modal overlay
     const modalOverlay = document.createElement('div');
@@ -97,6 +93,7 @@ class ModalComponent {
       this.inputElement.maxLength = this.options.inputMaxLength;
       this.inputElement.placeholder = this.options.inputPlaceholder;
       this.inputElement.value = this.options.inputValue;
+      this.inputElement.autocomplete = 'off';
       
       // Input underscores
       const underscores = document.createElement('div');
@@ -174,9 +171,7 @@ class ModalComponent {
     this.modalElement = modalOverlay;
   }
   
-  /**
-   * Bind event listeners
-   */
+
   bindEvents() {
     // Close button
     const closeBtn = document.getElementById(`${this.options.id}CloseBtn`);
@@ -247,9 +242,7 @@ class ModalComponent {
     });
   }
   
-  /**
-   * Toon de modal
-   */
+
   show() {
     this.isActive = true;
     this.modalElement.classList.add('active');
@@ -264,9 +257,7 @@ class ModalComponent {
     }
   }
   
-  /**
-   * Verberg de modal
-   */
+
   close() {
     this.isActive = false;
     this.modalElement.classList.remove('active');
@@ -277,16 +268,14 @@ class ModalComponent {
     }
   }
   
-  /**
-   * Update input underscores
-   */
+
   updateUnderscores() {
     if (!this.inputElement) return;
     
     const underscores = this.modalElement.querySelectorAll('.underscore');
     const value = this.inputElement.value;
     
-    // Don't force uppercase - let user type naturally
+
     underscores.forEach((underscore, index) => {
       if (index < value.length) {
         underscore.style.opacity = '0.3';
@@ -298,9 +287,7 @@ class ModalComponent {
     });
   }
   
-  /**
-   * Toon error message
-   */
+
   showError(message = 'Fout antwoord') {
     if (this.errorElement) {
       this.errorElement.textContent = message;
@@ -313,9 +300,7 @@ class ModalComponent {
     }
   }
   
-  /**
-   * Verberg error message
-   */
+
   hideError() {
     if (this.errorElement) {
       this.errorElement.classList.remove('show');
@@ -323,9 +308,7 @@ class ModalComponent {
     }
   }
   
-  /**
-   * Verwijder de modal
-   */
+
   destroy() {
     if (this.modalElement && this.modalElement.parentNode) {
       this.modalElement.parentNode.removeChild(this.modalElement);
@@ -333,50 +316,10 @@ class ModalComponent {
   }
 }
 
-// Export voor gebruik in andere bestanden
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = ModalComponent;
 } else {
   window.ModalComponent = ModalComponent;
 }
 
-/*
- * VOORBEELD GEBRUIK:
- * 
- * // Eenvoudige modal zonder input
- * const simpleModal = new ModalComponent({
- *   id: 'simpleModal',
- *   title: 'BEVESTIGING',
- *   showInput: false,
- *   primaryButtonText: 'OK',
- *   secondaryButtonText: 'Annuleren',
- *   onPrimaryClick: () => {
- *     console.log('OK geklikt');
- *     simpleModal.close();
- *   },
- *   onSecondaryClick: () => {
- *     console.log('Annuleren geklikt');
- *     simpleModal.close();
- *   }
- * });
- * 
- * // Modal met input (zoals character creation)
- * const characterModal = new ModalComponent({
- *   id: 'characterModal',
- *   title: '- Character -',
- *   showInput: true,
- *   inputPlaceholder: '',
- *   inputMaxLength: 6,
- *   primaryButtonText: 'Ga Verder',
- *   secondaryButtonText: null, // Geen secondary button
- *   onPrimaryClick: (value) => {
- *     console.log('Character naam:', value);
- *     // Sla op en ga verder
- *     characterModal.close();
- *   }
- * });
- * 
- * // Modal tonen
- * simpleModal.show();
- * characterModal.show();
- */ 

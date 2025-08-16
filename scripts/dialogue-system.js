@@ -46,9 +46,6 @@ class DialogueSystem {
         this.pagesIndicator = this.overlay.querySelector('.dialogue-pages');
     }
     
-    /**
-     * Bind event listeners
-     */
     bindEvents() {
         // Klik/touch events
         this.overlay.addEventListener('click', (e) => this.handleInteraction(e));
@@ -63,9 +60,6 @@ class DialogueSystem {
         });
     }
     
-    /**
-     * Verwerk gebruikersinteractie
-     */
     handleInteraction(event) {
         if (!this.isShowing) return;
         
@@ -81,10 +75,6 @@ class DialogueSystem {
         this.nextDialogue();
     }
     
-    /**
-     * Start een dialoog reeks
-     * @param {Array} dialogues - Array van dialoog objecten
-     */
     startDialogue(dialogues) {
         if (!Array.isArray(dialogues) || dialogues.length === 0) {
             console.warn('Geen geldige dialogen meegegeven');
@@ -102,9 +92,6 @@ class DialogueSystem {
         this.showCurrentDialogue();
     }
     
-    /**
-     * Toon huidige dialoog
-     */
     showCurrentDialogue() {
         if (!this.currentDialogue || this.currentIndex >= this.currentDialogue.length) {
             this.completeDialogue();
@@ -135,10 +122,6 @@ class DialogueSystem {
         }
     }
     
-    /**
-     * Update character portret
-     * @param {string} portraitPath - Pad naar portret afbeelding
-     */
     updatePortrait(portraitPath) {
         if (portraitPath) {
             // Zorg ervoor dat het pad correct is
@@ -150,11 +133,6 @@ class DialogueSystem {
         }
     }
     
-    /**
-     * Split tekst in pagina's op basis van beschikbare ruimte
-     * @param {string} text - Volledige tekst
-     * @returns {Array} Array van tekst pagina's
-     */
     splitTextIntoPages(text) {
         const pages = [];
         const words = text.split(' ');
@@ -184,10 +162,6 @@ class DialogueSystem {
         return pages.length > 0 ? pages : [text];
     }
     
-    /**
-     * Bereken maximale karakters per pagina op basis van beschikbare ruimte
-     * @returns {number} Maximaal aantal karakters per pagina
-     */
     calculateMaxCharsPerPage() {
         // Schatting op basis van box grootte en font
         const boxWidth = this.box.offsetWidth - 120; // Ruimte voor portrait en padding
@@ -198,17 +172,11 @@ class DialogueSystem {
         return charsPerLine * linesPerPage;
     }
     
-    /**
-     * Update pagina indicator
-     */
     updatePagesIndicator() {
         // Verberg pagination volledig
             this.pagesIndicator.style.display = 'none';
     }
     
-    /**
-     * Type huidige pagina
-     */
     typeCurrentPage() {
         if (this.currentPage >= this.currentTextPages.length) {
             this.completeCurrentText();
@@ -222,10 +190,6 @@ class DialogueSystem {
         this.updatePagesIndicator();
     }
     
-    /**
-     * Type tekst animatie
-     * @param {string} text - Te tonen tekst
-     */
     typeText(text) {
         this.isTyping = true;
         this.textElement.textContent = '';
@@ -253,9 +217,6 @@ class DialogueSystem {
         typeNextChar();
     }
     
-    /**
-     * Voltooi huidige pagina
-     */
     completeCurrentPage() {
         // Stop typing animatie als bezig
         if (this.typingInterval) {
@@ -273,9 +234,6 @@ class DialogueSystem {
         this.continueIndicator.style.display = 'block';
     }
     
-    /**
-     * Voltooi huidige tekst (alle pagina's)
-     */
     completeCurrentText() {
         // Stop typing animatie als bezig
         if (this.typingInterval) {
@@ -303,9 +261,6 @@ class DialogueSystem {
         }
     }
     
-    /**
-     * Ga naar volgende pagina of dialoog
-     */
     nextDialogue() {
         if (this.isTyping) return;
         
@@ -321,9 +276,6 @@ class DialogueSystem {
         this.showCurrentDialogue();
     }
     
-    /**
-     * Voltooi dialoog reeks
-     */
     completeDialogue() {
         this.isShowing = false;
         this.overlay.classList.remove('show');
@@ -342,9 +294,6 @@ class DialogueSystem {
         }, 300);
     }
     
-    /**
-     * Stop dialoog
-     */
     stopDialogue() {
         // Stop typing animatie als bezig
         if (this.typingInterval) {
@@ -360,23 +309,14 @@ class DialogueSystem {
         this.currentTextPages = [];
     }
     
-    /**
-     * Check of dialoog actief is
-     */
     isActive() {
         return this.isShowing;
     }
     
-    /**
-     * Stel typing snelheid in
-     */
     setTypingSpeed(speed) {
         this.typingSpeed = speed;
     }
     
-    /**
-     * Vernietig systeem
-     */
     destroy() {
         // Stop typing animatie als bezig
         if (this.typingInterval) {
@@ -391,14 +331,8 @@ class DialogueSystem {
     }
 }
 
-/**
- * Globale instance
- */
 let gameDialogue = null;
 
-/**
- * Initialiseer dialoog systeem
- */
 function initDialogueSystem(options = {}) {
     if (gameDialogue) {
         gameDialogue.destroy();
@@ -408,11 +342,6 @@ function initDialogueSystem(options = {}) {
     return gameDialogue;
 }
 
-/**
- * Toon dialoog (helper functie)
- * @param {Array|Object} dialogues - Dialoog data
- * @param {Object} options - Extra opties
- */
 function showDialogue(dialogues, options = {}) {
     // Maak nieuwe instance als er geen bestaat of als er opties zijn
     if (!gameDialogue || Object.keys(options).length > 0) {
@@ -428,12 +357,6 @@ function showDialogue(dialogues, options = {}) {
     return gameDialogue;
 }
 
-/**
- * Maak dialoog object (helper)
- * @param {string} character - Character naam
- * @param {string} text - Dialoog tekst
- * @param {string} portrait - Portret pad (optioneel)
- */
 function createDialogue(character, text, portrait = null) {
     return {
         character: character,
@@ -442,9 +365,6 @@ function createDialogue(character, text, portrait = null) {
     };
 }
 
-/**
- * Vooraf gedefinieerde characters
- */
 const Characters = {
     HERO: '../../assets/spritesheets/hero_main/Combat Ready Idle.png',
     WARRIOR: '../../assets/spritesheets/npc_1/spritesheet.png',
@@ -452,7 +372,7 @@ const Characters = {
     NPC: '../../assets/character_port/npc.png'
 };
 
-// Export voor gebruik in andere scripts
+
 window.DialogueSystem = {
     DialogueSystem,
     initDialogueSystem,
@@ -466,16 +386,16 @@ window.DialogueSystem = {
     }
 };
 
-// Auto-initialiseer als DOM geladen is
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-        // Alleen initialiseren als er nog geen instance is
+
         if (!gameDialogue) {
             initDialogueSystem();
         }
     });
 } else {
-    // Alleen initialiseren als er nog geen instance is
+
     if (!gameDialogue) {
         initDialogueSystem();
     }

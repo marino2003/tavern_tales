@@ -1,4 +1,4 @@
-/* Dialoogsysteem Component - Pixel Art Stijl */
+
 
 .dialogue-overlay {
   position: fixed;
@@ -24,32 +24,32 @@
   right: 20px;
   min-height: 140px;
   
-  /* Character modal stijl - pixel art uitstraling */
+
   background: #f8f8f8;
   border: 2px solid #ddd;
   box-shadow: -6px 6px 0px rgba(0, 0, 0, 0.5), -4px 4px 0px rgba(0, 0, 0, 0.3);
   outline: 4px solid black;
   
-  /* Pixel perfect rendering */
+
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
   
-  /* Layout */
+
   display: flex;
   align-items: flex-start;
   padding: 20px;
   gap: 20px;
   
-  /* Animatie voor verschijnen */
+
   transform: translateY(20px);
   transition: transform 0.3s ease-out;
   
-  /* Mobile optimalisaties - zorg dat dialogue box altijd volledig zichtbaar is */
+
   max-height: 60vh; /* Meer ruimte voor dialogue box */
   max-height: 60dvh;
   
-  /* Safe area support */
+
   bottom: max(40px, env(safe-area-inset-bottom) + 20px);
 }
 
@@ -62,16 +62,16 @@
   width: 100px;
   height: 100px;
   
-  /* Pixel art stijl zoals character modal avatar */
+
   background: #e8e8e8;
   border: 4px solid #333;
   
-  /* Pixel art rendering */
+
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
   
-  /* Portrait afbeelding */
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -85,12 +85,12 @@
   height: 100%;
   position: relative;
   
-  /* Zorg dat de content altijd de volledige hoogte gebruikt */
+
   min-height: 80px;
 }
 
 .dialogue-text {
-  /* Pixel font zoals character modal */
+
   font-family: var(--pixel-font);
   font-size: 32px;
   line-height: 1.2;
@@ -100,26 +100,26 @@
   font-weight: 400;
   letter-spacing: 1px;
   
-  /* Text wrapping */
+
   word-wrap: break-word;
   overflow-wrap: break-word;
   max-height: 150px; /* Meer ruimte voor tekst */
   overflow-y: auto;
   
-  /* Zorg dat tekst de volledige beschikbare ruimte gebruikt */
+
   flex: 1;
   display: flex;
   align-items: flex-start;
 }
 
-/* Verberg scrollbar */
+
 .dialogue-text::-webkit-scrollbar {
   display: none;
 }
 
 .dialogue-text {
-  -ms-overflow-style: none;  /* IE en Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .dialogue-continue {
@@ -128,7 +128,7 @@
   right: 8px;
   z-index: 10;
   
-  /* SVG indicator */
+
   width: 28px;
   height: 19px;
   background-image: url('../../assets/ui/indicator.svg');
@@ -136,16 +136,16 @@
   background-repeat: no-repeat;
   background-position: center;
   
-  /* Pixel art styling */
+
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
   
-  /* Subtiele knipperanimatie */
+
   animation: continue-subtle 2s ease-in-out infinite;
   cursor: pointer;
   
-  /* Zorg dat indicator altijd rechtsonder blijft */
+
   pointer-events: none;
 }
 
@@ -160,7 +160,7 @@
   }
 }
 
-/* Character typing effect */
+
 .dialogue-text.typing {
   overflow: hidden;
 }
@@ -183,7 +183,7 @@
   }
 }
 
-/* Tablet responsiveness */
+
 @media (max-width: 768px) {
   .dialogue-box {
     left: 15px;
@@ -194,7 +194,7 @@
     max-height: 50dvh;
     padding: 16px;
     gap: 16px;
-    /* Kleinere box shadow op tablet */
+
     box-shadow: -4px 4px 0px rgba(0, 0, 0, 0.5), -2px 2px 0px rgba(0, 0, 0, 0.3);
     outline: 3px solid black;
   }
@@ -229,7 +229,7 @@
     padding: 12px;
     gap: 12px;
     border-width: 2px;
-    /* Kleinere box shadow op kleine mobile */
+
     box-shadow: -3px 3px 0px rgba(0, 0, 0, 0.5), -1px 1px 0px rgba(0, 0, 0, 0.3);
     outline: 2px solid black;
   }
@@ -265,7 +265,7 @@
   }
 }
 
-/* Landscape mode aanpassingen */
+
 @media (max-height: 500px) and (orientation: landscape) {
   .dialogue-box {
     bottom: max(85px, env(safe-area-inset-bottom) + 65px); /* Nog hoger voor extra ruimte */
@@ -307,12 +307,12 @@
   }
 }
 
-/* Pagina indicator */
+
 .dialogue-pages {
   position: absolute;
   bottom: 8px;
   left: 8px;
-  display: none; /* Verberg pagination dots */
+  display: none;
   gap: 6px;
   align-items: center;
   z-index: 5;
@@ -333,13 +333,13 @@
   transform: scale(1.2);
 }
 
-/* Toegankelijkheid */
+
 .dialogue-box:focus-within {
   outline: 4px solid #0066cc;
   outline-offset: 2px;
 }
 
-/* Dark mode ondersteuning */
+
 @media (prefers-color-scheme: dark) {
   .dialogue-box {
     background: #f8f8f8;
@@ -364,7 +364,7 @@
   }
 }
 
-/* Specifieke aanpassingen voor apparaten met home indicators */
+
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .dialogue-box {
     bottom: max(100px, env(safe-area-inset-bottom) + 80px); /* Nog hoger voor extra ruimte */

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
   <head>
-
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -16,10 +15,12 @@
     <link href="../../styles/variables.css" type="text/css" rel="stylesheet">
     <link href="../../styles/general.css" type="text/css" rel="stylesheet">
     <link href="../../styles/components/button.css" type="text/css" rel="stylesheet">
+    <link href="../../styles/components/modal.css" type="text/css" rel="stylesheet">
     <link href="style.css" type="text/css" rel="stylesheet">
 
     <script defer src="../../scripts/player-data.js"></script>
     <script defer src="../../scripts/transition-overlay.js"></script>
+    <script defer src="../../scripts/modal-component.js"></script>
     <script defer src="script.js"></script>
 
   </head>
@@ -79,12 +80,16 @@
           <div class="particle"></div>
           <div class="particle"></div>
           <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
         </div>
       </div>
-      
     </div>
 
-    <!-- Character Creation Modal - Buiten game-container om blur effect te vermijden -->
+    <!-- Character Modal -->
     <div class="modal-overlay" id="characterModal">
       <div class="character-modal">
         <!-- Close button -->
@@ -106,7 +111,7 @@
           <div class="character-form">
             <p class="input-label">Hoe noemen ze jou in de kroegen?</p>
             <div class="name-input-container">
-                              <input type="text" id="playerName" class="name-input" maxlength="6" placeholder="">
+                              <input type="text" id="playerName" class="name-input" maxlength="6" placeholder="" autocomplete="off">
               <div class="input-underscores">
                 <div class="underscore"></div>
                 <div class="underscore"></div>
@@ -128,4 +133,4 @@
     </div>
 
   </body>
-</html> 
+</html>

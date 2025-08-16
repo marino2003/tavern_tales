@@ -1,4 +1,4 @@
-// TransitionOverlay Component
+
 class TransitionOverlay {
   constructor(config = {}) {
     this.config = {
@@ -15,7 +15,7 @@ class TransitionOverlay {
     this.startTime = null;
   }
 
-  // Maak het overlay element
+
   createElement() {
     if (this.element) return this.element;
 
@@ -50,34 +50,34 @@ class TransitionOverlay {
     return this.element;
   }
 
-  // Start een "out" overgang (pagina verlaten)
+
   transitionOut(navigationCallback) {
     return new Promise((resolve) => {
       const element = this.createElement();
       document.body.appendChild(element);
       
-      // Maak zichtbaar
+
       element.style.opacity = '1';
       
-      // Start animatie
+
       const animationDuration = this.config.duration;
       const navigationPoint = Math.floor(animationDuration * 0.6); // 60% punt
       
       this.overlay.style.animation = `diagonalWipeIn ${animationDuration}ms cubic-bezier(0.4, 0.0, 0.2, 1) forwards`;
       
-      // Sla timing op voor volgende pagina
+
       this.startTime = Date.now();
       sessionStorage.setItem('transitionStartTime', this.startTime.toString());
       sessionStorage.setItem('transitionDuration', animationDuration.toString());
       
-      // Navigeer op het juiste moment
+
       setTimeout(() => {
         if (navigationCallback) {
           navigationCallback();
         }
       }, navigationPoint);
       
-      // Resolve wanneer animatie klaar is
+
       setTimeout(() => {
         resolve();
         if (this.config.onComplete) {
@@ -87,17 +87,17 @@ class TransitionOverlay {
     });
   }
 
-  // Start een "in" overgang (pagina binnenkomen)
+
   transitionIn() {
     return new Promise((resolve) => {
       const element = this.createElement();
       document.body.appendChild(element);
       
-      // Start met volledig rood scherm
+
       this.overlay.style.clipPath = 'polygon(100% 0%, -100% 0%, -100% 100%, 100% 100%)';
       element.style.opacity = '1';
       
-      // Bereken timing gebaseerd op vorige overgang
+
       const startTime = sessionStorage.getItem('transitionStartTime');
       const duration = sessionStorage.getItem('transitionDuration');
       const now = Date.now();
@@ -109,23 +109,23 @@ class TransitionOverlay {
         const totalDuration = parseInt(duration);
         const targetWaitTime = totalDuration - elapsed;
         
-        // Zorg voor minimale en maximale wachttijd
+
         waitTime = Math.max(100, Math.min(targetWaitTime, totalDuration * 0.7));
         
         console.log('TransitionIn - Elapsed:', elapsed, 'Wait time:', waitTime, 'Target:', targetWaitTime);
       }
       
-      // Start wipe-out na berekende tijd
+
       setTimeout(() => {
-        // Gebruik dezelfde easing curve als transitionOut voor consistentie
+
         const outDuration = Math.floor(this.config.duration * 0.8); // 80% van de out-duration
         this.overlay.style.animation = `diagonalWipeOut ${outDuration}ms cubic-bezier(0.4, 0.0, 0.2, 1) forwards`;
         
-        // Cleanup sessionstorage
+
         sessionStorage.removeItem('transitionStartTime');
         sessionStorage.removeItem('transitionDuration');
         
-        // Remove element na animatie
+
         setTimeout(() => {
           if (this.element && this.element.parentNode) {
             this.element.parentNode.removeChild(this.element);
@@ -139,7 +139,7 @@ class TransitionOverlay {
     });
   }
 
-  // Cleanup
+
   destroy() {
     if (this.element && this.element.parentNode) {
       this.element.parentNode.removeChild(this.element);
@@ -149,7 +149,7 @@ class TransitionOverlay {
   }
 }
 
-// CSS Keyframes toevoegen aan document
+
 function addTransitionStyles() {
   if (document.getElementById('transition-overlay-styles')) return;
   
@@ -180,12 +180,12 @@ function addTransitionStyles() {
   document.head.appendChild(styleSheet);
 }
 
-// Auto-initialiseer styles
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', addTransitionStyles);
 } else {
   addTransitionStyles();
 }
 
-// Export voor gebruik
+
 window.TransitionOverlay = TransitionOverlay; 

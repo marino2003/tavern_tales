@@ -66,20 +66,20 @@ body {
 
 @media (orientation: landscape) {
   body {
-    /* Zorg dat content altijd zichtbaar blijft in landscape */
+
     min-height: 100vh;
     min-height: 100dvh;
   }
 }
 
-/* Kleine schermen optimalisaties */
+
 @media (max-width: 360px) {
   body {
     font-size: 14px;
   }
 }
 
-/* Grote schermen optimalisaties */
+
 @media (min-width: 1200px) {
   body {
     font-size: 16px;

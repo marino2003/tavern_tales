@@ -83,7 +83,7 @@
   filter: hue-rotate(200deg) saturate(0.8) brightness(0.9) contrast(1.1);
 }
 
-/* Responsieve aanpassingen */
+
 @media (max-width: 480px) {
   .pixel-button {
     font-size: 32px;
@@ -108,7 +108,7 @@
   }
 }
 
-/* Menu container - ZONDER automatische animaties */
+
 .menu-buttons {
   position: absolute;
   bottom: 10%;
@@ -123,7 +123,7 @@
   justify-content: center;
 }
 
-/* Aparte animatie class - alleen toevoegen als gewenst */
+
 .menu-buttons.animated {
   opacity: 0;
   transform: translateX(-50%) translateY(30px);

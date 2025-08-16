@@ -42,7 +42,7 @@
   image-rendering: crisp-edges;
 }
 
-/* Main Scene */
+
 .scene {
   position: absolute;
   top: 0;
@@ -52,7 +52,7 @@
   z-index: 10;
 }
 
-/* Minigame Scroll Overlay - Geoptimaliseerde UX */
+
 .minigame-scroll-overlay {
   position: absolute;
   top: 0;
@@ -105,7 +105,7 @@
   box-sizing: border-box;
 }
 
-/* Visuele Hiërarchie: Koptekst - Primaire aandacht */
+
 .scroll-title {
   text-align: center;
   color: #8B0000;
@@ -115,10 +115,10 @@
   line-height: 1.1;
   margin: 0;
   letter-spacing: 1.2px;
-  /* Geen text-shadow voor cleaner look */
+
 }
 
-/* Visuele Hiërarchie: Afbeelding - Ondersteunend element */
+
 .scroll-image {
   width: 200px;
   height: 200px;
@@ -143,7 +143,7 @@
   image-rendering: crisp-edges;
 }
 
-/* Visuele Hiërarchie: Tekst - Secundaire informatie, goed leesbaar */
+
 .scroll-text {
   text-align: center;
   color: #2c2c2c;
@@ -167,7 +167,7 @@
   margin-bottom: 0;
 }
 
-/* Visuele Hiërarchie: Button - Duidelijk maar niet dominant */
+
 .scroll-start-button {
   margin: 8px 0 0 0;
   transform: scale(0.7);
@@ -184,7 +184,7 @@
   transform: scale(0.68) translateY(2px);
 }
 
-/* Reset default pixel button styling for scroll button */
+
 .scroll-start-button::before,
 .scroll-start-button::after {
   display: none;
@@ -281,7 +281,7 @@
   transform: scale(0.98) translateY(2px);
 }
 
-/* Bolleke Reward Animation */
+
 .bolleke-reward {
   position: absolute;
   top: 0;
@@ -313,7 +313,7 @@
   transform: scale(1) translateY(0);
 }
 
-/* Vloeiendere animatie voor reward text */
+
 .reward-text {
   font-family: 'm6x11plus', 'Courier New', 'Courier', monospace;
   font-size: 42px;
@@ -341,7 +341,7 @@
   }
 }
 
-/* Vloeiende animatie voor hint tekst */
+
 .hint-text {
   font-family: 'm6x11plus', 'Courier New', 'Courier', monospace;
   font-size: 24px;
@@ -365,7 +365,7 @@
   }
 }
 
-/* Smooth fade-out voor hint tekst */
+
 .hint-text.fade-out {
   opacity: 0;
   transform: translateY(-10px);
@@ -448,7 +448,7 @@
   }
 }
 
-/* Choice Interface */
+
 .choice-interface {
   position: fixed;
   top: 0;
@@ -479,7 +479,7 @@
   transition: transform 0.2s ease;
 }
 
-/* Primaire knop (voortgang) - meer prominent */
+
 .choice-button.primary {
   transform: scale(1.02);
 }
@@ -488,7 +488,7 @@
   transform: scale(1.05);
 }
 
-/* Secundaire knop (blijven) - minder prominent maar consistent */
+
 .choice-button.secondary {
   transform: scale(0.98);
 }
@@ -499,7 +499,7 @@
 
 
 
-/* Quest Message */
+
 .quest-message {
   position: fixed;
   top: 20px;
@@ -545,7 +545,7 @@
   text-align: left;
 }
 
-/* Final Continue Button */
+
 .final-continue-button {
   position: fixed;
   bottom: 30px;
@@ -556,7 +556,7 @@
   animation: slideUp 0.5s ease 0.3s forwards;
 }
 
-/* Specifieke styling voor final continue button */
+
 .final-continue-button .pixel-button {
   font-size: 28px;
   transform: scale(1.1);
@@ -576,7 +576,7 @@
   max-width: 340px;
 }
 
-/* Animations */
+
 @keyframes fadeIn {
   to {
     opacity: 1;
@@ -605,7 +605,7 @@
   }
 }
 
-/* Magical Particles */
+
 .magical-particles {
   position: absolute;
   top: 0;
@@ -659,7 +659,7 @@
   }
 }
 
-/* Responsive Design - Mobile First */
+
 @media (max-width: 480px) {
   .scroll-content {
     width: 88%;
