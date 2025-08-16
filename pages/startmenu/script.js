@@ -118,8 +118,6 @@ function startDiagonalTransition() {
 }
 
 function continueGame() {
-  // Logic for continuing saved game
-  console.log('Continue game clicked');
   // TODO: Implementeer continue game functionaliteit
 }
 

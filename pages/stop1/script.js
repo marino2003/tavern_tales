@@ -3,9 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (window.PlayerData) {
     window.PlayerData.updateElements();
     
-    // Log welkomstbericht met naam
     const playerName = window.PlayerData.getName();
-    console.log('Welkom bij Stop 1,', playerName);
   }
 
   // Initialiseer hero sprite controller voor demo
@@ -13,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.heroController = new HeroSprite.Controller(
       document.querySelector('.hero-sprite')
     );
-    console.log('🎮 Hero sprite controller geladen!');
   }
 
   const continueButton = document.querySelector('#continue-button');

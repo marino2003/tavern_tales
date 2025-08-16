@@ -1,8 +1,7 @@
-/* Mobile-first base styles */
 html {
   box-sizing: border-box;
   height: 100%;
-  overflow: hidden; /* Voorkom scrollen op html niveau */
+  overflow: hidden;
 }
 
 *, *:before, *:after {
@@ -14,37 +13,32 @@ body {
   background-color: var(--white);
   font-family: sans-serif;
   
-  /* Mobile optimalisaties */
   margin: 0;
   padding: 0;
   height: 100vh;
-  height: 100dvh; /* Dynamic viewport height voor mobile browsers */
-  overflow: hidden; /* Voorkom scrollen */
-  position: fixed; /* Fix body positie */
+  height: 100dvh;
+  overflow: hidden;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   width: 100vw;
   
-  /* Touch optimalisaties */
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   
-  /* Prevent zoom on input focus */
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-size-adjust: 100%;
   
-  /* Smooth scrolling voor browsers die het ondersteunen */
   -webkit-overflow-scrolling: touch;
 }
 
-/* Zorg dat alle pagina's de volledige viewport gebruiken */
 .game-container {
   position: fixed;
   top: 0;
@@ -57,7 +51,6 @@ body {
   padding: 0;
 }
 
-/* Safe area support voor notches en home indicators */
 @supports (padding: max(0px)) {
   body {
     padding-left: max(0px, env(safe-area-inset-left));
@@ -66,13 +59,11 @@ body {
     padding-bottom: max(0px, env(safe-area-inset-bottom));
   }
   
-  /* Zorg dat dialogue box altijd volledig zichtbaar is */
   .dialogue-box {
-    bottom: max(100px, env(safe-area-inset-bottom) + 80px) !important; /* Nog hoger voor extra ruimte */
+    bottom: max(100px, env(safe-area-inset-bottom) + 80px) !important;
   }
 }
 
-/* Landscape mode optimalisaties */
 @media (orientation: landscape) {
   body {
     /* Zorg dat content altijd zichtbaar blijft in landscape */

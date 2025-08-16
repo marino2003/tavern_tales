@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Start cutscene dialoog na 2 seconden
   setTimeout(() => {
     startCutsceneDialogue();
   }, 2000);

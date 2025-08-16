@@ -7,7 +7,7 @@ Begin pagina: /start/index.html
 
 `/index.html` will actually use your GPS coordinates for the game.
 
-`/test.html` is meant for testing only, you can fake your GPS coordinates in here by moving the pin on the map.
+Voor development kun je de coordinaten instellen via de navigatie query parameters.
 
 ## Develop
 

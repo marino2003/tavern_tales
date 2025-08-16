@@ -1,4 +1,3 @@
-/* SVG Button Component - Externe SVG bestanden */
 .pixel-button {
   position: relative;
   display: inline-block;
@@ -10,39 +9,32 @@
   color: white;
   text-align: center;
   
-  /* Disable text selection */
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   
-  /* Touch optimalisaties */
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   cursor: pointer;
 }
 
-/* Pressed state feedback - alleen programmatisch */
 .pixel-button.pressed {
   transform: translateY(2px);
 }
 
-/* Button SVG afbeelding */
 .pixel-button-svg {
   display: block;
   width: 285px;
   height: 77px;
   
-  /* Pixel perfect rendering */
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
   
-  /* Pointer events doorlaten naar button */
   pointer-events: none;
 }
 
-/* Button text overlay */
 .pixel-button-text {
   position: absolute;
   top: 50%;
@@ -60,27 +52,21 @@
   text-align: center;
 }
 
-/* Primair - Rood (default - geen filter) */
 .pixel-button.primary .pixel-button-svg {
-  /* Gebruikt originele rode kleuren uit SVG */
 }
 
-/* Secundair - Grijs */
 .pixel-button.secondary .pixel-button-svg {
   filter: grayscale(1) brightness(0.8) contrast(1.2);
 }
 
-/* Hint Knop - Mooie Blauwe Theme */
 .pixel-button.hint .pixel-button-svg {
   filter: hue-rotate(210deg) saturate(1.2) brightness(1.05) contrast(1.1);
 }
 
-/* Derde - Lichtblauw */
 .pixel-button.tertiary .pixel-button-svg {
   filter: hue-rotate(200deg) saturate(0.8) brightness(1.1);
 }
 
-/* Pressed states - donkerdere versies */
 .pixel-button.primary.pressed .pixel-button-svg {
   filter: brightness(0.8) contrast(1.1);
 }

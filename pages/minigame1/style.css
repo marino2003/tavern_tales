@@ -192,7 +192,6 @@
 
 
 
-/* Game Interface - Verbeterde Spacing zoals Navigate */
 .game-interface {
   position: fixed;
   top: 0;
@@ -210,7 +209,6 @@
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Quest Display - Betere Spacing */
 .quest-display {
   background: rgba(255, 255, 255, 0.95);
   border: 3px solid #333;
@@ -248,7 +246,6 @@
   text-align: left;
 }
 
-/* Action Buttons - Betere Spacing */
 .action-buttons {
   display: flex;
   flex-direction: column;
@@ -268,12 +265,10 @@
   transition: transform 0.2s ease;
 }
 
-/* Primary button (Voer antwoord in) belangrijker */
 .action-buttons .pixel-button.primary {
   order: 1;
 }
 
-/* Hint button (Blauw) ondersteunend */
 .action-buttons .pixel-button.hint {
   order: 2;
 }

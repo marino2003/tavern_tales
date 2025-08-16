@@ -233,26 +233,16 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     ];
     
-    console.log('Follow-up dialogen:', followUpDialogues);
-    
-    // Gebruik het bestaande dialoog systeem
     const dialogueInstance = window.DialogueSystem.initDialogueSystem({
       typingSpeed: 50,
       onComplete: () => {
-        console.log('Vervolg dialoog voltooid, toon keuzes...');
         showChoiceDialog();
       }
     });
-    
-    console.log('Dialogue instance gemaakt:', dialogueInstance);
     dialogueInstance.startDialogue(followUpDialogues);
   }
   
-  // Toon keuze dialoog
   function showChoiceDialog() {
-    console.log('Toon keuze dialoog...');
-    
-    // Keuze dialoog van de barvrouw
     const choiceDialogues = [
       {
         character: 'Barvrouw',
@@ -261,11 +251,9 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     ];
     
-    // Gebruik het bestaande dialoog systeem
     const dialogueInstance = window.DialogueSystem.initDialogueSystem({
       typingSpeed: 50,
       onComplete: () => {
-        console.log('Keuze dialoog voltooid, toon keuzes...');
         showChoiceButtons();
       }
     });
@@ -273,9 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
     dialogueInstance.startDialogue(choiceDialogues);
   }
   
-  // Toon keuze knoppen
   function showChoiceButtons() {
-    console.log('Toon keuze knoppen...');
     
     // Maak keuze interface
     const choiceInterface = document.createElement('div');
